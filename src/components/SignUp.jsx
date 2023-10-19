@@ -3,7 +3,7 @@ import { login, signIn } from "../api/firebase";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 
-export default function Login() {
+export default function SignUp() {
   const [loginInfo, setLoginInfo] = useState({});
   const [warning, setWarning] = useState("");
   const [success, setSuccess] = useState("");
@@ -22,35 +22,9 @@ export default function Login() {
     setWarning(null);
     setSuccess(null);
 
-     mode ? loginInfo(loginInfo) : signIn(loginInfo)
-       .then(result => console.log(result))
-       .catch(e => console.log(e));
-
-       /*
-    if (mode) {
-      login(loginInfo).then(result => {
-        if(result){
-          setSuccess('성공적으로 로그인 되었습니다.')
-          setTimeout(() => {
-            setSuccess(null);
-          }, 4000)
-        }
-        else {
-          setWarning('아이디 또는 비밀번호를 확인하세요')
-        }            
-      })
-    }
-    else {
-      signIn(loginInfo).then((result) => {
-        setSuccess(loginInfo.nickname + " 님 회원가입이 되었습니다.");
-        setTimeout(() => {
-          setSuccess(null);
-        }, 4000);
-    })
-    .catch(e => setWarning(e.message));
-    }
-    
-   */
+    mode ? loginInfo(loginInfo) : signIn(loginInfo)
+      .then(result => console.log(result))
+      .catch(e => console.log(e));
   };
   return (
     <section className="flex flex-col items-center w-full">
@@ -67,7 +41,6 @@ export default function Login() {
             placeholder="이메일"
           />
           <input
-            className="basis-9/12"
             type="password"
             name="password"
             required
@@ -77,7 +50,6 @@ export default function Login() {
           />
         
             <input
-              className="basis-9/12"
               type="text"
               name="nickname"
               required
@@ -87,8 +59,7 @@ export default function Login() {
             />
         {warning && <p>{warning}</p>}
         {success && <p>{success}</p>}
-        {mode && <button className="bg-black text-white my-5 text-2xl p-3 rounded">로그인</button>}
-        <button className="bg-black text-white text-2xl p-3 rounded" onClick={()=>setMode(false)}>회원가입하기</button>
+        <button className="bg-black text-white text-2xl p-2 rounded" onClick={()=>setMode(false)}>회원가입하기</button>
       </form>
     </section>
   );

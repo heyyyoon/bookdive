@@ -41,15 +41,13 @@ export async function getUserInfo() {
     }).catch(e => console.log(e));
 }
 export async function login({email, password}) {
-  const users = await getUserInfo().then(user => user && user.filter(f=> (f.email===email && f.password===password)));
-  return (users && users.length <= 0) ? 
-    null 
-    : (
-      signInWithEmailAndPassword(auth, email, password)
-        .then(result => {
-          return result;
-        })
-    ) 
+  if(await getUserInfo().then(user => user && user.some((f)=> (f.email===email && f.password===password)))) {
+    throw new Error('아이디 또는 비밀번호를 확인하세요')
+  }
+  else {
+    signInWithEmailAndPassword(auth, email, password)
+    .then(result => result);
+  }
 }
 
 export async function signIn({email, password, nickname}) {

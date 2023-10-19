@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './components/Login';
+import Search from './pages/Search';
 
 const router = createBrowserRouter(
   [
@@ -15,6 +16,7 @@ const router = createBrowserRouter(
       children: [
         { index: true, element: <Home /> },
         { path: '/login', element: <Login /> },
+        { path: '/search', element: <Search /> },
       ]
     }
   ]
