@@ -1,16 +1,9 @@
 import React, { useState } from "react";
-import { login, signIn } from "../api/firebase";
-import { useNavigate } from "react-router-dom";
-import { useAuthContext } from "../context/AuthContext";
+import { signUp } from "../api/firebase";
 
-export default function SignUp() {
+export default function SignUp({signResult}) {
   const [loginInfo, setLoginInfo] = useState({});
   const [warning, setWarning] = useState("");
-  const [success, setSuccess] = useState("");
-  const { user, userLogin } = useAuthContext();
-  const [ mode, setMode ] = useState(true);
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,17 +13,16 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setWarning(null);
-    setSuccess(null);
 
-    mode ? loginInfo(loginInfo) : signIn(loginInfo)
-      .then(result => console.log(result))
-      .catch(e => console.log(e));
+    signUp(loginInfo)
+    .then(() => signResult('회원가입 성공!'))
+      .catch(e => setWarning(e.message));
   };
   return (
-    <section className="flex flex-col items-center w-full">
-      <h1 className="text-2xl font-bold">로그인</h1>
+    <section className="text-center">
+      <h1 className="text-2xl border-b-2 pb-2">로그인</h1>
       <form 
-        className="flex flex-col w-7/12"
+        className="flex flex-col mt-2"
         onSubmit={handleSubmit}>    
           <input
             type="email"
@@ -58,8 +50,7 @@ export default function SignUp() {
               placeholder="닉네임"
             />
         {warning && <p>{warning}</p>}
-        {success && <p>{success}</p>}
-        <button className="bg-black text-white text-2xl p-2 rounded" onClick={()=>setMode(false)}>회원가입하기</button>
+        <button className="text-xl bg-zinc-500 p-1 font-medium text-white my-2" >회원가입하기</button>
       </form>
     </section>
   );

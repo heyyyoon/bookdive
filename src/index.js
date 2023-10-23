@@ -5,8 +5,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
-import Login from './components/Login';
 import Search from './pages/Search';
+import BookDetail from './pages/BookDetail';
+import WriteReview from './pages/WriteReview';
+import Mypage from './pages/Mypage';
+import Post from './pages/Post';
 
 const router = createBrowserRouter(
   [
@@ -15,8 +18,11 @@ const router = createBrowserRouter(
       element: <App />,
       children: [
         { index: true, element: <Home /> },
-        { path: '/login', element: <Login /> },
         { path: '/search', element: <Search /> },
+        { path: '/search/:bookId', element: <BookDetail /> },
+        { path: '/write', element: <WriteReview /> },
+        { path: '/Mypage', element: <Mypage /> },
+        { path: '/post', element: <Post /> },
       ]
     }
   ]
@@ -32,3 +38,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+

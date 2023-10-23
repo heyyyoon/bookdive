@@ -8,25 +8,19 @@ import Account from './pages/Account';
 const queryClient = new QueryClient();
 
 function App() {
-const [isModalOpen, setIsModalOpen] = useState(false)
-  const openModal = () => {
-    setIsModalOpen(true);
-    console.log('open');
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <AuthContextProvider>
+    <AuthContextProvider>
+      <QueryClientProvider client={queryClient}>
         <Navbar openModal={openModal}/>
         <Outlet />
         <Account isOpen={isModalOpen} onClose={closeModal} />
-      </AuthContextProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </AuthContextProvider>
   );
 }
 

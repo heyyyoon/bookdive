@@ -1,22 +1,15 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { login, logout, onUserStateChange } from '../api/firebase';
+import { onUserStateChange } from '../api/firebase';
 
 const AuthContext = createContext();
   
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState();
- const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  useEffect(() => {
-    onUserStateChange((user) => setUser(user));
-  }, []);
-  
+  useEffect(() => onUserStateChange((user) => setUser(user)), []);
   
   return (
-    <AuthContext.Provider value={{ user, openModal, closeModal }}>
+    <AuthContext.Provider value={{ user, userId: user && user.uid }}>
       {children}
     </AuthContext.Provider>
   );
