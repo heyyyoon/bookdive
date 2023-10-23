@@ -1,7 +1,7 @@
 
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
-import { get, getDatabase, ref, set } from "firebase/database";
+import { get, getDatabase, ref, remove, set } from "firebase/database";
 import { v4 as uuidv4 } from 'uuid';
 
 const firebaseConfig = {
@@ -64,7 +64,6 @@ export async function signUp({email, password, nickname}) {
 export async function logout() {
   return signOut(auth).then(() => 'logout 되었습니다.');
 }
-
 export async function getBookId(bookId) {
   return get(ref(database, `book/${bookId}`)) 
     .then((snapshot) => snapshot.exists() ? true : false).catch(e => console.log(e));
@@ -72,12 +71,21 @@ export async function getBookId(bookId) {
 export async function addBook(bookId, book) {
   return set(ref(database, `book/${bookId}`), book);
 }
+// export async function updateReview(review, reviewId, bookId, userId) {
+//   console.log(review.like);
+//   return set(ref(database, `review/${reviewId}`), {...review, reviewId, bookId, userId});
+// }
 export async function addReview(review, bookId, userId) {
   const reviewId = uuidv4();
   return set(ref(database, `review/${reviewId}`), {...review, reviewId, bookId, userId});
 }
-export async function getReviews() {
-  return get(ref(database, `review`)) 
+export async function getReviewByReviewId(reviewId) {
+  return get(ref(database, `review/${reviewId}`)) 
+  .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
+  .catch(e => console.log(e));
+}
+export async function getReviews(reviewId) {
+  return get(ref(database, reviewId ? `review/${reviewId}` : `review`)) 
   .then((snapshot) => snapshot.exists() ? Object.values(snapshot.val()) : null)
   .catch(e => console.log(e));
 }
@@ -98,8 +106,32 @@ export async function getBookRating(bookId) {
   .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
   .catch(e => console.log(e));
 }
-export async function getLike(userId) {
-  return get(ref(database, `like/${userId}`)) 
-  .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
+
+export async function addLike(userId, reviewId) {
+  return set(ref(database, `likes/${userId}/${reviewId}`), reviewId);
+}
+export async function delLike(userId, reviewId) {
+  return remove(ref(database, `likes/${userId}/${reviewId}`));
+}
+
+export async function getLikeByUser(userId, reviewId) {
+  return get(ref(database, `likes/${userId}/${reviewId ?? reviewId}`))
+  .then((snapshot) => snapshot.exists() && (snapshot.val() || false))
+  .catch(e => console.log(e));
+}
+export async function getLikes(reviewId) {
+  return get(ref(database, `likes`))
+    .then((snapshot) => {
+      if(snapshot.exists()) {
+        return Object.values(snapshot.val())
+          .reduce((count, like) => count + Object.values(like).includes(reviewId), 0);
+      }
+      return null;
+    })
+    .catch(e => console.log(e));
+}
+export async function getLikeReviews(userId) {
+  return get(ref(database, `likes/${userId}`))
+  .then((snapshot) => snapshot.exists() && (Object.values(snapshot.val()) || null))
   .catch(e => console.log(e));
 }

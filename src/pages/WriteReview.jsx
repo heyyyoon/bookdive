@@ -40,7 +40,6 @@ export default function WriteReview() {
       return;
     }
     await getBooks(bookId).then(result => {
-      console.log(result);
       if(result) {
         const total = result.totalRating * result.ratingCount;
         const reCal = (total + star) / (result.ratingCount + 1);

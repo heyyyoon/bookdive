@@ -3,7 +3,6 @@ import ReviewModal from './ReviewModal';
 
 export default function ReviewCard({reviews, book}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     return (
         <li className=''>
             {isModalOpen && (
