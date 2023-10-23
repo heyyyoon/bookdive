@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { getBooks } from '../api/firebase';
+import { useQuery } from '@tanstack/react-query';
 import ReviewModal from './ReviewModal';
 
-export default function ReviewCard({reviews, book}) {
+export default function MyPageCard({reviews}) {
+    const { data:book } = useQuery(['book', reviews.bookId], () => getBooks(reviews.bookId));
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     return (
         <li className=''>
             {isModalOpen && (
@@ -14,6 +16,7 @@ export default function ReviewCard({reviews, book}) {
                 />
             )}
             <div onClick={() => setIsModalOpen(true)}>
+                <img src={book && book.thumbnail} alt="" />
                 <p>{book && book.title}</p>
                 <p>{reviews.comment}</p>
                 <p>{reviews.reviewTitle}</p>

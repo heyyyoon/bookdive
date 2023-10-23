@@ -1,16 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAuthContext } from '../context/AuthContext';
 import { getPost } from '../api/firebase';
-import ReviewCard from '../components/ReviewCard';
 import { useQuery } from '@tanstack/react-query';
-import ReviewModal from '../components/ReviewModal';
+import MyPageCard from '../components/MyPageCard';
 
 export default function Mypage() {
-    const { user } = useAuthContext();
-    const { data:reviews } = useQuery(['review'], () => getPost());
-    const [ review, setReview ] = useState({});
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    
+    const { user, userId } = useAuthContext();
+    const { data:reviews } = useQuery(['review', userId], () => getPost(userId));
+
     return (
         <section className='m-5'>
         <article className='flex flex-row border-b-2 pb-3'>
@@ -25,19 +22,22 @@ export default function Mypage() {
           </div>
           </article>
           <article>
-          {isModalOpen &&<ReviewModal review={review} onClose={()=>setIsModalOpen(false)}/>}
-            <p className='text-xl'>내가 작성한 글</p>
+          <article>
+          <p className='text-xl'>내가 작성한 글</p>
             <ul className='grid grid-cols-4'>
-            
               {reviews && reviews.map(r => 
-                <ReviewCard 
-                  key={reviews.reviewId} 
-                  reviews={r} 
-                  openModal={()=>setIsModalOpen(true)} 
-                  setReview={setReview}
+                <MyPageCard 
+                  key={r.reviewId} 
+                  reviews={r}
               />)
             }
             </ul>
+            </article>
+            <article>
+            <p className='text-xl'>좋아요 한 글</p>
+
+            </article>
+            
           </article>
         </section>
     );

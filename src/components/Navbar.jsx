@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../context/AuthContext';
 import { logout } from '../api/firebase';
-import Kakao from '../api/kakao';
 import Account from '../pages/Account';
 
 export default function Navbar() {
@@ -13,10 +12,7 @@ export default function Navbar() {
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
-        const kakao = new Kakao();
-        const { data } = await kakao.search(text);
-        navigate('search', {state : data.documents})
+        navigate(`/search/${text}`);
     }
     return (
         <header className='border-b border-gray-300 p-4 flex justify-between items-center'>

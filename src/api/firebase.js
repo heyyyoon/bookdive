@@ -76,57 +76,30 @@ export async function addReview(review, bookId, userId) {
   const reviewId = uuidv4();
   return set(ref(database, `review/${reviewId}`), {...review, reviewId, bookId, userId});
 }
-
-export async function postReview(bookInfo, bookId, userId, review) {
-  const isBookId = await getBookId(bookId);
-  if(!isBookId) {
-    await addBook(bookId, bookInfo);
-  } 
-  return addReview(review, bookId, userId);
-}
-
 export async function getReviews() {
   return get(ref(database, `review`)) 
-  .then((snapshot) => {
-    if (snapshot.exists())  {
-      return Object.values(snapshot.val());
-    }
-    return null;
-  }).catch(e => console.log(e));
+  .then((snapshot) => snapshot.exists() ? Object.values(snapshot.val()) : null)
+  .catch(e => console.log(e));
 }
 export async function getBooks(bookId) {
   return get(ref(database, `book/${bookId}`)) 
-  .then((snapshot) => {
-    if (snapshot.exists())  {
-      return snapshot.val();
-    }
-    return null;
-  }).catch(e => console.log(e));
+  .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
+  .catch(e => console.log(e));
+}
+export async function getPost(userId) {
+  return getReviews().then(result => result.filter(f => f.userId === userId));
 }
 
-export async function getPost() {
-  const reviews = await getReviews();
-  const bookPromises = reviews.map(async (review) => {
-    const book = await getBooks(review.bookId)
-    return {...review, ...book};
-  });
-  return await Promise.all(bookPromises);
+export async function getReviewByBookId(bookId) {
+  return getReviews().then(result => result.filter(f=> f.bookId === bookId));
 }
-
-export async function updateTotalRating(reviewId, rating) {
-  const totalRating = await updateTotalRating(reviewId);
-  console.log(totalRating);
-
-  //return set(ref(database, `bookRating/${reviewId}`), {reviewId, totalRating : rating});
+export async function getBookRating(bookId) {
+  return get(ref(database, `book/${bookId}/totalRating`)) 
+  .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
+  .catch(e => console.log(e));
 }
-
-export async function getTotalRating(reviewId) {
-  get(ref(database, `bookRating/${reviewId}/totalRating`)) 
-  .then((snapshot) => {
-    if (snapshot.exists())  {
-      console.log(snapshot.val());
-      return snapshot.val();
-    }
-    return null;
-  }).catch(e => console.log(e));
+export async function getLike(userId) {
+  return get(ref(database, `like/${userId}`)) 
+  .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
+  .catch(e => console.log(e));
 }

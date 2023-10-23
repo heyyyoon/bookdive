@@ -8,7 +8,6 @@ export default class Kakao {
         headers: {Authorization: "KakaoAK "+process.env.REACT_APP_KAKAO_RESTAPI_KEY},
     });
     }
-  
     
     async search(text) {
       return this.httpClient.get('/v3/search/book', { 
@@ -19,5 +18,6 @@ export default class Kakao {
           size: 50, // 한 페이지에 보여 질 문서의 개수}); // api 호출
         }
       })
+      .then((res) => res.data.documents);
     }
   }

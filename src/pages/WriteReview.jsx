@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { postReview } from "../api/firebase";
+import { addBook, addReview, getBooks } from "../api/firebase";
 import { useAuthContext } from "../context/AuthContext";
 import ResultPosting from "../components/ResultPosting";
 
@@ -15,22 +15,23 @@ export default function WriteReview() {
   const {
     state: {
       bookInfo,
-      bookInfo: { bookThumbnail, bookTitle, bookAuthors, bookId },
+      bookInfo: {title, authors, thumbnail, bookId},
     },
   } = useLocation();
+  
   const handleChange = (e) => {
     setWarning(null);
     const { name, value } = e.target;
     setReview((prev) => ({
       ...prev,
       [name]: value,
-      reviewRating: star,
       like: 0,
     }));
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
- 
+
     if(review.reviewTitle.length > 50) {
       setWarning('제목은 50자 이내로 작성하세요');
       return;
@@ -38,9 +39,17 @@ export default function WriteReview() {
       setWarning('감상평은 500자 이내로 작성하세요');
       return;
     }
- 
-
-    postReview(bookInfo, bookId, userId, review).then(() => {
+    await getBooks(bookId).then(result => {
+      console.log(result);
+      if(result) {
+        const total = result.totalRating * result.ratingCount;
+        const reCal = (total + star) / (result.ratingCount + 1);
+        return addBook(bookId, {...bookInfo, totalRating: reCal.toFixed(2), ratingCount : result.ratingCount + 1});
+      } else {
+        return addBook(bookId, {...bookInfo, totalRating: star, ratingCount : 1});
+      }
+    });
+    addReview(review, bookId, userId).then(() => {
       setSuccess(true);
       setTimeout(() => {
         setSuccess(null);
@@ -55,9 +64,9 @@ export default function WriteReview() {
       ) : (
         <>
           <h1 className="text-2xl">소통 공간</h1>
-          <img className="w-40" src={bookThumbnail} alt="bookImage" />
-          <p>{bookTitle}</p>
-          <p>{bookAuthors}</p>
+          <img className="w-40" src={thumbnail} alt="bookImage" />
+          <p>{title}</p>
+          <p>{authors}</p>
           <div className="flex flex-row hover:cursor-pointer text-xl">
             <p onClick={() => setStar(1)}>{star >= 1 ? "★" : "☆"}</p>
             <p onClick={() => setStar(2)}>{star >= 2 ? "★" : "☆"}</p>
