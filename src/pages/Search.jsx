@@ -21,7 +21,10 @@ export default function Search() {
         {books &&
           books.map((book) => {
             return <BookCard key={uuidv4()} bookInfo={{
-              ...book,
+              title: book.title,
+              contents: book.contents,
+              thumbnail: book.thumbnail,
+              authors: book.authors[0],
               bookId: (book.isbn.split(" ")[0] || book.isbn).trim(), 
             }} />;
           })}

@@ -1,5 +1,5 @@
 import React from "react";
-import { addLike, delLike, getLikeByUser, getLikes } from "../api/firebase";
+import { addLike, delLike, getIsLiked, getLikes } from "../api/firebase";
 import { useAuthContext } from "../context/AuthContext";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -7,7 +7,7 @@ export default function ReviewModal({ review, book, onClose }) {
   const { userId } = useAuthContext();
   const client = useQueryClient();
 
-  const { data:isLiked } = useQuery(['liked'], () => getLikeByUser(userId, review.reviewId));  
+  const { data:isLiked } = useQuery(['liked'], () => getIsLiked(userId, review.reviewId));  
   const { data:userLikes } = useQuery(['userByLikes'], () => getLikes(review.reviewId));  
 
   const handleToggle = () => {

@@ -25,11 +25,10 @@ export default function WriteReview() {
     setReview((prev) => ({
       ...prev,
       [name]: value,
-      like: 0,
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if(review.reviewTitle.length > 50) {
@@ -39,19 +38,13 @@ export default function WriteReview() {
       setWarning('감상평은 500자 이내로 작성하세요');
       return;
     }
-    await getBooks(bookId).then(result => {
-      if(result) {
-        const total = result.totalRating * result.ratingCount;
-        const reCal = (total + star) / (result.ratingCount + 1);
-        return addBook(bookId, {...bookInfo, totalRating: reCal.toFixed(2), ratingCount : result.ratingCount + 1});
-      } else {
-        return addBook(bookId, {...bookInfo, totalRating: star, ratingCount : 1});
-      }
+    getBooks(bookId).then(() => {
+      addBook(bookId, bookInfo);
     });
-    addReview(review, bookId, userId).then(() => {
+    addReview({...review, starRating:star}, bookId, userId, ).then(() => {
       setSuccess(true);
       setTimeout(() => {
-        setSuccess(null);
+        setSuccess(false);
         navigate("/mypage");
       }, 2000);
     });

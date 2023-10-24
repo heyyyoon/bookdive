@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuthContext } from '../context/AuthContext';
-import { getLikeReviews, getPost } from '../api/firebase';
+import { getUserLikeReviews, getPost } from '../api/firebase';
 import { useQuery } from '@tanstack/react-query';
 import MyPageCard from '../components/MyPageCard';
 import LikeReviews from '../components/LikeReviews';
@@ -8,7 +8,7 @@ import LikeReviews from '../components/LikeReviews';
 export default function Mypage() {
     const { user, userId } = useAuthContext();
     const { data:reviews } = useQuery(['review', userId], () => getPost(userId));
-    const { data:likeReviews } = useQuery(['likeReviews', userId], () => getLikeReviews(userId));
+    const { data:likeReviews } = useQuery(['likeReviews', userId], () => getUserLikeReviews(userId));
 
     return (
         <section className='m-5'>
@@ -19,7 +19,10 @@ export default function Mypage() {
               <div className='grid grid-cols-3 gap-3 mt-10'>
                     <p className='w-32 h-32 bg-red-300'>follower</p>
                     <p className='w-32 h-32 bg-red-300'>follow</p>
-                    <p className='w-32 h-32 bg-red-300'>내가 찜한 글</p>
+                    <div className='w-32 h-32 bg-red-300 flex flex-col items-center justify-center '>
+                      <p className='text-2xl text-center font-bold'>Likes</p>
+                      <p className='text-3xl text-center'>{likeReviews ? likeReviews.length : 0}</p>
+                    </div>
               </div>
             </div>
         </article>

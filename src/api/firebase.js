@@ -71,21 +71,12 @@ export async function getBookId(bookId) {
 export async function addBook(bookId, book) {
   return set(ref(database, `book/${bookId}`), book);
 }
-// export async function updateReview(review, reviewId, bookId, userId) {
-//   console.log(review.like);
-//   return set(ref(database, `review/${reviewId}`), {...review, reviewId, bookId, userId});
-// }
 export async function addReview(review, bookId, userId) {
   const reviewId = uuidv4();
   return set(ref(database, `review/${reviewId}`), {...review, reviewId, bookId, userId});
 }
-export async function getReviewByReviewId(reviewId) {
-  return get(ref(database, `review/${reviewId}`)) 
-  .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
-  .catch(e => console.log(e));
-}
-export async function getReviews(reviewId) {
-  return get(ref(database, reviewId ? `review/${reviewId}` : `review`)) 
+export async function getReviews() {
+  return get(ref(database, `review`)) 
   .then((snapshot) => snapshot.exists() ? Object.values(snapshot.val()) : null)
   .catch(e => console.log(e));
 }
@@ -101,25 +92,27 @@ export async function getPost(userId) {
 export async function getReviewByBookId(bookId) {
   return getReviews().then(result => result.filter(f=> f.bookId === bookId));
 }
-export async function getBookRating(bookId) {
-  return get(ref(database, `book/${bookId}/totalRating`)) 
-  .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
-  .catch(e => console.log(e));
+export async function getBookRating(bookId) {    
+  const filteredReviews = await getReviewByBookId(bookId);
+  const reviewLength = filteredReviews.length;
+  if(reviewLength === 0) return 0;
+
+  return filteredReviews.reduce((sum, review) => sum + review.starRating, 0) / reviewLength;
 }
 
-export async function addLike(userId, reviewId) {
+// Like
+export async function addLike(userId, reviewId) {  // user가 좋아요한 리뷰 추가
   return set(ref(database, `likes/${userId}/${reviewId}`), reviewId);
 }
-export async function delLike(userId, reviewId) {
+export async function delLike(userId, reviewId) {  // user가 좋아요 한 리뷰 삭제 
   return remove(ref(database, `likes/${userId}/${reviewId}`));
 }
-
-export async function getLikeByUser(userId, reviewId) {
+export async function getIsLiked(userId, reviewId) {  // user의 review like 여부 가져오기
   return get(ref(database, `likes/${userId}/${reviewId ?? reviewId}`))
   .then((snapshot) => snapshot.exists() && (snapshot.val() || false))
   .catch(e => console.log(e));
 }
-export async function getLikes(reviewId) {
+export async function getLikes(reviewId) { // review에 like를 누른 개수 가져오기 with reviewId
   return get(ref(database, `likes`))
     .then((snapshot) => {
       if(snapshot.exists()) {
@@ -130,8 +123,13 @@ export async function getLikes(reviewId) {
     })
     .catch(e => console.log(e));
 }
-export async function getLikeReviews(userId) {
+export async function getUserLikeReviews(userId) {  // user가 좋아요 누른 리뷰데이터 모두 가져오기
   return get(ref(database, `likes/${userId}`))
   .then((snapshot) => snapshot.exists() && (Object.values(snapshot.val()) || null))
+  .catch(e => console.log(e));
+}
+export async function getReviewByReviewId(reviewId) { // reviewId에 해당하는 review 가져오기 
+  return get(ref(database, `review/${reviewId}`)) 
+  .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
   .catch(e => console.log(e));
 }
