@@ -22,7 +22,7 @@ export default function BookDetail() {
     <section className="flex flex-col items-center m-8">
       <p className="text-3xl font-bold mt-5">{title}</p>
       <p className="text-xl m-2">{authors}</p>
-      <p className="text-xl">{bookRating.toFixed(2)} {('★').repeat(Math.floor(bookRating))}{('☆').repeat(5-Math.floor(bookRating))}</p>
+      <p className="text-xl">{bookRating && bookRating.toFixed(2)} {('★').repeat(Math.floor(bookRating))}{('☆').repeat(5-Math.floor(bookRating))}</p>
       <div className="flex flex-row justify-center">
         <img className="w-52" src={thumbnail} alt="bookimage" />
         <div className="w-[50%] flex flex-col justify-around ml-5">
