@@ -6,8 +6,9 @@ import ReviewModal from './ReviewModal';
 export default function MyPageCard({reviews}) {
     const { data:book } = useQuery(['book', reviews.bookId], () => getBooks(reviews.bookId));
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     return (
-        <li>
+        <li className='shadow-custom bg-[#9babaf44] rounded-xl overflow-hidden h-full'>
             {isModalOpen && (
                 <ReviewModal
                     review={reviews}
@@ -15,19 +16,18 @@ export default function MyPageCard({reviews}) {
                     onClose={() => setIsModalOpen(false)}
                 />
             )}
-            <div  className='h-[320px] shadow-2xl bg-[#FAF0E6] p-2 px-4 flex flex-col rounded-xl mb-10 relative items-center justify-center'
-                onClick={() => setIsModalOpen(true)}>
-                <div className='flex flex-row h-[50%] justify-center items-center'>
-                    <img className='w-[50%]'
-                        src={book && book.thumbnail} alt="" />
-                    <div className='flex flex-col font-bold text-2xl'>
-                        <p className='text-black text-lg'>{book && book.title}</p>
-                        <p className='text-sm'>{book && book.authors}</p>
+            <div onClick={() => setIsModalOpen(true)} className='h-full'>
+                <div className='flex flex-row items-center p-4'>
+                    <img className='w-[35%] shadow-customBook border-2 basis-1/4'
+                    src={book && book.thumbnail} alt="" />
+                    <div className='text-2xl ml-2'>
+                        <p className='font-semibold text-[0.9rem] leading-4'>{book && book.title}</p>
+                        <p className='text-[0.8rem]'>{book && `[${book.authors}]`}</p>
                     </div>
                 </div>
-                <div className='h-[50%]'> 
-                <p className='font-semibold'>' {reviews.reviewTitle} '</p>
-                <p className='text-sm line-clamp-5'>{reviews.reviewContent}</p>
+                <div className='h-full bg-[#FEFEFE] p-4'> 
+                    <p className='font-semibold text-[0.95rem] text-center mb-2'> {reviews.reviewTitle} </p>
+                    <p className='text-[0.85rem] line-clamp-5 text-left'>{reviews.reviewContent}</p>
                 </div>
             </div>
         </li>

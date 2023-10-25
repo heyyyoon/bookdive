@@ -27,8 +27,8 @@ export default function BookDetail() {
         <img className="w-52" src={thumbnail} alt="bookimage" />
         <div className="w-[50%] flex flex-col justify-around ml-5">
           <div>
-            <p className="text-xl font-bold mb-2">줄거리</p>
-            <p className="text-lg">{contents}</p>
+            <p className="text-xl font-semibold">overview</p>
+            <p className="text-base">{contents}</p>
           </div>
           <button onClick={handleClick} className="text-lg bg-orange-100 rounded w-full p-3">write Review</button>
         </div>

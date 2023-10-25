@@ -28,7 +28,7 @@ export default function Mypage() {
         </article>
         <article>
           <p className='text-xl'>내가 작성한 글</p>
-          <ul className="grid grid-cols-2 md:grid-cols-4 lg-grid-cols-5 gap-6 p-4">
+          <ul className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 2xl:grid-cols-5 p-4">
               {reviews && reviews.map(r => 
                 <MyPageCard 
                   key={r.reviewId} 
@@ -39,7 +39,7 @@ export default function Mypage() {
         </article>
           <article>
             <p className='text-xl'>좋아요 한 글</p>
-            <ul className='grid grid-cols-4'>
+            <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 2xl:grid-cols-5 p-4">
               {likeReviews && likeReviews.map(r => 
                   <LikeReviews 
                     key={r} 

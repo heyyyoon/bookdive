@@ -4,7 +4,6 @@ import BookCard from "../components/BookCard";
 import { v4 as uuidv4 } from "uuid";
 import Kakao from "../api/kakao";
 import { useQuery } from "@tanstack/react-query";
-import BookCardR from "../components/BookCardR";
 
 export default function Search() {
   const { keyword } = useParams();
@@ -16,12 +15,12 @@ export default function Search() {
   } = useQuery(['books', keyword], () => kakao.search(keyword));
 
   return (
-    <>
-      <h1 className="text-2xl text-center m-10 text-zinc-700 border-2 py-3 rounded-full">Search for book : '{keyword}'</h1>
-      <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg-grid-cols-5 gap-4 p-4">
+    <section>
+      <p className="p-3 font-semibold text-center text-xl m-5">Search Result</p>
+      <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 p-4">
         {books &&
           books.map((book) => {
-            return <BookCardR key={uuidv4()} bookInfo={{
+            return <BookCard key={uuidv4()} bookInfo={{
               title: book.title,
               contents: book.contents,
               thumbnail: book.thumbnail,
@@ -30,6 +29,6 @@ export default function Search() {
             }} />;
           })}
       </ul>
-    </>
+    </section>
   );
 }
