@@ -23,6 +23,3 @@ export default function BookCard({bookInfo, bookInfo : {title, contents, authors
         </li>
     );
 }
-
-
-

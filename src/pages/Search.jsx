@@ -23,7 +23,7 @@ export default function Search() {
             return <BookCard key={uuidv4()} bookInfo={{
               title: book.title,
               contents: book.contents,
-              thumbnail: book.thumbnail,
+              thumbnail: book.thumbnail || `/images/noImage.jpg`,
               authors: book.authors[0],
               bookId: (book.isbn.split(" ")[0] || book.isbn).trim(), 
             }} />;
