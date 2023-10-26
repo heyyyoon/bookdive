@@ -73,6 +73,7 @@ export async function addBook(bookId, book) {
 }
 export async function addReview(review, bookId, userId) {
   const reviewId = uuidv4();
+  await set(ref(database, `hotBooks/${bookId}/${reviewId}`), {reviewId, bookId});
   return set(ref(database, `review/${reviewId}`), {...review, reviewId, bookId, userId});
 }
 export async function getReviews() {
@@ -102,7 +103,11 @@ export async function getBookRating(bookId) {
 
 // Like
 export async function addLike(userId, reviewId) {  // user가 좋아요한 리뷰 추가
+  await addLikeById(userId, reviewId);
   return set(ref(database, `likes/${userId}/${reviewId}`), reviewId);
+}
+export async function addLikeById(userId, reviewId) {  // user가 좋아요한 리뷰 추가
+  return set(ref(database, `hotReviews/${reviewId}/${userId}`), {reviewId, userId});
 }
 export async function delLike(userId, reviewId) {  // user가 좋아요 한 리뷰 삭제 
   return remove(ref(database, `likes/${userId}/${reviewId}`));
@@ -132,4 +137,75 @@ export async function getReviewByReviewId(reviewId) { // reviewId에 해당하�
   return get(ref(database, `review/${reviewId}`)) 
   .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
   .catch(e => console.log(e));
+}
+// Hot Books
+export async function getHotBooks() { 
+  return get(ref(database, `hotBooks`)) 
+  .then((snapshot) => snapshot.exists() ? Object.values(snapshot.val()) : null)
+  .catch(e => console.log(e));
+}
+
+export async function getRangeBook() { 
+  const allBooks = await getHotBooks().then(result => result && result.map(m => Object.values(m)));
+  if(!allBooks) return null;
+
+  const bookIdCountMap = new Map();
+  
+  allBooks.forEach((reviewArray) => {
+    const bookId = reviewArray[0].bookId;
+    
+    if (!bookIdCountMap.has(bookId)) {
+      bookIdCountMap.set(bookId, 0);
+    }
+    bookIdCountMap.set(bookId, bookIdCountMap.get(bookId) + reviewArray.length);
+  });
+  // 정렬을 위해 배열로 변환하고 내림차순 정렬
+  const sortedBookIds = [...bookIdCountMap.keys()].sort((a, b) => {
+    return bookIdCountMap.get(b) - bookIdCountMap.get(a);
+  });
+  return sortedBookIds;
+}
+
+export async function getBookRanking() { 
+  return await getRangeBook()
+  .then(result => result ? Promise.all(result.map((m) => getBooks(m))) : null);
+}
+
+// Hot Reviews
+export async function getHotReviews() { 
+  return get(ref(database, `hotReviews`)) 
+  .then((snapshot) => snapshot.exists() ? Object.values(snapshot.val()) : null)
+  .catch(e => console.log(e));
+}
+
+export async function getRangeReview() { 
+  const allReviews = await getHotReviews().then(result => result && result.map(m => Object.values(m)));
+  if (!allReviews) return null;
+
+  const reviewIdCountMap = new Map();
+  
+  allReviews.forEach((reviewArray) => {
+    const reviewId = reviewArray[0].reviewId;
+    
+    if (!reviewIdCountMap.has(reviewId)) {
+      reviewIdCountMap.set(reviewId, 0);
+    }
+    reviewIdCountMap.set(reviewId, reviewIdCountMap.get(reviewId) + reviewArray.length);
+  });
+  // 정렬을 위해 배열로 변환하고 내림차순 정렬
+  const sortedReviewIds = [...reviewIdCountMap.keys()].sort((a, b) => {
+    return reviewIdCountMap.get(b) - reviewIdCountMap.get(a);
+  });
+
+  return sortedReviewIds;
+}
+
+export async function getReviewsById(reviewId) {
+  return get(ref(database, `review/${reviewId}`)) 
+  .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
+  .catch(e => console.log(e));
+}
+export async function getBookReview() {  // 해당 review Info 가져오기
+  return await getRangeReview()
+  .then(result => result ? Promise.all(result.map((m) => getReviewsById(m))) : null);
 }

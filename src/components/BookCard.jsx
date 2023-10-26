@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 export default function BookCard({bookInfo, bookInfo : {title, contents, authors, thumbnail, bookId}}) {
     const navigate = useNavigate();
     return (
-        <li className='drop-shadow-xl bg-[#F0F0F0] flex flex-col justify-between rounded-xl mb-8 px-4 pb-3'>
+        <li className='shadow-xl bg-[#F0F0F0] flex flex-col justify-between rounded-xl mb-8 px-4 pb-3'>
             <div className='mb-2'> 
                 <img
                     className='w-[70%] shadow-3xl m-auto mt-[-10%] mb-3' 

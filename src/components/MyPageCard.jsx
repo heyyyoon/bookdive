@@ -8,7 +8,7 @@ export default function MyPageCard({reviews}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
-        <li className='shadow-custom bg-[#9babaf44] rounded-xl overflow-hidden h-full'>
+        <li className='shadow-custom rounded-xl overflow-hidden h-full'>
             {isModalOpen && (
                 <ReviewModal
                     review={reviews}
@@ -17,7 +17,7 @@ export default function MyPageCard({reviews}) {
                 />
             )}
             <div onClick={() => setIsModalOpen(true)} className='h-full'>
-                <div className='flex flex-row items-center p-4'>
+                <div className='flex flex-row items-center p-4 bg-[#9babaf44]'>
                     <img className='w-[35%] shadow-customBook border-2 basis-1/4'
                     src={book && book.thumbnail} alt="" />
                     <div className='text-2xl ml-2'>
