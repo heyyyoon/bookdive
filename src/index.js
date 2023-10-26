@@ -10,6 +10,7 @@ import BookDetail from './pages/BookDetail';
 import WriteReview from './pages/WriteReview';
 import Mypage from './pages/Mypage';
 import Post from './pages/Post';
+import LikeReview from './pages/LikeReview';
 
 const router = createBrowserRouter(
   [
@@ -18,12 +19,14 @@ const router = createBrowserRouter(
       element: <App />,
       children: [
         { index: true, element: <Home /> },
+        { path: '/home', element: <Home /> },
         { path: '/search', element: <Search /> },
         { path: '/search/:keyword', element: <Search /> },
         { path: '/detail/:bookId', element: <BookDetail /> },
         { path: '/write', element: <WriteReview /> },
         { path: '/Mypage', element: <Mypage /> },
         { path: '/post', element: <Post /> },
+        { path: '/like', element: <LikeReview /> },
       ]
     }
   ]

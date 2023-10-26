@@ -14,6 +14,10 @@ export default function Navbar() {
         e.preventDefault();
         navigate(`/search/${text}`);
     }
+    const handleLogout = () => {
+        logout();
+        navigate(`/home`);
+    }
     return (
         <header className='border-b border-gray-300 p-4 flex justify-between items-center'>
             <Account onClose={()=>setIsModalOpen(false)} isOpen={isModalOpen} />
@@ -26,7 +30,7 @@ export default function Navbar() {
                 {user && <p className='text-lg bg-zinc-400 px-2 py-1 rounded text-white '>{user.nickname}님</p>}
                 {user && <Link to='/mypage'><button className=''>MyPage</button></Link>}
                 {
-                    user ? <button onClick={logout}>Logout</button>
+                    user ? <button onClick={handleLogout}>Logout</button>
                     : <button onClick={()=>setIsModalOpen(true)}>Login</button>
                 }
             </div>
