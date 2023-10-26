@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { getBookRanking, getBookReview } from "../api/firebase";
 import BookCard from "../components/BookCard";
@@ -8,8 +8,6 @@ import MyPageCard from "../components/MyPageCard";
 export default function Home() {
   const { data: books } = useQuery(["hotBooks"], () => getBookRanking());
   const { data: reviews } = useQuery(["hotReviews"], () => getBookReview());
-
-  //reviews && console.log(reviews);
 
   return (
     <section  className="px-5">

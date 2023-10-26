@@ -3,14 +3,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { addBook, addReview, getBooks } from "../api/firebase";
 import { useAuthContext } from "../context/AuthContext";
 import ResultPosting from "../components/ResultPosting";
+import { Rating } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
 
 export default function WriteReview() {
   const [review, setReview] = useState({});
   const { userId } = useAuthContext();
-  const [star, setStar] = useState(0);
   const [success, setSuccess] = useState(false);
   const [warning, setWarning] = useState('');
   const navigate = useNavigate();
+  const [rating, setRating] = useState(0);
 
   const {
     state: {
@@ -41,7 +43,7 @@ export default function WriteReview() {
     getBooks(bookId).then(() => {
       addBook(bookId, bookInfo);
     });
-    addReview({...review, starRating:star}, bookId, userId, ).then(() => {
+    addReview({...review, rating}, bookId, userId, ).then(() => {
       setSuccess(true);
       setTimeout(() => {
         setSuccess(false);
@@ -55,16 +57,15 @@ export default function WriteReview() {
         <ResultPosting />
       ) : (
         <>
-          <h1 className="text-2xl">소통 공간</h1>
+          <h1 className="text-xl">자유로이</h1>
           <img className="w-40" src={thumbnail} alt="bookImage" />
           <p>{title}</p>
           <p>{authors}</p>
-          <div className="flex flex-row hover:cursor-pointer text-xl">
-            <p onClick={() => setStar(1)}>{star >= 1 ? "★" : "☆"}</p>
-            <p onClick={() => setStar(2)}>{star >= 2 ? "★" : "☆"}</p>
-            <p onClick={() => setStar(3)}>{star >= 3 ? "★" : "☆"}</p>
-            <p onClick={() => setStar(4)}>{star >= 4 ? "★" : "☆"}</p>
-            <p onClick={() => setStar(5)}>{star >= 5 ? "★" : "☆"}</p>
+          <div style={{ maxWidth: 180, width: '100%' }}>
+            <Rating
+              value={rating}
+              onChange={setRating}
+            />
           </div>
           <form
             className="flex flex-col items-center w-full"

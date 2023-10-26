@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getBookRating, getReviewByBookId } from "../api/firebase";
 import { useQuery } from "@tanstack/react-query";
 import ReviewCard from "../components/ReviewCard";
+import { Rating } from '@smastrom/react-rating'
+import '@smastrom/react-rating/style.css'
 
 export default function BookDetail() {
   const {
@@ -18,11 +20,16 @@ export default function BookDetail() {
   const handleClick = () => {
     navigate('/write', {state: {bookInfo}});
   }
+  
   return (
     <section className="flex flex-col items-center m-8">
       <p className="text-3xl font-bold mt-5">{title}</p>
       <p className="text-xl m-2">{authors}</p>
-      <p className="text-xl">{bookRating && bookRating.toFixed(2)} {('★').repeat(Math.floor(bookRating))}{('☆').repeat(5-Math.floor(bookRating))}</p>
+      <div className="max-w-[160px] w-full flex flex-row items-center gap-2">
+        <p className="text-xl ">{bookRating && bookRating.toFixed(2)}</p>
+        <Rating value={bookRating} />
+      </div>
+      
       <div className="flex flex-row justify-center">
         <img className="w-52" src={thumbnail} alt="bookimage" />
         <div className="w-[50%] flex flex-col justify-around ml-5">
