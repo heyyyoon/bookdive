@@ -8,7 +8,7 @@ export default function MyPageCard({reviews}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
-        <li className='shadow-custom rounded-xl overflow-hidden h-full'>
+        <li className='shadow-custom rounded-xl overflow-hidden h-full w-[90%]'>
             {isModalOpen && (
                 <ReviewModal
                     review={reviews}

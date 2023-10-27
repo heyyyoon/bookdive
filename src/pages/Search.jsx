@@ -14,6 +14,7 @@ export default function Search() {
     data: books,
   } = useQuery(['books', keyword], () => kakao.search(keyword));
 
+  console.log(books);
   return (
     <section>
       <p className="p-3 font-semibold text-center text-xl m-5">Search Result</p>
@@ -24,7 +25,7 @@ export default function Search() {
               title: book.title,
               contents: book.contents,
               thumbnail: book.thumbnail || `/images/noImage.jpg`,
-              authors: book.authors[0],
+              authors: (book.authors[0] || ' - '),
               bookId: (book.isbn.split(" ")[0] || book.isbn).trim(), 
             }} />;
           })}

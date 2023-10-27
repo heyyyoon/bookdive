@@ -19,7 +19,7 @@ export default function Navbar() {
         navigate(`/home`);
     }
     return (
-        <header className='border-b border-gray-300 p-4 flex justify-between items-center'>
+        <header className='border-b border-gray-300 p-4 flex justify-between items-center bg-[#fbfcef]'>
             <Account onClose={()=>setIsModalOpen(false)} isOpen={isModalOpen} />
             <Link to='/'><h1 className='text-3xl'>Book Dive</h1></Link>
             <form onSubmit={handleSubmit}>

@@ -64,11 +64,8 @@ export async function signUp({email, password, nickname}) {
 export async function logout() {
   return signOut(auth).then(() => 'logout 되었습니다.');
 }
-export async function getBookId(bookId) {
-  return get(ref(database, `book/${bookId}`)) 
-    .then((snapshot) => snapshot.exists() ? true : false).catch(e => console.log(e));
-}
 export async function addBook(bookId, book) {
+  console.log(book);
   return set(ref(database, `book/${bookId}`), book);
 }
 export async function addReview(review, bookId, userId) {
@@ -85,9 +82,6 @@ export async function getBooks(bookId) {
   return get(ref(database, `book/${bookId}`)) 
   .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
   .catch(e => console.log(e));
-}
-export async function getPost(userId) {
-  return getReviews().then(result => result.filter(f => f.userId === userId));
 }
 
 export async function getReviewByBookId(bookId) {
@@ -128,10 +122,40 @@ export async function getLikes(reviewId) { // review에 like를 누른 개수 �
     })
     .catch(e => console.log(e));
 }
-export async function getUserLikeReviews(userId) {  // user가 좋아요 누른 리뷰데이터 모두 가져오기
-  return get(ref(database, `likes/${userId}`))
-  .then((snapshot) => snapshot.exists() && (Object.values(snapshot.val()) || null))
-  .catch(e => console.log(e));
+// user가 좋아요 누른 리뷰 데이터 모두 가져오기
+export async function getUserLikeReviews(userId) {
+  try {
+    const snapshot = await get(ref(database, `likes/${userId}`));
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val()) || null;
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return null;
+}
+// 리뷰 ID로 리뷰 데이터 가져오기
+export async function getReviewById(reviewId) {
+  try {
+    const snapshot = await get(ref(database, `review/${reviewId}`));
+    if (snapshot.exists()) {
+      return snapshot.val();
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return null;
+}
+// user가 좋아요 누른 리뷰 데이터 모두 가져오기
+export async function getReviewsAAA(userId) {
+  const reviews = await getUserLikeReviews(userId);
+  if (reviews) {
+    const result = await Promise.all(reviews.map(async (reviewId) => {
+      return getReviewById(reviewId);
+    }));
+    return result;
+  }
+  return null;
 }
 export async function getReviewByReviewId(reviewId) { // reviewId에 해당하는 review 가져오기 
   return get(ref(database, `review/${reviewId}`)) 
