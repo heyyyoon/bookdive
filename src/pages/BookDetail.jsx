@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import ReviewCard from "../components/ReviewCard";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
+import { BiSolidAddToQueue } from 'react-icons/bi';
+
 
 export default function BookDetail() {
   const {
@@ -35,12 +37,13 @@ export default function BookDetail() {
               src={thumbnail}
               alt="bookimage"
             />
-            <button
+            <div
               onClick={handleClick}
-              className="w-[70%] text-lg font-semibold text-white rounded p-3 my-2 bg-zinc-500 "
+              className="w-[70%] text-lg font-semibold text-white rounded p-3 my-2 bg-[#ddd485] flex "
             >
-              go to write
-            </button>
+              <BiSolidAddToQueue />
+              <p>리뷰 작성하러 가기</p>
+            </div>
           </div>
           <div className="basis-2/3 flex flex-col justify-around">
             <div>

@@ -3,12 +3,12 @@ import { getBooks } from '../api/firebase';
 import { useQuery } from '@tanstack/react-query';
 import ReviewModal from './ReviewModal';
 
-export default function MyPageCard({reviews}) {
+export default function MyPageCard({reviews, rank}) {
     const { data:book } = useQuery(['book', reviews.bookId], () => getBooks(reviews.bookId));
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
-        <li className='shadow-custom rounded-xl overflow-hidden h-full w-[90%]'>
+        <div className='shadow-custom rounded-xl m-[10px] bg-[#EEEEEE] relative'>
             {isModalOpen && (
                 <ReviewModal
                     review={reviews}
@@ -16,21 +16,21 @@ export default function MyPageCard({reviews}) {
                     onClose={() => setIsModalOpen(false)}
                 />
             )}
-            <div onClick={() => setIsModalOpen(true)} className='h-full'>
-                <div className='flex flex-row items-center p-4 bg-[#9babaf44]'>
-                    <img className='w-[35%] shadow-customBook border-2 basis-1/4'
+            <div onClick={() => setIsModalOpen(true)} className=''>
+                <div className='flex flex-row items-center p-4 mx-2'>
+                    <img className='w-[25%] shadow-customBook border-2'
                     src={book && book.thumbnail} alt="" />
-                    <div className='text-2xl ml-2'>
-                        <p className='font-semibold text-[0.9rem] leading-4'>{book && book.title}</p>
-                        <p className='text-[0.8rem]'>{book && `[${book.authors}]`}</p>
+                    <div className='ml-2'>
+                        <p className='font-semibold text-[0.8rem] leading-4 mb-1'>{book && book.title}</p>
+                        <p className='text-[0.75rem]'>{book && `[${book.authors}]`}</p>
                     </div>
                 </div>
-                <div className='h-full bg-[#FEFEFE] p-4'> 
-                    <p className='font-semibold text-[0.95rem] text-center mb-2'> {reviews.reviewTitle} </p>
-                    <p className='text-[0.85rem] line-clamp-5 text-left'>{reviews.reviewContent}</p>
+                <div className='h-[260px] '> 
+                    <p className='font-mono font-[600] text-[1rem] text-center mb-2 bg-white mx-2 rounded-xl p-4'> {reviews.reviewTitle} </p>
+                    <p className='text-[0.85rem] line-clamp-5 text-left px-4'>{reviews.reviewContent}</p>
                 </div>
             </div>
-        </li>
+        </div>
     );
 }
 

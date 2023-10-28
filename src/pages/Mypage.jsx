@@ -42,21 +42,25 @@ export default function Mypage() {
       <section>
         <p className="text-xl">My Reviews</p>
         {filteredReviews && (
+          <ul>
           <CardSlider>
             {filteredReviews.map((r) => (
               <MyPageCard key={r.reviewId} reviews={r} />
             ))}
           </CardSlider>
+          </ul>
         )}
       </section>
       <section>
         <p className="text-xl">Like Reviews</p>
           {likeReviews && (
+            <ul>
             <CardSlider>
               {likeReviews.map((r) => (
                 <MyPageCard key={r.reviewId} reviews={r} />
               ))}
             </CardSlider>
+            </ul>
           )}
       </section>
     </section>

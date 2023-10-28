@@ -4,36 +4,35 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import CustomPrevArrow from "./slider/CustomPrevArrow";
 import CustomNextArrow from "./slider/CustomNextArrow";
+import { useCallback, useState } from "react";
 
 const StyledSlider = styled(Slider)`
-.slick-list {
-  margin: auto;
-  width: 80%;
-  @media (min-width: 1000px) {
-    width: 90%;
-  }
-  height: 550px;
-  background-color: yellow;
-}
 
 .slick-slide div {
   cursor: pointer;
-  padding: 5px;
+  
 }
 
 .slick-dots {
-  bottom: 20px;
-  margin-top: 200px;
+  bottom: -30px;
 }
 
 .slick-track {
   overflow-x: hidden;
   padding-top: 30px;
-  height: 100%;
-}
 `;
 
 export default function CardSlider({ children }) {
+  const [dragging, setDragging] = useState(false);
+ 
+const handleBeforeChange = useCallback(() => {
+   setDragging(true);
+  }, []);
+ 
+const handleAfterChange = useCallback(() => {
+  setDragging(false);
+  }, []);
+  
   const settings = {
     dots: true,
     infinite: true,
@@ -44,6 +43,9 @@ export default function CardSlider({ children }) {
     //autoplay: true,
     draggable: true,
     swipeToSlide: true,
+    touchThreshold : 100,
+    beforeChange: handleBeforeChange,
+    afterChange: handleAfterChange,
     responsive: [
       {
         breakpoint: 1024,

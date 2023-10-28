@@ -5,10 +5,10 @@ export default function BookCardD({bookInfo, bookInfo : {title, contents, author
     console.log(bookInfo);
     const navigate = useNavigate();
     return (
-        <li className='shadow-xl flex flex-col justify-between rounded-xl mb-8 py-5 h-[100%] bg-[#f4f7e7b0]'>
+        <li className='shadow-xl flex flex-col justify-between rounded-xl py-5 bg-[#f4f7e7b0]'>
             <div className=''> 
                 <img
-                    className='w-[55%] shadow-3xl m-auto mt-[-12%] mb-3' 
+                    className='w-[55%] shadow-3xl m-auto mt-[-12%]' 
                     onClick={() => {
                         navigate(`/detail/${bookId}`, {state: {bookInfo}});
                     }}

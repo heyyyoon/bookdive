@@ -18,7 +18,7 @@ export default function Search() {
   return (
     <section>
       <p className="p-3 font-semibold text-center text-xl m-5">Search Result</p>
-      <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-4 p-4">
+      <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-4 gap-x-1 gap-y-6 p-4">
         {books &&
           books.map((book) => {
             return <BookCard key={uuidv4()} bookInfo={{
