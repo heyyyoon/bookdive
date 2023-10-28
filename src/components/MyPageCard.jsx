@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { getBooks } from '../api/firebase';
 import { useQuery } from '@tanstack/react-query';
 import ReviewModal from './ReviewModal';
+import ReviewItem from './card/ReviewItem';
 
 export default function MyPageCard({reviews, rank}) {
     const { data:book } = useQuery(['book', reviews.bookId], () => getBooks(reviews.bookId));
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
-        <div className='shadow-custom rounded-xl m-[10px] bg-[#EEEEEE] relative'>
+        <div className='rounded-xl m-[10px] border-2 overflow-hidden '>
             {isModalOpen && (
                 <ReviewModal
                     review={reviews}
@@ -17,7 +18,7 @@ export default function MyPageCard({reviews, rank}) {
                 />
             )}
             <div onClick={() => setIsModalOpen(true)} className=''>
-                <div className='flex flex-row items-center p-4 mx-2'>
+            <div className='flex flex-row items-center bg-[#D9D4CF] px-4 py-4 border-b-[1px]'>
                     <img className='w-[25%] shadow-customBook border-2'
                     src={book && book.thumbnail} alt="" />
                     <div className='ml-2'>
@@ -25,10 +26,8 @@ export default function MyPageCard({reviews, rank}) {
                         <p className='text-[0.75rem]'>{book && `[${book.authors}]`}</p>
                     </div>
                 </div>
-                <div className='h-[260px] '> 
-                    <p className='font-mono font-[600] text-[1rem] text-center mb-2 bg-white mx-2 rounded-xl p-4'> {reviews.reviewTitle} </p>
-                    <p className='text-[0.85rem] line-clamp-5 text-left px-4'>{reviews.reviewContent}</p>
-                </div>
+                <ReviewItem title={reviews.reviewTitle} content={reviews.reviewContent} style='bg-[#eeeeee2d] h-[230px] px-6 py-3'/>
+                
             </div>
         </div>
     );

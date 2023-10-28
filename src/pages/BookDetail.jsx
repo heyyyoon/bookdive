@@ -6,6 +6,7 @@ import ReviewCard from "../components/ReviewCard";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { BiSolidAddToQueue } from 'react-icons/bi';
+import ReviewItem from "../components/card/ReviewItem";
 
 
 export default function BookDetail() {
@@ -50,7 +51,7 @@ export default function BookDetail() {
               <p className="text-2xl font-bold mb-1 ">{title}</p>
               <p className="mb-2">{authors}</p>
             <div className="max-w-[160px] w-full flex flex-row gap-2 bg-[#EEEEEE] rounded-3xl px-4 py-2 text-zinc-800 font-base">
-              <Rating value={Math.floor(bookRating)} />
+              <Rating value={Math.floor(bookRating)} readOnly={true}/>
               <p className="text-[1.1rem] ">{bookRating && bookRating.toFixed(2)}</p>
             </div>
             </div>
@@ -66,10 +67,16 @@ export default function BookDetail() {
         <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full p-5">
           {bookReviews &&
             bookReviews.map((r) => (
-              <ReviewCard key={r.reviewId} book={bookInfo} reviews={r} />
+              <ReviewItem 
+                title={r.reviewTitle} 
+                content={r.reviewContent} 
+                style='bg-[#EEEEEE] h-[230px] px-6 py-5 rounded-xl'
+              />
+             
             ))}
         </ul>
       </section>
     </section>
   );
 }
+ {/*<ReviewCard key={r.reviewId} book={bookInfo} reviews={r} />*/}

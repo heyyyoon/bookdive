@@ -2,15 +2,13 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
-import CustomPrevArrow from "./slider/CustomPrevArrow";
-import CustomNextArrow from "./slider/CustomNextArrow";
+import CustomPrevArrow from "./CustomPrevArrow";
+import CustomNextArrow from "./CustomNextArrow";
 import { useCallback, useState } from "react";
 
 const StyledSlider = styled(Slider)`
-
 .slick-slide div {
   cursor: pointer;
-  
 }
 
 .slick-dots {

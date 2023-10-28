@@ -65,7 +65,6 @@ export async function logout() {
   return signOut(auth).then(() => 'logout 되었습니다.');
 }
 export async function addBook(bookId, book) {
-  console.log(book);
   return set(ref(database, `book/${bookId}`), book);
 }
 export async function addReview(review, bookId, userId) {
@@ -89,10 +88,11 @@ export async function getReviewByBookId(bookId) {
 }
 export async function getBookRating(bookId) {    
   const filteredReviews = await getReviewByBookId(bookId);
+  console.log(filteredReviews);
   const reviewLength = filteredReviews.length;
   if(reviewLength === 0) return 0;
 
-  return filteredReviews.reduce((sum, review) => sum + review.starRating, 0) / reviewLength;
+  return filteredReviews.reduce((sum, review) => sum + review.rating, 0) / reviewLength;
 }
 
 // Like

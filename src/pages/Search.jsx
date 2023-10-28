@@ -14,7 +14,6 @@ export default function Search() {
     data: books,
   } = useQuery(['books', keyword], () => kakao.search(keyword));
 
-  console.log(books);
   return (
     <section>
       <p className="p-3 font-semibold text-center text-xl m-5">Search Result</p>

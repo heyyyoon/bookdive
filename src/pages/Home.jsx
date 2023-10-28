@@ -3,7 +3,7 @@ import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { getBookRanking, getBookReview } from "../api/firebase";
 import MyPageCard from "../components/MyPageCard";
-import CardSlider from "../components/CardSlider ";
+import CardSlider from "../components/slider/CardSlider ";
 import BookCard from "../components/BookCard";
 import Loading from "../components/Loading";
 
