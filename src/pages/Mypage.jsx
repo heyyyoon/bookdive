@@ -31,7 +31,7 @@ export default function Mypage() {
         <div className="cursor-pointer flex flex-row justify-center -mb-[20px] px-5 relative">
           <p className="text-xl border-b-2 pb-2">My Reviews</p>
           <div className="group flex flex-row items-center absolute right-[20px] top-[5px] z-10">
-            <p className="text-sm">더보기</p>
+            <p className="text-sm font-bold">더보기</p>
             <BsFillDoorClosedFill className="block group-hover:hidden text-[3rem] text-[#534847]" />
             <BsFillDoorOpenFill className="hidden group-hover:block text-[3rem] text-[#534847]" />
           </div>
@@ -48,7 +48,7 @@ export default function Mypage() {
         <div className="cursor-pointer flex flex-row justify-center -mb-[20px] px-5 relative" >
         <p className="text-xl border-b-2 pb-2">Like Reviews</p>
         <div className="group flex flex-row items-center absolute right-[20px] top-[5px] z-10">
-          <p className="text-sm">더보기</p>
+        <p className="text-sm font-bold">더보기</p>
           <BsFillDoorClosedFill className="block group-hover:hidden text-[3rem] text-[#ac7f7b]" />
           <BsFillDoorOpenFill className="hidden group-hover:block text-[3rem] text-[#ac7f7b]" />
         </div>

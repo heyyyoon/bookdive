@@ -16,8 +16,10 @@ export default function Search() {
 
   return (
     <section>
-      <p className="p-3 font-semibold text-center text-xl m-5">Search Result</p>
-      <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-4 gap-x-1 gap-y-6 p-4">
+      <div className="flex flex-row justify-center ">
+        <p className="p-3 font-semibold text-center text-xl m-5 border-b-2">Search Result</p>
+      </div>
+      <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-x-1 gap-y-10 p-4">
         {books &&
           books.map((book) => {
             return <BookCard key={uuidv4()} bookInfo={{

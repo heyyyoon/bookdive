@@ -9,7 +9,7 @@ export default function BookCard({
  
   const navigate = useNavigate();
   return (
-    <div className="bg-gradient-to-r from-[#EEEEEE] to-[#a78d8ca8] rounded-xl m-[10px] p-6 relative">
+    <div className="bg-gradient-to-r from-[#EEEEEE] to-[#a78d8ca8] rounded-xl m-[10px] px-4 py-2 relative">
       {rank && (
         <p className="absolute rounded-full border-2 bg-[#fffefbfd] border-[#534847]  px-4 py-2 font-bold text-[#534847] -left-2 -top-2 ">
           {rank}
@@ -21,12 +21,12 @@ export default function BookCard({
           navigate(`/detail/${bookId}`, { state: { bookInfo } });
         }}
       >
-       <img
+      <img
           className="w-[60%] border-2 border-white shadow-customBook m-auto mt-[-20%] mb-3"
           src={thumbnail}
           alt="Not found"
         />
-        <div className="h-[55px]">
+        <div className="h-[55px] mb-2">
           <p className="font-semibold text-center mt-2 text-zinc-950 text-[0.95rem] leading-5 line-clamp-2">
             {title}
           </p>
