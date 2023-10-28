@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import ReviewModal from './ReviewModal';
+import ReviewModal from '../ReviewModal';
 
-export default function ReviewCard({reviews, book}) {
+export default function ReviewCard1({reviews, book}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     return (
         <li className='rounded-2xl overflow-hidden bg-[#f3e4c9c2] px-6 py-2'>

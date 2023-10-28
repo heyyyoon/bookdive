@@ -1,9 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import BookCard from "../components/BookCard";
 import { v4 as uuidv4 } from "uuid";
 import Kakao from "../api/kakao";
 import { useQuery } from "@tanstack/react-query";
+import BookCard from "../components/card/BookCard";
 
 export default function Search() {
   const { keyword } = useParams();

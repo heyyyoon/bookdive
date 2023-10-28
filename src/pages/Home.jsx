@@ -2,16 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { getBookRanking, getBookReview } from "../api/firebase";
-import MyPageCard from "../components/MyPageCard";
 import CardSlider from "../components/slider/CardSlider ";
-import BookCard from "../components/BookCard";
 import Loading from "../components/Loading";
+import BookCard from "../components/card/BookCard";
+import ReviewCard from "../components/card/ReviewCard";
 
 export default function Home() {
   const { isLoading:loadingBooks, data: books } = useQuery(["hotBooks"], () => getBookRanking());
   const { isLoading:loadingReviews, data: reviews } = useQuery(["hotReviews"], () => getBookReview());
   
-
   return (
     <section className="h-full">
       <section className="w-full my-10 bg-[#ece7e7fa] ">
@@ -53,7 +52,7 @@ export default function Home() {
               <CardSlider>
                 {reviews &&
                   reviews.map((r, index) => (
-                      <MyPageCard key={r.reviewId} reviews={r} rank={index+1}/>
+                      <ReviewCard key={r.reviewId} reviews={r} rank={index+1}/>
                   ))}
               </CardSlider>
             )

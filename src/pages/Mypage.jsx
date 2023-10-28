@@ -2,10 +2,10 @@ import React from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { getReviewsAAA, getReviews } from "../api/firebase";
 import { useQuery } from "@tanstack/react-query";
-import MyPageCard from "../components/MyPageCard";
 import { useNavigate } from "react-router-dom";
 import { BsFillDoorClosedFill, BsFillDoorOpenFill } from "react-icons/bs";
 import CardSlider from "../components/slider/CardSlider ";
+import ReviewCard from "../components/card/ReviewCard";
 
 export default function Mypage() {
   const { user, userId } = useAuthContext();
@@ -39,7 +39,7 @@ export default function Mypage() {
         {filteredReviews && (
             <CardSlider>
               {filteredReviews.map((r) => (
-                <MyPageCard key={r.reviewId} reviews={r} />
+                <ReviewCard key={r.reviewId} reviews={r} />
               ))}
             </CardSlider>
         )}
@@ -56,7 +56,7 @@ export default function Mypage() {
         {likeReviews && (
             <CardSlider>
               {likeReviews.map((r) => (
-                <MyPageCard key={r.reviewId} reviews={r} />
+                <ReviewCard key={r.reviewId} reviews={r} />
               ))}
             </CardSlider>
         )}

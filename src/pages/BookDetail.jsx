@@ -2,7 +2,6 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getBookRating, getReviewByBookId } from "../api/firebase";
 import { useQuery } from "@tanstack/react-query";
-import ReviewCard from "../components/ReviewCard";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { BiSolidAddToQueue } from 'react-icons/bi';
@@ -38,26 +37,27 @@ export default function BookDetail() {
               src={thumbnail}
               alt="bookimage"
             />
-            <div
-              onClick={handleClick}
-              className="w-[70%] text-lg font-semibold text-white rounded p-3 my-2 bg-[#ddd485] flex "
-            >
-              <BiSolidAddToQueue />
-              <p>리뷰 작성하러 가기</p>
+            <div className="max-w-[160px] w-full flex flex-row gap-2 bg-[#EEEEEE] rounded-3xl px-4 py-2 text-zinc-800 font-base">
+              <Rating value={Math.floor(bookRating)} readOnly={true}/>
+              <p className="text-[1.1rem] ">{bookRating && bookRating.toFixed(2)}</p>
             </div>
           </div>
           <div className="basis-2/3 flex flex-col justify-around">
             <div>
               <p className="text-2xl font-bold mb-1 ">{title}</p>
               <p className="mb-2">{authors}</p>
-            <div className="max-w-[160px] w-full flex flex-row gap-2 bg-[#EEEEEE] rounded-3xl px-4 py-2 text-zinc-800 font-base">
-              <Rating value={Math.floor(bookRating)} readOnly={true}/>
-              <p className="text-[1.1rem] ">{bookRating && bookRating.toFixed(2)}</p>
-            </div>
+           
             </div>
             <div>
               <p className="text-xl font-semibold mb-2 text-orange-500">overview</p>
               <p className="text-base w-[80%]">{contents}</p>
+              <div
+              onClick={handleClick}
+              className="w-[70%] text-lg font-semibold text-white rounded p-3 my-2 bg-[#ddd485] flex "
+            >
+              <BiSolidAddToQueue />
+              <p>리뷰 작성하러 가기</p>
+            </div>
             </div>
           </div>
         </div>
@@ -72,11 +72,9 @@ export default function BookDetail() {
                 content={r.reviewContent} 
                 style='bg-[#EEEEEE] h-[230px] px-6 py-5 rounded-xl'
               />
-             
             ))}
         </ul>
       </section>
     </section>
   );
 }
- {/*<ReviewCard key={r.reviewId} book={bookInfo} reviews={r} />*/}

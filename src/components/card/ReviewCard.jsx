@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { getBooks } from '../api/firebase';
 import { useQuery } from '@tanstack/react-query';
-import ReviewModal from './ReviewModal';
-import ReviewItem from './card/ReviewItem';
+import ReviewModal from '../ReviewModal';
+import ReviewItem from './ReviewItem';
+import { getBooks } from '../../api/firebase';
 
-export default function MyPageCard({reviews, rank}) {
+export default function ReviewCard({reviews}) {
     const { data:book } = useQuery(['book', reviews.bookId], () => getBooks(reviews.bookId));
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -26,8 +26,7 @@ export default function MyPageCard({reviews, rank}) {
                         <p className='text-[0.75rem]'>{book && `[${book.authors}]`}</p>
                     </div>
                 </div>
-                <ReviewItem title={reviews.reviewTitle} content={reviews.reviewContent} style='bg-[#eeeeee2d] h-[230px] px-6 py-3'/>
-                
+                <ReviewItem title={reviews.reviewTitle} content={reviews.reviewContent} style='bg-[#eeeeee2d] h-[200px] px-4 py-2'/>
             </div>
         </div>
     );
