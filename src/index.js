@@ -26,7 +26,7 @@ const router = createBrowserRouter(
         { path: '/write', element: <WriteReview /> },
         { path: '/Mypage', element: <Mypage /> },
         { path: '/post', element: <Post /> },
-        { path: '/like', element: <LikeReview /> },
+        { path: '/reviews', element: <LikeReview /> },
       ]
     }
   ]

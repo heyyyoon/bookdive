@@ -22,7 +22,7 @@ export default function BookCard({
         }}
       >
       <img
-          className="w-[60%] border-2 border-white shadow-customBook m-auto mt-[-20%] mb-3"
+          className="w-[60%] border-2 border-white shadow-customBook m-auto mt-[-15%] mb-3"
           src={thumbnail}
           alt="Not found"
         />

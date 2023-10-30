@@ -37,7 +37,7 @@ export default function Home() {
   );
 
   return (
-    <section className="h-full pt-16">
+    <section className="pt-top-basic">
        <SlideView 
         data={books} 
         loading={loadingBooks}

@@ -88,11 +88,10 @@ export async function getReviewByBookId(bookId) {
 }
 export async function getBookRating(bookId) {    
   const filteredReviews = await getReviewByBookId(bookId);
-  console.log(filteredReviews);
   const reviewLength = filteredReviews.length;
   if(reviewLength === 0) return 0;
 
-  return filteredReviews.reduce((sum, review) => sum + review.rating, 0) / reviewLength;
+  return filteredReviews.reduce((sum, review) => sum + review.rating, 0) / reviewLength || 0;
 }
 
 // Like
