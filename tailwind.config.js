@@ -16,10 +16,16 @@ module.exports = {
         'result' : '2.5rem',
       },
       colors: {
+        'darkgrey': '#27272a',
+        'lightgrey' : '#3f3f46',
       },
-      fontFamily: {
-        sans: ['Cute Font', 'sans-serif'],
+      fontSize: {
+        'content': '0.8rem',
+        'title': '0.95rem',
       },
+      screens: {
+        'xs' : '550px',
+      }
     },
   },
   plugins: [],

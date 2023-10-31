@@ -7,6 +7,9 @@ import CustomNextArrow from "./CustomNextArrow";
 import { useCallback, useState } from "react";
 
 const StyledSlider = styled(Slider)`
+.slick-list {
+  z-index: 0;
+}
 .slick-slide div {
   cursor: pointer;
 }
@@ -35,7 +38,7 @@ const handleAfterChange = useCallback(() => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
+    slidesToShow: 1,
     slidesToScroll: 1,
     initialSlide: 0,
     //autoplay: true,
@@ -55,7 +58,7 @@ const handleAfterChange = useCallback(() => {
         },
       },
       {
-        breakpoint: 900,
+        breakpoint: 768,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
@@ -64,17 +67,7 @@ const handleAfterChange = useCallback(() => {
         },
       },
       {
-        breakpoint: 700,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 2,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 500,
+        breakpoint: 550,
         settings: {
           slidesToShow: 1,
           slidesToScoll: 1,

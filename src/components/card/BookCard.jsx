@@ -9,9 +9,9 @@ export default function BookCard({
  
   const navigate = useNavigate();
   return (
-    <div className="bg-gradient-to-r from-[#EEEEEE] to-[#a78d8ca8] rounded-xl m-[10px] px-4 py-2 relative">
+    <div className="bg-gradient-to-b to-[#e4d2d2] from-[#d1daaea8] rounded-xl m-[10px] px-4 py-2 relative">
       {rank && (
-        <p className="absolute rounded-full border-2 bg-[#fffefbfd] border-[#534847]  px-4 py-2 font-bold text-[#534847] -left-2 -top-2 ">
+        <p className="absolute rounded-full border-2 bg-[#fffefbfd] border-[#534847] px-4 py-2 font-bold text-[#534847] -left-2 -top-2 ">
           {rank}
         </p>
       )}

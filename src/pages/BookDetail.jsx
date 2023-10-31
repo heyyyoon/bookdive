@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getBookRating, getReviewByBookId } from "../api/firebase";
 import { useQuery } from "@tanstack/react-query";
@@ -6,6 +6,8 @@ import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { BiSolidAddToQueue } from "react-icons/bi";
 import ReviewItem from "../components/card/ReviewItem";
+import ReviewModal from "../components/ReviewModal";
+import Modal from "../components/Modal";
 
 export default function BookDetail() {
   const {
@@ -25,10 +27,16 @@ export default function BookDetail() {
   const handleClick = () => {
     navigate("/write", { state: { bookInfo } });
   };
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedItem, setSelectedItem ] = useState(null);
+  const openModal = ({review}) => {
+    setSelectedItem(review); 
+    setIsModalOpen(true);
+  };
+  const closeModal = () => setIsModalOpen(false);
   return (
-    <section className="w-[80%] pt-14 m-auto">
-      <section className="flex flex-col lg:flex-row max-w-5xl itmes-center justify-center pb-5 border-b-2">
+    <section className="w-[80%] pt-result max-w-basic mx-auto">
+      <section className="flex flex-col lg:flex-row pb-5 border-b-2">
           <img
             className="w-[180px] lg:w-[280px] shrink-0 border-2 border-zinc-300 shadow-custom mx-auto"
             src={thumbnail}
@@ -68,16 +76,25 @@ export default function BookDetail() {
         </p>
         <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full p-5">
           {bookReviews &&
-            bookReviews.map((r) => (
+            bookReviews.map((review) => (
               <ReviewItem
-                key={r.reviewId}
-                title={r.reviewTitle}
-                content={r.reviewContent}
-                style="bg-[#FEFEFE] shadow-xl h-[230px] px-6 py-5 rounded-xl border-[1px]"
+                key={review.reviewId}
+                review={review}
+                styleT="shadow-xl h-[230px] px-6 py-5 rounded-xl border-[1px]"
+                openModal={openModal}
               />
             ))}
         </ul>
       </section>
+      {isModalOpen && selectedItem && (
+        <Modal onClose={closeModal}>
+           <ReviewModal
+                review={selectedItem}
+                book={bookInfo}
+                onClose={closeModal}
+              />
+        </Modal>
+    )}
     </section>
   );
 }

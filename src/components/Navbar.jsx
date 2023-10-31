@@ -20,7 +20,7 @@ export default function Navbar() {
         navigate(`/home`);
     }
     return (
-        <header className='px-5 py-3 bg-[#fdf9f9] shadow-3xl'>
+        <header className='px-5 py-3 bg-[#fdfcfc] shadow-3xl'>
             <div className='flex justify-between items-center max-w-screen-2xl m-auto'>
                 <Account onClose={()=>setIsModalOpen(false)} isOpen={isModalOpen} />
                 <div className='w-3/12'>

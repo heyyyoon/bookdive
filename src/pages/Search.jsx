@@ -15,10 +15,10 @@ export default function Search() {
   } = useQuery(["books", keyword], () => kakao.search(keyword));
 
   return (
-    <section className="pt-result max-w-basic mx-auto">
+    <section className="w-[80%] lg:w-[90%] pt-result max-w-basic mx-auto">
       <div className="flex flex-col items-center">
-        <p className="text-xl border-b-2 pb-2 mb-10">Search Result</p>
-        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-x-1 gap-y-10 p-4">
+        <p className="text-xl border-b-2 pb-2 mb-5">Search Result</p>
+        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-y-10">
           {books &&
             books.map((book) => {
               return (

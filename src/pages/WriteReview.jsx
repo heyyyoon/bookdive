@@ -60,9 +60,9 @@ export default function WriteReview() {
         <ResultPosting />
       ) : (
         <>
-          <p className="font-sans text-xl font-semibold mb-3">{title}</p>
+          <p className="text-xl font-semibold mb-3">{title}</p>
           <img className="w-[100px] shadow-custom" src={thumbnail} alt="bookImage" />
-          <p className="font-sans text-[0.85rem] my-2">{authors}</p>
+          <p className="text-[0.85rem] my-2">{authors}</p>
           <div className="flex flex-row items-center">
             <div className="max-w-[160px] my-3 ml-1">
               <Rating value={rating} onChange={setRating} />

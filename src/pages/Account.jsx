@@ -15,10 +15,10 @@ export default function Account({ isOpen, onClose }) {
     setTimeout(() => {
       setSignSuccess(null);
       onClose();
-     }, 3000);
+    }, 3000);
   }
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10 ">
         <div className="w-[25%] bg-white border-2 p-6 z-10 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] rounded">
             {
               signSuccess ? 

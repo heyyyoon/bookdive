@@ -12,7 +12,7 @@ body {
   @apply flex flex-col items-center;
 }
 #root {
-  @apply w-full h-screen;
+  @apply w-full h-screen font-sans;
 }
 
 code {

@@ -1,19 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { getReviewsAAA, getReviews } from "../api/firebase";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
-import { BsFillDoorClosedFill, BsFillDoorOpenFill } from "react-icons/bs";
-import CardSlider from "../components/slider/CardSlider ";
-import ReviewCard from "../components/card/ReviewCard";
 import SlideReviews from "../components/SlideReviews";
+import ReviewCard from "../components/card/ReviewCard";
+import ReviewModal from "../components/ReviewModal";
+import Modal from "../components/Modal";
 
 export default function Mypage() {
-  const { user, userId } = useAuthContext();
-  const { data: allReviews } = useQuery(["allReview", userId], () =>
+  const { userId } = useAuthContext();
+  const { isLoading: allLoading, data: allReviews } = useQuery(["allReview", userId], () =>
     getReviews(userId)
   );
-  const { data: likeReviews } = useQuery(["likeReviews", userId], () =>
+  const { isLoading: likeLoading, data: likeReviews } = useQuery(["likeReviews", userId], () =>
     getReviewsAAA(userId)
   );
 
@@ -21,14 +20,32 @@ export default function Mypage() {
     ? allReviews.filter((r) => r.userId === userId)
     : [];
 
-  const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedItem, setSelectedItem ] = useState(null);
+    
+    const openModal = ({review, book}) => {
+      setSelectedItem({review, book}); 
+      setIsModalOpen(true);
+    };
+    const closeModal = () => setIsModalOpen(false);
 
-  
-
+  const renderReviewCards = (reviews) => {
+    return reviews && reviews.slice(0, 10).map((r) => ( // 최대 10개만 보여주기
+      <ReviewCard key={r.reviews} review={r} openModal={openModal}/>
+    ));
+  };
   return (
-    <section className="">
-      <SlideReviews reviews={allReviews} title={'My Reviews'} />
-      <SlideReviews reviews={likeReviews} title={'Like Reviews'} />
+    <section className="h-full mb-20">
+      <SlideReviews loading={allLoading} reviews={filteredReviews} title='My Reviews' renderReviewCards={renderReviewCards}/>
+      <SlideReviews loading={likeLoading} reviews={likeReviews} title='Like Reviews'  renderReviewCards={renderReviewCards}/>
+      {isModalOpen && selectedItem && (
+        <Modal  onClose={closeModal}>
+          <ReviewModal
+              review={selectedItem.review}
+              book={selectedItem.book}
+          />
+        </Modal>
+    )}
     </section>
   );
 }
