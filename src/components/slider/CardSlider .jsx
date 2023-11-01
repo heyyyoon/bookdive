@@ -2,9 +2,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
-import CustomPrevArrow from "./CustomPrevArrow";
-import CustomNextArrow from "./CustomNextArrow";
 import { useCallback, useState } from "react";
+import CustomPrevArrow from "../ui/CustomPrevArrow";
+import CustomNextArrow from "../ui/CustomNextArrow";
 
 const StyledSlider = styled(Slider)`
 .slick-list {
@@ -38,7 +38,7 @@ const handleAfterChange = useCallback(() => {
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 1,
+    slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
     //autoplay: true,

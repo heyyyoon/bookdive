@@ -8,7 +8,7 @@ export default function ReviewItem({ review, styleT }) {
           {review.reviewTitle}
         </p>
       </div>
-      <p className="text-content text-lightgrey text-left line-clamp-5">
+      <p className="text-content text-darkgrey text-left line-clamp-5">
         {review.reviewContent}
       </p>
     </div>

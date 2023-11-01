@@ -42,6 +42,7 @@ export async function getUserInfo() {
     }).catch(e => console.log(e));
 }
 export async function signIn({email, password}) {
+  console.log(email, password);
   const result = await getUserInfo().then(user => user && user.some((f)=> (f.email===email && f.password===password)));
   if(result) {
     return await signInWithEmailAndPassword(auth, email, password);

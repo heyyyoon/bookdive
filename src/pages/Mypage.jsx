@@ -24,6 +24,7 @@ export default function Mypage() {
     const [selectedItem, setSelectedItem ] = useState(null);
     
     const openModal = ({review, book}) => {
+      console.log(review, book)
       setSelectedItem({review, book}); 
       setIsModalOpen(true);
     };
@@ -31,7 +32,7 @@ export default function Mypage() {
 
   const renderReviewCards = (reviews) => {
     return reviews && reviews.slice(0, 10).map((r) => ( // 최대 10개만 보여주기
-      <ReviewCard key={r.reviews} review={r} openModal={openModal}/>
+      <ReviewCard key={r.reviews} review={r} onOpen={openModal}/>
     ));
   };
   return (
@@ -39,10 +40,11 @@ export default function Mypage() {
       <SlideReviews loading={allLoading} reviews={filteredReviews} title='My Reviews' renderReviewCards={renderReviewCards}/>
       <SlideReviews loading={likeLoading} reviews={likeReviews} title='Like Reviews'  renderReviewCards={renderReviewCards}/>
       {isModalOpen && selectedItem && (
-        <Modal  onClose={closeModal}>
+        <Modal size={'w-[60%] lg:w-[40%]'}>
           <ReviewModal
               review={selectedItem.review}
               book={selectedItem.book}
+              onClose={closeModal}
           />
         </Modal>
     )}

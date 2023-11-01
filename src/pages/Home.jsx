@@ -48,8 +48,8 @@ export default function Home() {
   );
 
   return (
-    <section className="py-top-basic ">
-      <section className=''>
+    <section className="py-top-basic">
+      <section>
         <SlideView
           data={books}
           loading={loadingBooks}
@@ -57,7 +57,7 @@ export default function Home() {
           renderItem={renderBookCards}
         />
       </section>
-      <section className="">
+      <section>
         <SlideView
           data={reviews}
           loading={loadingReviews}
@@ -66,13 +66,13 @@ export default function Home() {
         />
       </section>
       {isModalOpen && selectedItem && (
-        <Modal onClose={closeModal}>
-          <ReviewModal
-              review={selectedItem.review}
-              book={selectedItem.book}
-              onClose={closeModal}
-          />
-        </Modal>
+      <Modal size={'w-[60%] lg:w-[40%]'}>
+        <ReviewModal
+            review={selectedItem.review}
+            book={selectedItem.book}
+            onClose={closeModal}
+        />
+      </Modal>
     )}
     </section>
   );

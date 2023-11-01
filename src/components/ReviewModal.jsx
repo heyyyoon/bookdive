@@ -4,8 +4,9 @@ import { useAuthContext } from "../context/AuthContext";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
 import { Rating } from "@smastrom/react-rating";
+import CloseCircle from "./ui/CloseCircle";
 
-export default function ReviewModal({ review, book }) {
+export default function ReviewModal({ review, book, onClose }) {
   const { userId } = useAuthContext();
   const client = useQueryClient();
   const { data: isLiked } = useQuery(["liked"], () =>
@@ -25,6 +26,9 @@ export default function ReviewModal({ review, book }) {
 
   return (
     <div className="flex flex-col justify-between">
+      <div className="flex justify-end">
+        <CloseCircle onClose={onClose} />
+      </div>
       <div className="flex border-b-[1px] pb-5">
         <img
           className="w-[25%] shadow-custom border-2 border-white"
@@ -32,8 +36,10 @@ export default function ReviewModal({ review, book }) {
           alt="book"
         />
         <div className="ml-3 mt-3">
-          <p className="font-semibold text-[0.95rem] text-zinc-950 mb-2">{book.title}</p>
-          <p className="text- text-[0.8rem] text-zinc-800">{book.authors}</p>
+          <p className="font-semibold text-title text-darkgrey mb-1">
+            {book.title}
+          </p>
+          <p className="text-content text-zinc-medigrey">{book.authors}</p>
           <div className="max-w-[100px] flex flex-row text-zinc-800 items-center mt-2">
             <Rating value={review.rating} readOnly={true} />
             <p className="text-sm bg-white ml-2 rounded-xl">

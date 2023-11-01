@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-import SignIn from '../components/SignIn';
-import SignUp from '../components/SignUp';
-import ResultSign from '../components/ResultSign';
+import React, { useState } from "react";
+import SignIn from "../components/SignIn";
+import SignUp from "../components/SignUp";
+import Modal from "../components/Modal";
+import Back from "../components/ui/Back";
+import CloseCircle from "../components/ui/CloseCircle";
+import SuccessMsg from "../components/ui/SuccessMsg";
 
 export default function Account({ isOpen, onClose }) {
-  const [ loginMode, setLoginMode ] = useState(true);
-  const [ signSuccess, setSignSuccess ] = useState(null);
+  const [loginMode, setLoginMode] = useState(true); // true면 signIn mode, false이면 signUp mode.
+  const [signSuccess, setSignSuccess] = useState(false);
   if (!isOpen) {
     return null;
   }
@@ -15,24 +18,31 @@ export default function Account({ isOpen, onClose }) {
     setTimeout(() => {
       setSignSuccess(null);
       onClose();
-    }, 3000);
-  }
-    return (
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10 ">
-        <div className="w-[25%] bg-white border-2 p-6 z-10 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] rounded">
-            {
-              signSuccess ? 
-                <ResultSign result={signSuccess}/>
-              :
-                loginMode?
-                <SignIn signResult={handleResult} handleSignUp={() => setLoginMode(false)}/>   
-                : <SignUp signResult={handleResult}/>        
-            } 
-            {loginMode ? <button onClick={onClose}>Close</button>
-              :<button onClick={() => setLoginMode(prev => !prev)}>{`< back`}</button>
-            }
-        </div>
-      </div>
-    );
+    }, 2000);
+  };
+  return (
+    <section>
+      {signSuccess ? (
+        <SuccessMsg text={signSuccess} />
+      ) : (
+        <Modal size={"w-[50%] max-w-sm animate-fade"}>
+          <div className="h-[300px]">
+            <div className="flex justify-end">
+              <CloseCircle onClose={onClose} />
+            </div>
+            {loginMode ? (
+              <SignIn
+                signResult={handleResult}
+                handleSignUp={() => setLoginMode(false)}
+                loginMode={loginMode}
+              />
+            ) : (
+              <SignUp signResult={handleResult} loginMode={loginMode} />
+            )}
+          </div>
+          {loginMode && <Back onClick={() => setLoginMode(true)} />}
+        </Modal>
+      )}
+    </section>
+  );
 }
-
