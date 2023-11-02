@@ -6,6 +6,7 @@ import ReviewModal from "../components/ReviewModal";
 import Modal from "../components/Modal";
 import BookCard from "../components/card/BookCard";
 import ReviewCard from "../components/card/ReviewCard";
+import { useModalContext } from "../context/ModalContext";
 
 export default function Home() {
   const { isLoading: loadingBooks, data: books } = useQuery(["hotBooks"], () =>
@@ -16,16 +17,10 @@ export default function Home() {
     () => getBookReview()
   );
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem ] = useState(null);
-  
-  const openModal = ({review, book}) => {
-    setSelectedItem({review, book}); 
-    setIsModalOpen(true);
-  };
-  const closeModal = () => setIsModalOpen(false);
+  const { isModalOpen, openModal, closeModal, selectedItem } =
+    useModalContext();
 
-  const renderBookCards = (books) => (
+  const renderBookCards = (books) =>
     books.slice(0, 10).map((book, index) => (
       <BookCard
         key={book.bookId}
@@ -38,22 +33,22 @@ export default function Home() {
           bookId: book.bookId,
         }}
       />
-    ))
-  );
+    ));
 
-  const renderReviewCards = (reviews) => (
-    reviews.slice(0, 10).map((review) => (
-      <ReviewCard key={review.reviewId} review={review} openModal={openModal}/>
-    ))
-  );
+  const renderReviewCards = (reviews) =>
+    reviews
+      .slice(0, 10)
+      .map((review) => (
+        <ReviewCard key={review.reviewId} review={review} onOpen={openModal} />
+      ));
 
   return (
-    <section className="py-top-basic">
+    <section className="py-result">
       <section>
         <SlideView
           data={books}
           loading={loadingBooks}
-          title='Best10 books'
+          title="Best10 books"
           renderItem={renderBookCards}
         />
       </section>
@@ -61,19 +56,19 @@ export default function Home() {
         <SlideView
           data={reviews}
           loading={loadingReviews}
-          title='Best10 reviews'
+          title="Best10 reviews"
           renderItem={renderReviewCards}
         />
       </section>
       {isModalOpen && selectedItem && (
-      <Modal size={'w-[60%] lg:w-[40%]'}>
-        <ReviewModal
+        <Modal size={"w-[60%] lg:w-[40%]"}>
+          <ReviewModal
             review={selectedItem.review}
             book={selectedItem.book}
             onClose={closeModal}
-        />
-      </Modal>
-    )}
+          />
+        </Modal>
+      )}
     </section>
   );
 }

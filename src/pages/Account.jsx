@@ -40,7 +40,7 @@ export default function Account({ isOpen, onClose }) {
               <SignUp signResult={handleResult} loginMode={loginMode} />
             )}
           </div>
-          {loginMode && <Back onClick={() => setLoginMode(true)} />}
+          {!loginMode && <Back onClick={() => setLoginMode(true)} />}
         </Modal>
       )}
     </section>

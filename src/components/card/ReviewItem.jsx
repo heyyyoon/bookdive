@@ -1,8 +1,8 @@
 import React from "react";
 
-export default function ReviewItem({ review, styleT }) {
+export default function ReviewItem({ review, styleT, onOpen }) {
   return (
-    <div className={styleT}>
+    <div className={styleT} onClick={() => onOpen({review})}>
       <div className="h-[35%] flex justify-left items-start">
         <p className="text-title text-darkgrey font-bold line-clamp-2 text-center ">
           {review.reviewTitle}

@@ -48,8 +48,8 @@ export default function ReviewModal({ review, book, onClose }) {
           </div>
         </div>
       </div>
-      <div className="text-center my-6">
-        <p className="text-lg font-medium mb-3">{review.reviewTitle}</p>
+      <div className="my-6 text-center">
+        <p className="text-lg font-semibold mb-3">{review.reviewTitle}</p>
         <p className="text-sm leading-[1.4rem] text-zinc-950">
           {review.reviewContent}
         </p>

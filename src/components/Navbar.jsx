@@ -1,26 +1,38 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { logout } from "../api/firebase";
 import Account from "../pages/Account";
 import { FiSearch } from "react-icons/fi";
 import Button from "./ui/Button";
 import { ImProfile } from "react-icons/im";
+import SuccessMsg from "./ui/SuccessMsg";
 
 export default function Navbar() {
+  const { keyword } = useParams();
   const [text, setText] = useState("");
   const { user } = useAuthContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const navigate = useNavigate();
-  const handleSubmit = async (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     navigate(`/search/${text}`);
   };
-  const handleLogout = () => {
-    logout();
-    navigate(`/home`);
+  const handleLogout = async () => {
+    await logout();
+    setSuccess("로그아웃 되었습니다.");
+
+    setTimeout(() => {
+      setSuccess(null);
+      navigate(`/home`);
+    }, 2000);
   };
+
+  useEffect(() => setText(keyword || ""), [keyword]);
+
   return (
     <header className="px-5 py-3 bg-[#fdfcfc] shadow-3xl">
       <div className="flex justify-between items-center max-w-screen-2xl mx-auto">
@@ -47,13 +59,17 @@ export default function Navbar() {
         <div className="flex items-center gap-3 w-3/12 justify-end">
           {user && (
             <div className="flex flex-row items-center">
-              <p><ImProfile /></p>
-              <p className="text-lg font-semibold text-zinc-800">{user.nickname}</p>
+              <p>
+                <ImProfile />
+              </p>
+              <p className="text-lg font-semibold text-zinc-800">
+                {user.nickname}
+              </p>
             </div>
           )}
           {user && (
             <Link to="/mypage">
-              <Button text="myPage"/>
+              <Button text="myPage" />
             </Link>
           )}
           {user ? (
@@ -63,6 +79,7 @@ export default function Navbar() {
           )}
         </div>
       </div>
+      {success && <SuccessMsg text={success} />}
     </header>
   );
 }
