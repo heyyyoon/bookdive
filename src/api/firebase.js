@@ -35,14 +35,10 @@ async function getUser(user) {
 export async function getUserInfo() {
   return get(ref(database, 'user')) 
     .then((snapshot) => {
-      if (snapshot.exists())  {
-        return Object.values(snapshot.val());
-      }
-      return null;
+      return snapshot.exists() ? Object.values(snapshot.val()) : null;
     }).catch(e => console.log(e));
 }
 export async function signIn({email, password}) {
-  console.log(email, password);
   const result = await getUserInfo().then(user => user && user.some((f)=> (f.email===email && f.password===password)));
   if(result) {
     return await signInWithEmailAndPassword(auth, email, password);
@@ -51,20 +47,20 @@ export async function signIn({email, password}) {
   }
 }
 export async function signUp({email, password, nickname}) {
-    const user = await getUserInfo().then((user) => user && (user.find((f) => f.email === email || f.nickname === nickname)))
-
-    if(user) {
-      throw new Error (user.email===email ? '같은 이메일이 이미 존재합니다.' : '같은 닉네임이 이미 존재합니다.');
-    } else {
-      createUserWithEmailAndPassword(auth, email, password)
-        .then(result => {
-          set(ref(database, `user/${result.user.uid}`), {email, password, nickname});
-        })
-    }
+  const user = await getUserInfo().then((user) => user && (user.find((f) => f.email === email || f.nickname === nickname)))
+  if(user) {
+    throw new Error (user.email===email ? '같은 이메일이 이미 존재합니다.' : '같은 닉네임이 이미 존재합니다.');
+  } else {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(result => {
+        set(ref(database, `user/${result.user.uid}`), {email, password, nickname});
+      })
+  }
 }
 export async function logout() {
   return signOut(auth);
 }
+
 export async function addBook(bookId, book) {
   return set(ref(database, `book/${bookId}`), book);
 }
@@ -79,9 +75,10 @@ export async function getReviews() {
   .catch(e => console.log(e));
 }
 export async function getBooks(bookId) {
-  return get(ref(database, `book/${bookId}`)) 
+  const books = await get(ref(database, `book/${bookId}`)) 
   .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
   .catch(e => console.log(e));
+  return books;
 }
 
 export async function getReviewByBookId(bookId) {
@@ -220,7 +217,6 @@ export async function getRangeReview() {
   const sortedReviewIds = [...reviewIdCountMap.keys()].sort((a, b) => {
     return reviewIdCountMap.get(b) - reviewIdCountMap.get(a);
   });
-
   return sortedReviewIds;
 }
 

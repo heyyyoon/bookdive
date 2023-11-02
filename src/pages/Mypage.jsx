@@ -1,36 +1,43 @@
 import React from "react";
 import { useAuthContext } from "../context/AuthContext";
-import { getReviewsAAA, getReviews } from "../api/firebase";
-import { useQuery } from "@tanstack/react-query";
 import SlideReviews from "../components/SlideReviews";
 import ReviewCard from "../components/card/ReviewCard";
 import ReviewModal from "../components/ReviewModal";
 import Modal from "../components/Modal";
 import { useModalContext } from "../context/ModalContext";
+import useReviews from "../hooks/useReviews";
 
 export default function Mypage() {
   const { userId } = useAuthContext();
-  const { isLoading: allLoading, data: allReviews } = useQuery(
-    ["allReview", userId],
-    () => getReviews(userId)
-  );
-  const { isLoading: likeLoading, data: likeReviews } = useQuery(
-    ["likeReviews", userId],
-    () => getReviewsAAA(userId)
-  );
+
+  const {
+    getLikeReviews: { isLoading: likeLoading, data: likeReviews },
+  } = useReviews();
+
+  const {
+    getAllReviews: { isLoading: allLoading, data: allReviews },
+  } = useReviews();
+
 
   const filteredReviews = allReviews
     ? allReviews.filter((r) => r.userId === userId)
     : [];
 
-  const { isModalOpen, openModal, closeModal, selectedItem } = useModalContext();
-  
+  const { isModalOpen, openModal, closeModal, selectedItem } =
+    useModalContext();
+
   const renderReviewCards = (reviews) => {
     return (
       reviews &&
-      reviews.slice(0, 10).map((r) => 
-        <ReviewCard key={r.reviews} review={r} onOpen={openModal} />
-        )
+      reviews
+        .slice(0, 10)
+        .map((review) => (
+          <ReviewCard
+            key={review.reviewId}
+            review={review}
+            onOpen={openModal}
+          />
+        ))
     );
   };
   return (

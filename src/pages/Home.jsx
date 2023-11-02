@@ -1,21 +1,22 @@
-import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getBookRanking, getBookReview } from "../api/firebase";
+import React from "react";
+import { useModalContext } from "../context/ModalContext";
 import SlideView from "../components/SlideView";
 import ReviewModal from "../components/ReviewModal";
 import Modal from "../components/Modal";
 import BookCard from "../components/card/BookCard";
 import ReviewCard from "../components/card/ReviewCard";
-import { useModalContext } from "../context/ModalContext";
+import useBooks from "../hooks/useBooks";
+import useReviews from "../hooks/useReviews";
 
 export default function Home() {
-  const { isLoading: loadingBooks, data: books } = useQuery(["hotBooks"], () =>
-    getBookRanking()
-  );
-  const { isLoading: loadingReviews, data: reviews } = useQuery(
-    ["hotReviews"],
-    () => getBookReview()
-  );
+
+  const {
+    getHotReviews: { isLoading: loadingReviews, data: reviews },
+  } = useReviews();
+
+  const {
+    getHotBooks: { isLoading: loadingBooks, data: books },
+  } = useBooks();
 
   const { isModalOpen, openModal, closeModal, selectedItem } =
     useModalContext();
@@ -51,7 +52,7 @@ export default function Home() {
           title="Best10 books"
           renderItem={renderBookCards}
         />
-      </section>
+      </section> 
       <section>
         <SlideView
           data={reviews}

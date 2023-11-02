@@ -12,7 +12,6 @@ export default function SlideReviews({
   renderReviewCards,
 }) {
   const navigate = useNavigate();
-
   return (
     <section className="w-[80%] pt-result max-w-basic mx-auto">
       <div className="cursor-pointer flex flex-row justify-center relative">
@@ -29,7 +28,7 @@ export default function SlideReviews({
 
       {loading ? (
         <Loading />
-      ) : reviews && reviews.length <= 4 ? (
+      ) : reviews &&( reviews.length <= 4 ? (
         reviews.length === 0 ? (
           <p className="text-center my-10">리뷰가 없습니다.</p>
         ) : (
@@ -39,7 +38,7 @@ export default function SlideReviews({
         )
       ) : (
         <CardSlider>{renderReviewCards(reviews)}</CardSlider>
-      )}
+        ))}
     </section>
   );
 }

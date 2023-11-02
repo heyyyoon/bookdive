@@ -1,27 +1,32 @@
 import React from "react";
-import { addLike, delLike, getIsLiked, getLikes } from "../api/firebase";
 import { useAuthContext } from "../context/AuthContext";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
 import { Rating } from "@smastrom/react-rating";
 import CloseCircle from "./ui/CloseCircle";
+import useLikes from "../hooks/useLikes";
 
 export default function ReviewModal({ review, book, onClose }) {
   const { userId } = useAuthContext();
-  const client = useQueryClient();
-  const { data: isLiked } = useQuery(["liked"], () =>
-    getIsLiked(userId, review.reviewId)
-  );
-  const { data: userLikes } = useQuery(["userByLikes"], () =>
-    getLikes(review.reviewId)
-  );
-  const handleToggle = async () => {
-    isLiked
-      ? await delLike(userId, review.reviewId)
-      : await addLike(userId, review.reviewId);
+ 
+  const { useGetIsLiked, useGetLikes, delLike, addLike } = useLikes();
+  const { data: isLiked } = useGetIsLiked(userId, review.reviewId);
+  const { data: userLikes } = useGetLikes(review.reviewId);
 
-    client.invalidateQueries(["liked"]);
-    client.invalidateQueries(["userByLikes"]);
+  const handleToggle = async () => {
+
+      if(isLiked) {
+        delLike.mutate({userId});
+      } else {
+        addLike.mutate({userId});
+      }
+
+
+    // isLiked
+    //   ? await delLike(userId, review.reviewId)
+    //   : await addLike(userId, review.reviewId);
+
+    //client.invalidateQueries(["liked"]);
+    //client.invalidateQueries(["userByLikes"]);
   };
 
   return (

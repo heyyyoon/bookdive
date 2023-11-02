@@ -1,12 +1,10 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
 import ReviewItem from "./ReviewItem";
-import { getBooks } from "../../api/firebase";
+import useBooks from "../../hooks/useBooks";
 
 export default function ReviewCard({ review, onOpen }) {
-  const { data: book } = useQuery(["book", review.bookId], () =>
-    getBooks(review.bookId)
-  );
+  const { useGetBooks } = useBooks();
+  const { data: book } = useGetBooks(review.bookId);
 
   return (
     <div

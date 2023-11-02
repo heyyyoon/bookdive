@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { addBook, addReview, getBooks } from "../api/firebase";
+import { getBooks } from "../api/firebase";
 import { useAuthContext } from "../context/AuthContext";
 import ResultPosting from "../components/ResultPosting";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
+import useBooks from "../hooks/useBooks";
+import useReviews from "../hooks/useReviews";
 
 export default function WriteReview() {
   const [review, setReview] = useState({});
@@ -12,6 +14,8 @@ export default function WriteReview() {
   const [success, setSuccess] = useState(false);
   const [warning, setWarning] = useState("");
   const [rating, setRating] = useState(0);
+  const { addNewBook } = useBooks();
+  const { addNewReview } = useReviews();
   const navigate = useNavigate();
 
   const {
@@ -43,15 +47,17 @@ export default function WriteReview() {
     else
     {
       getBooks(bookId).then(() => {
-        addBook(bookId, bookInfo);
-      });
-      addReview({ ...review, rating }, bookId, userId).then(() => {
-        setSuccess(true);
+        addNewBook.mutate({bookId, bookInfo}, {onSuccess: () => {
+          addNewReview.mutate({review, rating, bookId, userId}, {onSuccess: () => {
+            setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
           navigate("/mypage");
         }, 2000);
+          }})
+        }})
       });
+      
     }
   };
   return (
