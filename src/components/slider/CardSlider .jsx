@@ -2,9 +2,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
-import { useCallback, useState } from "react";
 import CustomPrevArrow from "../ui/CustomPrevArrow";
 import CustomNextArrow from "../ui/CustomNextArrow";
+import { useModalContext } from "../../context/ModalContext";
 
 const StyledSlider = styled(Slider)`
 .slick-list {
@@ -23,7 +23,9 @@ const StyledSlider = styled(Slider)`
   padding-top: 30px;
 `;
 
-export default function CardSlider({ children, handleBeforeChange, handleAfterChange }) {
+export default function CardSlider({ children }) {
+
+  const { beforeChange, afterChange } = useModalContext();
 
   const settings = {
     dots: true,
@@ -32,12 +34,12 @@ export default function CardSlider({ children, handleBeforeChange, handleAfterCh
     slidesToShow: 4,
     slidesToScroll: 1,
     initialSlide: 0,
-    //autoplay: true,
+    autoplay: true,
     draggable: true,
     swipeToSlide: true,
     touchThreshold : 100,
-    beforeChange: handleBeforeChange,
-    afterChange: handleAfterChange,
+    beforeChange: beforeChange,
+    afterChange: afterChange,
     responsive: [
       {
         breakpoint: 1024,

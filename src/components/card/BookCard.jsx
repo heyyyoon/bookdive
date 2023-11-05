@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useModalContext } from "../../context/ModalContext";
 
 export default function BookCard({
   bookInfo,
@@ -7,6 +8,8 @@ export default function BookCard({
   rank,
 }) {
  
+  
+  const { dragging } = useModalContext();
   const navigate = useNavigate();
   return (
     <div className="bg-gradient-to-b from-[#d1daaea8] to-[#e4d2d2] rounded-xl m-[10px] px-4 py-2 relative">
@@ -18,7 +21,7 @@ export default function BookCard({
       <div
         className="mb-2"
         onClick={() => {
-          navigate(`/detail/${bookId}`, { state: { bookInfo } });
+          !dragging && navigate(`/detail/${bookId}`, { state: { bookInfo } });
         }}
       >
       <img

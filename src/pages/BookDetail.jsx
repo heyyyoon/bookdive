@@ -79,7 +79,7 @@ export default function BookDetail() {
             <p className="w-full text-lg font-semibold text-zinc-800 px-4">
               이 책의 포스트
             </p>
-            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5">
+            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5 w-full">
               {bookReviews &&
                 bookReviews.map((review) => (
                   <ReviewItem
