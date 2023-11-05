@@ -9,6 +9,7 @@ export default function SignUp({ signResult }) {
   const [loading, setLoading] = useState(false);
   const [warning, setWarning] = useState(false);
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginInfo((prev) => ({ ...prev, [name]: value }));

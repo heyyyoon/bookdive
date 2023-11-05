@@ -17,17 +17,16 @@ export default function useReviews() {
     enabled: false, 
   });
 
-  const triggerGetLikeReviews = () => {
-    getLikeReviews.refetch(); 
-  };
-
   useEffect(() => {
+    const triggerGetLikeReviews = () => {
+      getLikeReviews.refetch(); 
+    };
+    
     if (userId) {
       triggerGetLikeReviews();
     }
-  }, [userId]);
+  }, [userId, getLikeReviews]);
 
-  //const getLikeReviews = useQuery(["likeReviews"], () => getReviewsAAA(userId));
 
   const getHotReviews = useQuery(["hotReviews"], () => getBookReview());
 

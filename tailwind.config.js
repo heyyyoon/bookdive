@@ -27,9 +27,6 @@ module.exports = {
         'content': '0.8rem',
         'title': '0.95rem',
       },
-      screens: {
-        'xs' : '550px',
-      },
       animation: {
         fade: 'fadeIn 0.5s ease-in-out',
       },

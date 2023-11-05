@@ -4,6 +4,7 @@ import { BsFillDoorClosedFill, BsFillDoorOpenFill } from "react-icons/bs";
 import CardSlider from "./slider/CardSlider ";
 import Loading from "./Loading";
 import PageTitle from "./ui/PageTitle";
+import CardGrid from "./CardGrid";
 
 export default function SlideReviews({
   loading,
@@ -12,33 +13,32 @@ export default function SlideReviews({
   renderReviewCards,
 }) {
   const navigate = useNavigate();
+
   return (
-    <section className="w-[80%] pt-result max-w-basic mx-auto">
+    <section className="w-[80%] pt-result max-w-basic mx-auto mb-10">
       <div className="cursor-pointer flex flex-row justify-center relative">
         <PageTitle title={title} />
-        <div
-          className="group flex flex-row items-center absolute right-[20px] top-[25px] z-5"
-          onClick={() => navigate("/reviews/", { state: reviews })}
-        >
-          <p className="text-sm font-bold text-darkgrey">더보기</p>
-          <BsFillDoorClosedFill className="block group-hover:hidden text-[3rem] text-[#534847]" />
-          <BsFillDoorOpenFill className="hidden group-hover:block text-[3rem] text-[#534847]" />
-        </div>
+        {reviews && reviews.length > 0 && (
+          <div
+            className="group flex flex-row items-center absolute right-[20px] top-[25px] z-10"
+            onClick={() => navigate("/reviews", { state: { reviews, title } })}
+          >
+            <p className="text-sm font-bold text-darkgrey">더보기</p>
+            <BsFillDoorClosedFill className="block group-hover:hidden text-[3rem] text-[#534847]" />
+            <BsFillDoorOpenFill className="hidden group-hover:block text-[3rem] text-[#534847]" />
+          </div>
+        )}
       </div>
-
-      {loading ? (
-        <Loading />
-      ) : reviews &&( reviews.length <= 4 ? (
-        reviews.length === 0 ? (
-          <p className="text-center my-10">리뷰가 없습니다.</p>
+      {loading && <Loading />}
+      {reviews && reviews.length > 0 ? (
+        reviews.length <= 4 ? (
+          <CardGrid>{renderReviewCards(reviews)}</CardGrid>
         ) : (
-          <ul className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 pt-[30px]">
-            {renderReviewCards(reviews)}
-          </ul>
+          <CardSlider>{renderReviewCards(reviews)}</CardSlider>
         )
       ) : (
-        <CardSlider>{renderReviewCards(reviews)}</CardSlider>
-        ))}
+        <p className="text-center my-10">리뷰가 없습니다.</p>
+      )}
     </section>
   );
 }

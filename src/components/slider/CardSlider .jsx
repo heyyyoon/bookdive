@@ -23,17 +23,8 @@ const StyledSlider = styled(Slider)`
   padding-top: 30px;
 `;
 
-export default function CardSlider({ children }) {
-  const [dragging, setDragging] = useState(false);
- 
-const handleBeforeChange = useCallback(() => {
-   setDragging(true);
-  }, []);
- 
-const handleAfterChange = useCallback(() => {
-  setDragging(false);
-  }, []);
-  
+export default function CardSlider({ children, handleBeforeChange, handleAfterChange }) {
+
   const settings = {
     dots: true,
     infinite: true,

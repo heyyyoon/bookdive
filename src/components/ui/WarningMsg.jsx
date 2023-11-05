@@ -1,6 +1,6 @@
 import React from "react";
-import { PiWarningCircleFill } from "react-icons/pi";
 import NofityMsg from "./NofityMsg";
+import { PiWarningCircleFill } from "react-icons/pi";
 
 export default function WarningMsg({ text }) {
   return (

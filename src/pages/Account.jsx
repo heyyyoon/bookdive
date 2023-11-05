@@ -6,12 +6,9 @@ import Back from "../components/ui/Back";
 import CloseCircle from "../components/ui/CloseCircle";
 import SuccessMsg from "../components/ui/SuccessMsg";
 
-export default function Account({ isOpen, onClose }) {
+export default function Account({ onClose }) {
   const [loginMode, setLoginMode] = useState(true); // true면 signIn mode, false이면 signUp mode.
   const [signSuccess, setSignSuccess] = useState(false);
-  if (!isOpen) {
-    return null;
-  }
 
   const handleResult = (text) => {
     setSignSuccess(text);

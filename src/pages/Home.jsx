@@ -9,7 +9,6 @@ import useBooks from "../hooks/useBooks";
 import useReviews from "../hooks/useReviews";
 
 export default function Home() {
-
   const {
     getHotReviews: { isLoading: loadingReviews, data: reviews },
   } = useReviews();
@@ -45,22 +44,18 @@ export default function Home() {
 
   return (
     <section className="py-result">
-      <section>
-        <SlideView
-          data={books}
-          loading={loadingBooks}
-          title="Best10 books"
-          renderItem={renderBookCards}
-        />
-      </section> 
-      <section>
-        <SlideView
-          data={reviews}
-          loading={loadingReviews}
-          title="Best10 reviews"
-          renderItem={renderReviewCards}
-        />
-      </section>
+      <SlideView
+        data={books}
+        loading={loadingBooks}
+        title="Best10 books"
+        renderItem={renderBookCards}
+      />
+      <SlideView
+        data={reviews}
+        loading={loadingReviews}
+        title="Best10 reviews"
+        renderItem={renderReviewCards}
+      />
       {isModalOpen && selectedItem && (
         <Modal size={"w-[60%] lg:w-[40%]"}>
           <ReviewModal

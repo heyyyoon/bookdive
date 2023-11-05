@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getIsLiked, getLikes } from "../api/firebase";
+import { addLike, delLike, getIsLiked, getLikes } from "../api/firebase";
 
 export default function useLikes() {
   const queryClient = useQueryClient();
@@ -10,17 +10,23 @@ export default function useLikes() {
   const useGetLikes = (reviewId) => {
     return useQuery(["userByLikes"], () => getLikes(reviewId));  };
 
-  const addLike = useMutation(({userId, reviewId}) => addLike(userId, reviewId), {
-    onSuccess: ()=> queryClient.invalidateQueries(['userByLikes']),
+  const addLikeMutation = useMutation(({userId, reviewId}) => addLike(userId, reviewId), {
+    onSuccess: ()=> {
+      queryClient.invalidateQueries(['liked'])
+      queryClient.invalidateQueries(['userByLikes'])
+    },
   });
-  const delLike = useMutation(({userId, reviewId}) => addLike(userId, reviewId), {
-    onSuccess: ()=> queryClient.invalidateQueries(['userByLikes']),
+  const delLikeMutation = useMutation(({userId, reviewId}) => delLike(userId, reviewId), {
+    onSuccess: ()=> {
+      queryClient.invalidateQueries(['liked'])
+      queryClient.invalidateQueries(['userByLikes'])
+    },
   });
 
   return {
     useGetIsLiked,
     useGetLikes,
-    addLike,
-    delLike,
+    addLikeMutation,
+    delLikeMutation,
   };
 }

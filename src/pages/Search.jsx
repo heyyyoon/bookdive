@@ -9,12 +9,11 @@ import PageTitle from "../components/ui/PageTitle";
 
 export default function Search() {
   const { keyword } = useParams();
-  
+
   const kakao = new Kakao();
-  const {
-    isLoading,
-    data: books,
-  } = useQuery(["books", keyword], () => kakao.search(keyword));
+  const { isLoading, data: books } = useQuery(["books", keyword], () =>
+    kakao.search(keyword)
+  );
 
   return (
     <section className="w-[80%] lg:w-[90%] py-result max-w-basic mx-auto">
@@ -23,9 +22,9 @@ export default function Search() {
         {isLoading ? (
           <Loading />
         ) : (
-          <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 pt-[30px]">
-            {books &&
-              books.map((book) => {
+          books ? (
+            <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-10 pt-[30px]">
+              {books.map((book) => {
                 return (
                   <BookCard
                     key={uuidv4()}
@@ -39,7 +38,8 @@ export default function Search() {
                   />
                 );
               })}
-          </ul>
+            </ul>
+          ) : <p className="mt-12">검색 결과가 없습니다.</p>
         )}
       </div>
     </section>

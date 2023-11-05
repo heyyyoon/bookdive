@@ -8,16 +8,16 @@ import useLikes from "../hooks/useLikes";
 export default function ReviewModal({ review, book, onClose }) {
   const { userId } = useAuthContext();
  
-  const { useGetIsLiked, useGetLikes, delLike, addLike } = useLikes();
+  const { useGetIsLiked, useGetLikes, delLikeMutation, addLikeMutation } = useLikes();
   const { data: isLiked } = useGetIsLiked(userId, review.reviewId);
   const { data: userLikes } = useGetLikes(review.reviewId);
 
   const handleToggle = async () => {
 
       if(isLiked) {
-        delLike.mutate({userId});
+        delLikeMutation.mutate({userId, reviewId:review.reviewId});
       } else {
-        addLike.mutate({userId});
+        addLikeMutation.mutate({userId, reviewId:review.reviewId});
       }
 
 

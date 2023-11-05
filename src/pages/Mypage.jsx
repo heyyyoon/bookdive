@@ -18,10 +18,9 @@ export default function Mypage() {
     getAllReviews: { isLoading: allLoading, data: allReviews },
   } = useReviews();
 
-
   const filteredReviews = allReviews
     ? allReviews.filter((r) => r.userId === userId)
-    : [];
+    : null;
 
   const { isModalOpen, openModal, closeModal, selectedItem } =
     useModalContext();

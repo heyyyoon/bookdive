@@ -24,7 +24,7 @@ export default function ReviewCard({ review, onOpen }) {
           <p className="text-xs text-medigrey">{book && `[${book.authors}]`}</p>
         </div>
       </div>
-      <ReviewItem review={review} styleT="h-[200px] p-4" onOpen={onOpen}/>
+      <ReviewItem review={review} styleT="h-[200px] p-4"/>
     </div>
   );
 }

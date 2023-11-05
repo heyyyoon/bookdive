@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
-import { addBook, getBookRanking, getBookRating, getBooks, getReviewByBookId } from '../api/firebase';
+import { addBook, getBookRanking, getBooks, getReviewByBookId } from '../api/firebase';
 
 export default function useBooks() {
   const queryClient = useQueryClient();
@@ -10,9 +10,6 @@ export default function useBooks() {
     return useQuery(["bookreview", bookId], () => getReviewByBookId(bookId));
   }
 
-  const  useGetBookRating  = (bookId) => {
-    return useQuery(["totalRating", bookId], () => getBookRating(bookId));
-  }
   const  useGetBooks  = (bookId) => {
     return useQuery(["book", bookId], () => {
       return getBooks(bookId)
@@ -22,5 +19,5 @@ export default function useBooks() {
     onSuccess: ()=> queryClient.invalidateQueries(['book']),
   });
 
-  return { getHotBooks, addNewBook, useGetBookReviews, useGetBookRating, useGetBooks }
+  return { getHotBooks, addNewBook, useGetBookReviews, useGetBooks }
 }

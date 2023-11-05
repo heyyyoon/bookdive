@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getBooks } from "../api/firebase";
 import { useAuthContext } from "../context/AuthContext";
-import ResultPosting from "../components/ResultPosting";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import useBooks from "../hooks/useBooks";
 import useReviews from "../hooks/useReviews";
+import SuccessMsg from "../components/ui/SuccessMsg";
+import Loading from "../components/Loading";
 
 export default function WriteReview() {
   const [review, setReview] = useState({});
   const { userId } = useAuthContext();
   const [success, setSuccess] = useState(false);
-  const [warning, setWarning] = useState("");
+  const [warning, setWarning] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState(0);
   const { addNewBook } = useBooks();
   const { addNewReview } = useReviews();
@@ -39,21 +41,23 @@ export default function WriteReview() {
 
     if(rating === 0) {
       setWarning("별점을 선택하세요");
-    } else if (review.reviewTitle.trim() === "") {
+    } else if (!review.reviewTitle || review.reviewTitle === "") {
       setWarning("제목을 입력하세요");
-    } else if (review.reviewContent.trim() === "") {
+    } else if (!review.reviewContent || review.reviewContent === "") {
       setWarning("내용을 입력하세요")
     }
     else
     {
+      setLoading(true);
       getBooks(bookId).then(() => {
         addNewBook.mutate({bookId, bookInfo}, {onSuccess: () => {
           addNewReview.mutate({review, rating, bookId, userId}, {onSuccess: () => {
             setSuccess(true);
-        setTimeout(() => {
-          setSuccess(false);
-          navigate("/mypage");
-        }, 2000);
+            setLoading(false);
+            setTimeout(() => {
+              setSuccess(false);
+              navigate("/mypage");
+            }, 2000);
           }})
         }})
       });
@@ -61,9 +65,10 @@ export default function WriteReview() {
     }
   };
   return (
-    <section className="flex flex-col m-auto w-[70%] items-center mt-10">
+    <section className="flex flex-col m-auto w-[80%] items-center mt-10">
+      {loading && <Loading />}
       {success ? (
-        <ResultPosting />
+        <SuccessMsg text="Success Posting !"/>
       ) : (
         <>
           <p className="text-xl font-semibold mb-3">{title}</p>
@@ -85,7 +90,7 @@ export default function WriteReview() {
               <textarea
                 maxLength={30}
                 multiple
-                className="w-7/12 border-2 rounded-2xl mb-2 p-3 resize-none shadow-xl"
+                className="w-7/12 border-2 rounded-2xl mb-2 p-3 resize-none shadow-lg"
                 onChange={handleChange}
                 value={review.reviewTitle ?? ""}
                 type="text"
@@ -100,7 +105,7 @@ export default function WriteReview() {
               <textarea
                 maxLength={300}
                 multiple
-                className="w-7/12 h-[250px] rounded-2xl border-2 p-3 resize-none shadow-xl"
+                className="w-7/12 h-[250px] rounded-2xl border-2 p-3 resize-none shadow-lg"
                 onChange={handleChange}
                 value={review.reviewContent ?? ""}
                 type="text"
@@ -108,7 +113,7 @@ export default function WriteReview() {
                 name="reviewContent"
               />
             </div>
-            {warning && <p className="text-xl text-red-400">{warning}</p>}
+            {warning && <p className="mt-2 text-gl text-red-500">{warning}</p>}
             <button className="bg-zinc-500 p-2 hover:brightness-125 rounded-lg text-white mt-2">Submit</button>
           </form>
         </>
