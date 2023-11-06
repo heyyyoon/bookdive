@@ -7,9 +7,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
 import Search from './pages/Search';
 import BookDetail from './pages/BookDetail';
-import WriteReview from './pages/WriteReview';
+import PostReview from './pages/PostReview';
 import Mypage from './pages/Mypage';
-import Post from './pages/Post';
 import LikeReview from './pages/LikeReview';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './pages/ProtectedRoute';
@@ -29,13 +28,24 @@ const router = createBrowserRouter(
         { 
           path: '/post',
           element: (
-            <ProtectedRoute requireAdmin>
-              <WriteReview />
+            <ProtectedRoute>
+              <PostReview />
             </ProtectedRoute>
           )
         },
-        { path: '/Mypage', element: <Mypage /> },
-        { path: '/reviews', element: <LikeReview /> },
+        { path: '/Mypage', 
+          element: 
+            <ProtectedRoute>
+              <Mypage />
+            </ProtectedRoute>
+        },
+        { 
+          path: '/reviews',
+          element: 
+            <ProtectedRoute>
+              <LikeReview />
+            </ProtectedRoute> 
+        },
       ]
     }
   ]
