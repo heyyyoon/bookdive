@@ -3,6 +3,7 @@ import { signIn } from "../api/firebase";
 import SignForm from "./SignForm";
 import WarningMsg from "./ui/WarningMsg";
 import PlusLoader from "./ui/PlusLoader";
+import { useNavigate } from "react-router-dom";
 
 export default function SignIn({
   signResult,
@@ -12,6 +13,7 @@ export default function SignIn({
   const [loginInfo, setLoginInfo] = useState({});
   const [loading, setLoading] = useState(false);
   const [warning, setWarning] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,6 +25,7 @@ export default function SignIn({
       setLoading(true);
       await signIn(loginInfo);
       signResult('로그인 되었습니다.');
+      navigate('/');
     } catch (e) {
       setWarning(e.message);
       setTimeout(() => setWarning(null), 1500);

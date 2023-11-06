@@ -36,7 +36,9 @@ module.exports = {
         fade: 'fadeIn 0.5s ease-in-out',
         rltTop: 'rltTop linear 0.2s',
       },
-
+      backgroundImage: {
+        banner: `url('../public/images/bada.jpg')`,
+      },
       keyframes: {
         fadeIn: {
           '0%': { opacity: '0' },
