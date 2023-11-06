@@ -12,9 +12,6 @@ export default function Mypage() {
 
   const {
     getAllReviews: { isLoading: allLoading, data: allReviews },
-  } = useReviews();
-
-  const {
     getLikeReviews: { isLoading: likeLoading, data: likeReviews },
   } = useReviews();
 

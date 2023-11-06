@@ -1,4 +1,4 @@
-import { QueryClient, useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   addReview,
   getBookReview,
@@ -10,7 +10,6 @@ import { useEffect } from "react";
 
 export default function useReviews() {
   const { userId } = useAuthContext();
-  const queryClient = new QueryClient();
 
   const getHotReviews = useQuery(["hotReviews"], () => getBookReview());
   const getAllReviews = useQuery(["allReview"], () => getReviews());
@@ -29,13 +28,10 @@ export default function useReviews() {
   }, [userId, getLikeReviews]);
 
 
-  const addNewReview = useMutation(
+  const addPost = useMutation(
     ({ review, rating, bookId, userId }) =>
-      addReview({ ...review, rating }, bookId, userId),
-    {
-      onSuccess: () => queryClient.invalidateQueries(["review"]),
-    }
+      addReview({ ...review, rating }, bookId, userId)
   );
 
-  return { getHotReviews, addNewReview, getAllReviews, getLikeReviews };
+  return { getHotReviews, addPost, getAllReviews, getLikeReviews };
 }

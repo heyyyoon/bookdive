@@ -15,7 +15,7 @@ export default function SlideReviews({
   const navigate = useNavigate();
 
   return (
-    <section className="w-[80%] pt-result max-w-basic mx-auto mb-10">
+    <section className="w-[80%] pt-result max-w-basic mx-auto pb-10">
       <div className="cursor-pointer flex flex-row justify-center relative">
         <PageTitle title={title} />
         {reviews && reviews.length > 0 && (

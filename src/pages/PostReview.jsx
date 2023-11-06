@@ -16,8 +16,8 @@ export default function WriteReview() {
   const [warning, setWarning] = useState(false);
   const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState(0);
-  const { addNewBook } = useBooks();
-  const { addNewReview } = useReviews();
+  const { addBook } = useBooks();
+  const { addPost } = useReviews();
   const navigate = useNavigate();
 
   const {
@@ -50,8 +50,8 @@ export default function WriteReview() {
     {
       setLoading(true);
       getBooks(bookId).then(() => {
-        addNewBook.mutate({bookId, bookInfo}, {onSuccess: () => {
-          addNewReview.mutate({review, rating, bookId, userId}, {onSuccess: () => {
+        addBook.mutate({bookId, bookInfo}, {onSuccess: () => {
+          addPost.mutate({review, rating, bookId, userId}, {onSuccess: () => {
             setSuccess(true);
             setLoading(false);
             setTimeout(() => {

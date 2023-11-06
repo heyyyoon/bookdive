@@ -184,7 +184,6 @@ export async function getRangeReview() {
   if (!allReviews) return null;
 
   const idCountMap = new Map();
-  console.log(allReviews)
   allReviews.forEach((reviewArray) => {
     const reviewId = reviewArray[0].reviewId;
     if(reviewArray.length > 0) {
@@ -206,7 +205,6 @@ export async function getSortedData(idCountMap) {
   const sortedIds = [...idCountMap.keys()].sort((a, b) => {
     return idCountMap.get(b) - idCountMap.get(a);
   });
-  console.log(sortedIds)
   return sortedIds;
 }
 
