@@ -67,7 +67,7 @@ export default function BookDetail() {
                 </p>
                 <p className="text-title text-darkgrey">{contents}</p>
                 <div
-                  onClick={() => navigate("/write", { state: { bookInfo } })}
+                  onClick={() => navigate("/post", { state: { bookInfo } })}
                   className="w-[130px] text-lg mx-auto lg:mx-0 font-semibold text-darkgrey rounded-xl mt-3 py-3 bg-[#f3da6a] hover:brightness-110"
                 >
                   <ButtonAddPost />

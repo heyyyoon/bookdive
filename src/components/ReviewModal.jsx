@@ -13,20 +13,11 @@ export default function ReviewModal({ review, book, onClose }) {
   const { data: userLikes } = useGetLikes(review.reviewId);
 
   const handleToggle = async () => {
-
       if(isLiked) {
         delLikeMutation.mutate({userId, reviewId:review.reviewId});
       } else {
         addLikeMutation.mutate({userId, reviewId:review.reviewId});
       }
-
-
-    // isLiked
-    //   ? await delLike(userId, review.reviewId)
-    //   : await addLike(userId, review.reviewId);
-
-    //client.invalidateQueries(["liked"]);
-    //client.invalidateQueries(["userByLikes"]);
   };
 
   return (

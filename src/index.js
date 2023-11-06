@@ -11,21 +11,30 @@ import WriteReview from './pages/WriteReview';
 import Mypage from './pages/Mypage';
 import Post from './pages/Post';
 import LikeReview from './pages/LikeReview';
+import NotFound from './pages/NotFound';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 const router = createBrowserRouter(
   [
     {
       path: '/',
       element: <App />,
+      errorElement: <NotFound />,
       children: [
         { index: true, element: <Home /> },
         { path: '/home', element: <Home /> },
         { path: '/search', element: <Search /> },
         { path: '/search/:keyword', element: <Search /> },
         { path: '/detail/:bookId', element: <BookDetail /> },
-        { path: '/write', element: <WriteReview /> },
+        { 
+          path: '/post',
+          element: (
+            <ProtectedRoute requireAdmin>
+              <WriteReview />
+            </ProtectedRoute>
+          )
+        },
         { path: '/Mypage', element: <Mypage /> },
-        { path: '/post', element: <Post /> },
         { path: '/reviews', element: <LikeReview /> },
       ]
     }
