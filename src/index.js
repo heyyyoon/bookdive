@@ -9,9 +9,10 @@ import Search from './pages/Search';
 import BookDetail from './pages/BookDetail';
 import PostReview from './pages/PostReview';
 import Mypage from './pages/Mypage';
-import LikeReview from './pages/LikeReview';
+import MyReview from './pages/MyReview';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './pages/ProtectedRoute';
+import ProtectedPage from './pages/ProtectedPage';
 
 const router = createBrowserRouter(
   [
@@ -24,16 +25,21 @@ const router = createBrowserRouter(
         { path: '/home', element: <Home /> },
         { path: '/search', element: <Search /> },
         { path: '/search/:keyword', element: <Search /> },
-        { path: '/detail/:bookId', element: <BookDetail /> },
+        { 
+          path: '/detail/:bookId', 
+          element: 
+            <ProtectedPage>
+              <BookDetail />
+            </ProtectedPage> 
+        },
         { 
           path: '/post',
-          element: (
-            <ProtectedRoute>
+          element: 
+            <ProtectedPage>
               <PostReview />
-            </ProtectedRoute>
-          )
+            </ProtectedPage>
         },
-        { path: '/Mypage', 
+        { path: '/mypage', 
           element: 
             <ProtectedRoute>
               <Mypage />
@@ -42,9 +48,9 @@ const router = createBrowserRouter(
         { 
           path: '/reviews',
           element: 
-            <ProtectedRoute>
-              <LikeReview />
-            </ProtectedRoute> 
+          <ProtectedPage>
+            <MyReview />
+          </ProtectedPage>
         },
       ]
     }

@@ -9,9 +9,9 @@ import PageTitle from "../components/ui/PageTitle";
 
 export default function Search() {
   const { keyword } = useParams();
-
+  
   const kakao = new Kakao();
-  const { isLoading, data: books } = useQuery(["books", keyword], () =>
+  const { isLoading, data: books } = useQuery(["search", keyword], () =>
     kakao.search(keyword)
   );
 
