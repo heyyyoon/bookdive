@@ -25,7 +25,7 @@ export default function SignIn({
       signResult('로그인 되었습니다.');
     } catch (e) {
       setWarning(e.message);
-      setTimeout(() => setWarning(null), 2000);
+      setTimeout(() => setWarning(null), 1500);
     } finally {
       setLoading(false);
     }

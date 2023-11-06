@@ -23,7 +23,7 @@ export default function SignUp({ signResult }) {
       signResult("회원가입이 되었습니다.");
     } catch (e) {
       setWarning(e.message);
-      setTimeout(() => setWarning(null), 2000);
+      setTimeout(() => setWarning(null), 1000);
       setLoading(false);
     } finally {
       setLoading(false);

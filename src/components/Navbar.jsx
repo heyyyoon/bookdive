@@ -7,6 +7,7 @@ import Account from "../pages/Account";
 import Button from "./ui/Button";
 import SuccessMsg from "./ui/SuccessMsg";
 import UserInfo from "./ui/UserInfo";
+import WarningMsg from "./ui/WarningMsg";
 
 export default function Navbar() {
   const { keyword } = useParams();
@@ -14,11 +15,15 @@ export default function Navbar() {
   const { user } = useAuthContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [warning, setWarning] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(text === "") {
+      setWarning("검색어를 입력하세요 !");
+    }
     navigate(`/search/${text}`);
   };
   const handleLogout = async () => {
@@ -74,6 +79,7 @@ export default function Navbar() {
       {isModalOpen && (
         <Account onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} />
       )}
+      {warning && <WarningMsg text={warning} />}
       {success && <SuccessMsg text={success} />}
     </header>
   );

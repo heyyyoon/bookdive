@@ -15,7 +15,7 @@ export default function Account({ onClose }) {
     setTimeout(() => {
       setSignSuccess(null);
       onClose();
-    }, 2000);
+    }, 1000);
   };
   return (
     <section>
