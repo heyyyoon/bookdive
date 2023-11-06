@@ -67,4 +67,3 @@ export default function ReviewModal({ review, book, onClose }) {
     </div>
   );
 }
-// {userId !== review.userId && ()}
