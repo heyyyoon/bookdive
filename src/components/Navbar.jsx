@@ -7,7 +7,7 @@ import Account from "../pages/Account";
 import Button from "./ui/Button";
 import SuccessMsg from "./ui/SuccessMsg";
 import UserInfo from "./ui/UserInfo";
-import WarningMsg from "./ui/WarningMsg";
+import WarningBottom from "./ui/WarningBottom";
 
 export default function Navbar() {
   const { keyword } = useParams();
@@ -21,11 +21,8 @@ export default function Navbar() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(text === "") {
-      setWarning("검색어를 입력하세요 !");
-      
-    }
-    navigate(`/search/${text}`);
+    text === "" ? setWarning("검색어를 입력하세요 !") : navigate(`/search/${text}`);
+    setTimeout(() => setWarning(null), 2000)
   };
   const handleLogout = async () => {
     await logout();
@@ -40,7 +37,7 @@ export default function Navbar() {
   useEffect(() => setText(keyword || ""), [keyword]);
 
   return (
-    <header className="px-5 py-3 bg-[#fdfcfc] shadow-3xl">
+    <header className="px-5 py-3 bg-[#fdfcfc] shadow-3xl relative">
       <div className="flex justify-between items-center max-w-basic mx-auto">
         <div className="w-3/12">
           <Link to="/">
@@ -80,7 +77,7 @@ export default function Navbar() {
       {isModalOpen && (
         <Account onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} />
       )}
-      {warning && <WarningMsg text={warning} />}
+      {warning && <WarningBottom text={warning} /> }
       {success && <SuccessMsg text={success} />}
     </header>
   );
