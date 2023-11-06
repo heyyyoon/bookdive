@@ -3,17 +3,18 @@ import {
   addReview,
   getBookReview,
   getReviews,
-  getReviewsAAA,
+  getUserLikeReviewsInfo,
 } from "../api/firebase";
 import { useAuthContext } from "../context/AuthContext";
 import { useEffect } from "react";
 
 export default function useReviews() {
   const { userId } = useAuthContext();
-
   const queryClient = new QueryClient();
 
-  const getLikeReviews = useQuery(["likeReviews"], () => getReviewsAAA(userId), {
+  const getHotReviews = useQuery(["hotReviews"], () => getBookReview());
+  const getAllReviews = useQuery(["allReview"], () => getReviews());
+  const getLikeReviews = useQuery(["likeReviews"], () => getUserLikeReviewsInfo(userId), {
     enabled: false, 
   });
 
@@ -27,10 +28,6 @@ export default function useReviews() {
     }
   }, [userId, getLikeReviews]);
 
-
-  const getHotReviews = useQuery(["hotReviews"], () => getBookReview());
-
-  const getAllReviews = useQuery(["allReview"], () => getReviews());
 
   const addNewReview = useMutation(
     ({ review, rating, bookId, userId }) =>

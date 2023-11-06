@@ -11,14 +11,14 @@ export default function Mypage() {
   const { userId } = useAuthContext();
 
   const {
-    getLikeReviews: { isLoading: likeLoading, data: likeReviews },
-  } = useReviews();
-
-  const {
     getAllReviews: { isLoading: allLoading, data: allReviews },
   } = useReviews();
 
-  const filteredReviews = allReviews
+  const {
+    getLikeReviews: { isLoading: likeLoading, data: likeReviews },
+  } = useReviews();
+
+  const userReviews = allReviews
     ? allReviews.filter((r) => r.userId === userId)
     : null;
 
@@ -43,7 +43,7 @@ export default function Mypage() {
     <section className="mb-20">
       <SlideReviews
         loading={allLoading}
-        reviews={filteredReviews}
+        reviews={userReviews}
         title="My Reviews"
         renderReviewCards={renderReviewCards}
       />

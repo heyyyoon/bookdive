@@ -1,23 +1,24 @@
 import React from "react";
 import { useAuthContext } from "../context/AuthContext";
-import { BsSuitHeartFill, BsSuitHeart } from "react-icons/bs";
 import { Rating } from "@smastrom/react-rating";
 import CloseCircle from "./ui/CloseCircle";
 import useLikes from "../hooks/useLikes";
+import Like from "./ui/Like";
 
 export default function ReviewModal({ review, book, onClose }) {
   const { userId } = useAuthContext();
- 
-  const { useGetIsLiked, useGetLikes, delLikeMutation, addLikeMutation } = useLikes();
+
+  const { useGetIsLiked, useGetLikes, delLikeMutation, addLikeMutation } =
+    useLikes();
   const { data: isLiked } = useGetIsLiked(userId, review.reviewId);
   const { data: userLikes } = useGetLikes(review.reviewId);
 
   const handleToggle = async () => {
-      if(isLiked) {
-        delLikeMutation.mutate({userId, reviewId:review.reviewId});
-      } else {
-        addLikeMutation.mutate({userId, reviewId:review.reviewId});
-      }
+    if (isLiked) {
+      delLikeMutation.mutate({ userId, reviewId: review.reviewId });
+    } else {
+      addLikeMutation.mutate({ userId, reviewId: review.reviewId });
+    }
   };
 
   return (
@@ -50,19 +51,20 @@ export default function ReviewModal({ review, book, onClose }) {
           {review.reviewContent}
         </p>
       </div>
-      {userId !== review.userId && (
-        <div
-          className="flex flex-row justify-center bg-yellow-100 items-center p-2 rounded-full cursor-pointer text-lg hover:text-xl relative "
-          onClick={handleToggle}
-        >
-          <div className=" text-zinc-900  ">
-            {isLiked ? <BsSuitHeartFill /> : <BsSuitHeart />}
-          </div>
-          <p className="absolute right-[43%] ml-1 text-zinc-900 ">
+
+      <div
+        className="flex justify-center items-center rounded-full cursor-pointer"
+        onClick={handleToggle}
+      >
+        <div className="flex flex-row items-center p-3 px-5 bg-yellow-100  rounded-full relative">
+          <Like isLiked={isLiked} />
+          <p className=" text-zinc-900 text-sm ml-1">
             {userLikes && userLikes}
-          </p>
+          </p> 
         </div>
-      )}
+        
+      </div>
     </div>
   );
 }
+// {userId !== review.userId && ()}

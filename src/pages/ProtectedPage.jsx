@@ -6,10 +6,8 @@ export default function ProtectedPage({children}) {
   const params = useParams();
 
   if (location.state && params) {
-    console.log('aa')
     return children;
   } else {
-    console.log('bb')
     return <Navigate to='/' replace />;
   }
 }

@@ -12,6 +12,11 @@ module.exports = {
       maxWidth: {
         'basic': '72rem'
       },
+      screens: {
+        'custom-2': '550px',
+        'custom-3': '768px',
+        'custom-4': '1024px',
+      },
       padding: {
         'top-basic': '3rem',
         'result' : '2.5rem',

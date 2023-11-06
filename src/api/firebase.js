@@ -97,10 +97,11 @@ export async function addLikeById(userId, reviewId) {  // user가 좋아요한 �
   return set(ref(database, `hotReviews/${reviewId}/${userId}`), {reviewId, userId});
 }
 export async function delLike(userId, reviewId) {  // user가 좋아요 한 리뷰 삭제 
+  await remove(ref(database, `hotReviews/${reviewId}/${userId}`));
   return remove(ref(database, `likes/${userId}/${reviewId}`));
 }
 export async function getIsLiked(userId, reviewId) {  // user의 review like 여부 가져오기
-  return get(ref(database, `likes/${userId}/${reviewId ?? reviewId}`))
+  return get(ref(database, `likes/${userId}/${reviewId}`))
   .then((snapshot) => snapshot.exists() && (snapshot.val() || false))
   .catch(e => console.log(e));
 }
@@ -135,13 +136,12 @@ export async function getReviewByReviewId(reviewId) { // reviewId에 해당하�
 }
 
 // user가 좋아요 누른 리뷰 데이터 모두 가져오기
-export async function getReviewsAAA(userId) {
+export async function getUserLikeReviewsInfo(userId) {
   const reviews = await getUserLikeReviews(userId);
   if (reviews) {
-    const result = await Promise.all(reviews.map(async (reviewId) => {
+    return await Promise.all(reviews.map(async (reviewId) => {
       return getReviewByReviewId(reviewId);
     }));
-    return result;
   }
   return null;
 }
@@ -184,20 +184,21 @@ export async function getRangeReview() {
   if (!allReviews) return null;
 
   const idCountMap = new Map();
-  
+  console.log(allReviews)
   allReviews.forEach((reviewArray) => {
     const reviewId = reviewArray[0].reviewId;
-    
-    if (!idCountMap.has(reviewId)) {
-      idCountMap.set(reviewId, 0);
+    if(reviewArray.length > 0) {
+      if (!idCountMap.has(reviewId)) {
+        idCountMap.set(reviewId, 0);
+      }
+      idCountMap.set(reviewId, idCountMap.get(reviewId) + reviewArray.length);
     }
-    idCountMap.set(reviewId, idCountMap.get(reviewId) + reviewArray.length);
   });
   return getSortedData(idCountMap);
 }
 
 
-export async function getBookReview() {  // 해당 review Info 가져오기
+export async function getBookReview() { 
   return await getRangeReview()
   .then(result => result ? Promise.all(result.map((m) => getReviewByReviewId(m))) : null);
 }
@@ -205,6 +206,7 @@ export async function getSortedData(idCountMap) {
   const sortedIds = [...idCountMap.keys()].sort((a, b) => {
     return idCountMap.get(b) - idCountMap.get(a);
   });
+  console.log(sortedIds)
   return sortedIds;
 }
 
