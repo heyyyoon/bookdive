@@ -11,7 +11,7 @@ export default function BookCard({
   const { dragging } = useModalContext();
   const navigate = useNavigate();
   return (
-    <div className="bg-gradient-to-b from-[#F6F6F6] to-[#F0E5DE] rounded-xl m-[10px] px-4 py-2 relative cursor-pointer">
+    <div className="bg-gradient-to-b from-[#F6F6F6] to-[#eee0d8] rounded-xl m-[10px] px-4 py-2 relative cursor-pointer">
       {rank && (
         <p className="absolute rounded-full border-2 bg-[#fffefbe8] text-medigrey border-[#7C7877] px-4 py-2 font-semibold -left-2 -top-2 ">
           {rank}
