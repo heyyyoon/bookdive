@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { BsFillDoorClosedFill, BsFillDoorOpenFill } from "react-icons/bs";
 import CardSlider from "./slider/CardSlider ";
 import Loading from "./Loading";
-import CardGrid from "./CardGrid";
+import CardGrid from "./slider/CardGrid";
 
 export default function SlideReviews({
   loading,

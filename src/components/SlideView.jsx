@@ -1,7 +1,7 @@
 import React from "react";
 import Loading from "./Loading";
 import CardSlider from "./slider/CardSlider ";
-import CardGrid from "./CardGrid";
+import CardGrid from "./slider/CardGrid";
 import { LiaHotjar } from "react-icons/lia";
 
 export default function SlideView({

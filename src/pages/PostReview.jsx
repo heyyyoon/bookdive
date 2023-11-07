@@ -71,9 +71,9 @@ export default function WriteReview() {
         <SuccessMsg text="Success Posting !"/>
       ) : (
         <>
-          <p className="text-xl font-semibold mb-3">{title}</p>
+          <p className="text-xl text-darkgrey font-semibold mb-3">{title}</p>
           <img className="w-[100px] shadow-custom" src={thumbnail} alt="bookImage" />
-          <p className="text-[0.85rem] my-2">{authors}</p>
+          <p className="text-[0.85rem] my-2 text-darkgrey">{authors}</p>
           <div className="flex flex-row items-center">
             <div className="max-w-[160px] my-3 ml-1">
               <Rating value={rating} onChange={setRating} />
@@ -84,7 +84,7 @@ export default function WriteReview() {
             onSubmit={handleSubmit}
           >
             <div className="flex flex-row w-full justify-center">
-            <label className="w-1/12 font-semibold text-center" htmlFor="content">
+            <label className="w-1/12 font-semibold text-center text-medigrey" htmlFor="content">
                 제목
               </label>
               <textarea
@@ -99,7 +99,7 @@ export default function WriteReview() {
               />
             </div>
             <div className="flex flex-row w-full justify-center">
-              <label className="w-1/12 font-semibold text-center" htmlFor="content">
+              <label className="w-1/12 font-semibold text-center text-medigrey" htmlFor="content">
                 감상평
               </label>
               <textarea
@@ -114,7 +114,7 @@ export default function WriteReview() {
               />
             </div>
             {warning && <p className="mt-2 text-gl text-red-500">{warning}</p>}
-            <button className="bg-zinc-500 p-2 hover:brightness-125 rounded-lg text-white mt-2">Submit</button>
+            <button className="px-5 py-3 bg-[#D0C5B5] hover:brightness-90 text-medigrey font-semibold rounded-lg mt-5">Submit</button>
           </form>
         </>
       )}
