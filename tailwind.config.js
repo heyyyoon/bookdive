@@ -39,7 +39,7 @@ module.exports = {
         rltBottom: 'rltBottom linear 0.2s',
       },
       backgroundImage: {
-        banner: `url('../public/images/sky4.jpg')`,
+        banner: `url('../public/images/newspaper.jpg')`,
       },
       keyframes: {
         fadeIn: {
