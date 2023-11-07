@@ -45,7 +45,7 @@ export default function ReviewModal({ review, book, onClose }) {
           </div>
         </div>
       </div>
-      <div className="my-6 text-center">
+      <div className="my-6 text-left">
         <p className="text-lg font-semibold text-darkgrey mb-3">{review.reviewTitle}</p>
         <p className="text-sm leading-[1.4rem] text-medigrey">
           {review.reviewContent}
@@ -56,7 +56,7 @@ export default function ReviewModal({ review, book, onClose }) {
         className="flex justify-center items-center rounded-full cursor-pointer"
         onClick={handleToggle}
       >
-        <div className="group flex flex-row items-center p-3 px-5 bg-[#EEEEEE]  rounded-full relative">
+        <div className="group flex flex-row items-center p-3 px-5 bg-[#F5F5F5] rounded-full relative">
           <Like isLiked={isLiked} />
           <p className=" text-lightgrey text-[0.9rem] font-[600] ml-1">
             {userLikes && userLikes}

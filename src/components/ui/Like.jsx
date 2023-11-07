@@ -5,7 +5,7 @@ export default function Like({ isLiked }) {
   return (
     <div className="text-2xl transition-all group-hover:scale-110">
       {isLiked ? (
-        <GoHeartFill className="text-[#ff7474]" />
+        <GoHeartFill className="text-[#ff9f45]" />
       ) : (
         <GoHeart className="text-[#887C8D]" />
       )}
