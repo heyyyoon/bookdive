@@ -3,7 +3,7 @@ import { BiSolidQuoteAltLeft, BiSolidQuoteAltRight } from "react-icons/bi";
 
 export default function Wording() {
   return (
-    <div className="w-[70%] flex flex-col items-center mb-14 border-y-2 py-10 mx-auto mt-10">
+    <div className="w-[80%] flex flex-col items-center mb-14 border-y-2 py-10 mx-auto mt-10 max-w-basic">
       <div className="flex flex-row`">
         <BiSolidQuoteAltLeft />
         <h1 className="text-3xl text-darkgrey mx-3">

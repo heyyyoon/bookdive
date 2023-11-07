@@ -6,9 +6,10 @@ import ReviewModal from "../components/ReviewModal";
 import Modal from "../components/Modal";
 import { useModalContext } from "../context/ModalContext";
 import useReviews from "../hooks/useReviews";
+import UserInfo from "../components/ui/UserInfo";
 
 export default function Mypage() {
-  const { userId } = useAuthContext();
+  const { userId, user } = useAuthContext();
 
   const {
     getAllReviews: { isLoading: allLoading, data: allReviews },
@@ -37,17 +38,20 @@ export default function Mypage() {
     );
   };
   return (
-    <section className="mb-20">
+    <section className="pt-result">
+      <div className="w-[80%] mx-auto mb-5">
+        <UserInfo nickname={user && user.nickname}/>
+      </div>
       <SlideReviews
         loading={allLoading}
         reviews={userReviews}
-        title="My Reviews"
+        title="내가 작성한 리뷰"
         renderReviewCards={renderReviewCards}
       />
       <SlideReviews
         loading={likeLoading}
         reviews={likeReviews}
-        title="Like Reviews"
+        title="내가 좋아하는 리뷰"
         renderReviewCards={renderReviewCards}
       />
       {isModalOpen && selectedItem && (
