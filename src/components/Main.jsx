@@ -21,7 +21,7 @@ export default function Main() {
     useModalContext();
 
   const renderBookCards = (books) =>
-    books.slice(0, 10).map((book, index) => (
+    books && books.slice(0, 10).map((book, index) => (
       <BookCard
         key={book.bookId}
         rank={index + 1}
@@ -36,7 +36,7 @@ export default function Main() {
     ));
 
   const renderReviewCards = (reviews) =>
-    reviews
+    reviews && reviews
       .slice(0, 10)
       .map((review) => (
         <ReviewCard key={review.reviewId} review={review} onOpen={openModal} />
