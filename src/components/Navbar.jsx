@@ -6,7 +6,6 @@ import { FiSearch } from "react-icons/fi";
 import Account from "../pages/Account";
 import Button from "./ui/Button";
 import SuccessMsg from "./ui/SuccessMsg";
-import UserInfo from "./ui/UserInfo";
 import WarningBottom from "./ui/WarningBottom";
 
 export default function Navbar() {
