@@ -18,26 +18,27 @@ module.exports = {
         'custom-4': '1024px',
       },
       padding: {
-        'top-basic': '3rem',
+        'basic': '2rem',
         'result' : '2.5rem',
       },
       colors: {
-        'darkgrey': '#27272a',      // text-zinc-800
-        'medigrey' : '#3f3f46',     // text-zinc-700
-        'lightgrey' : '#a1a1aa',    // text-zinc-400
+        'darkgrey': 'rgb(39 39 42)',      // text-zinc-800
+        'medigrey' : 'rgb(63 63 70)',     // text-zinc-700
+        'lightgrey' : 'rgb(82 82 91)',    // text-zinc-600
         'warning': '#2563eb',
         'success': '#ea580c', 
       },
       fontSize: {
-        'content': '0.8rem',
+        'content': '0.85rem',
         'title': '0.95rem',
       },
       animation: {
         fade: 'fadeIn 0.5s ease-in-out',
         rltTop: 'rltTop linear 0.2s',
+        rltBottom: 'rltBottom linear 0.2s',
       },
       backgroundImage: {
-        banner: `url('../public/images/bada.jpg')`,
+        banner: `url('../public/images/newspaper.jpg')`,
       },
       keyframes: {
         fadeIn: {
@@ -45,8 +46,12 @@ module.exports = {
           '100%': { opacity: '1'},
         },
         rltTop: {
+          '0%': { transform: 'translateY(-25%) scale(1)', opacity: '0' },
+          '100%': { transform: 'translate(0, 0) scale(1)', opacity: '1' },
+        },
+        rltBottom: {
           '0%': { transform: 'translate(-50%, -25%) scale(1)', opacity: '0' },
-          '100%': { transform: 'translate(-50%, 0%) scale(1)', opacity: '1' },
+          '100%': { transform: 'translate(-50%, 0) scale(1)', opacity: '1' },
         },
       },
     },

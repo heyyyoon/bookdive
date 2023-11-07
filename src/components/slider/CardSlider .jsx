@@ -21,12 +21,12 @@ const StyledSlider = styled(Slider)`
 .slick-track {
   overflow-x: hidden;
   padding-top: 30px;
+  padding-bottom: 10px;
 `;
 
-export default function CardSlider({ children }) {
+export default function CardSlider({ children, arrowColor }) {
 
   const { beforeChange, afterChange } = useModalContext();
-
   const settings = {
     dots: true,
     infinite: true,
@@ -74,8 +74,8 @@ export default function CardSlider({ children }) {
   return (
       <StyledSlider
         {...settings}
-        prevArrow={<CustomPrevArrow />}
-        nextArrow={<CustomNextArrow />}
+        prevArrow={<CustomPrevArrow arrowColor={arrowColor} />}
+        nextArrow={<CustomNextArrow arrowColor={arrowColor}/>}
       >
         {children}
       </StyledSlider>

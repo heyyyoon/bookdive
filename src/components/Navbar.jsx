@@ -37,7 +37,7 @@ export default function Navbar() {
   useEffect(() => setText(keyword || ""), [keyword]);
 
   return (
-    <header className="px-5 py-3 bg-[#fdfcfc] shadow-3xl relative">
+    <header className="px-5 py-3 bg-[#fdfcfc] shadow-3xl sticky top-0 z-50">
       <div className="flex justify-between items-center max-w-basic mx-auto">
         <div className="w-3/12">
           <Link to="/">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useModalContext } from "../context/ModalContext";
 import SlideView from "../components/SlideView";
 import ReviewModal from "../components/ReviewModal";
@@ -42,19 +42,31 @@ export default function Main() {
         <ReviewCard key={review.reviewId} review={review} onOpen={openModal} />
       ));
   return (
-    <section className="py-result">
-      <SlideView
-        data={books}
-        loading={loadingBooks}
-        title="Best10 books"
-        renderItem={renderBookCards}
-      />
-      <SlideView
-        data={reviews}
-        loading={loadingReviews}
-        title="Best10 reviews"
-        renderItem={renderReviewCards}
-      />
+    <section className="py-basic">
+      <div className="w-[70%] flex flex-col items-center mb-14 border-y-2 py-10 mx-auto">
+        <h1 className="text-3xl">Book Dive</h1>
+        <p className="text-xl mt-2">생각을 정리하고 소통하는 공간</p>
+      </div>
+      <section className="mb-14 py-5">
+        <SlideView
+          data={books}
+          loading={loadingBooks}
+          title="인기있는 책 Top 10"
+          subtitle="유저들이 선택한 책!"
+          renderItem={renderBookCards}
+          arrowColor="bg-[#d6bbaf]"
+        />
+      </section>
+      <section className="mb-14 py-5">
+        <SlideView
+          data={reviews}
+          loading={loadingReviews}
+          title="Hot 한 리뷰들"
+          subtitle="요즘 인기있는 리뷰들을 살펴보세요!"
+          renderItem={renderReviewCards}
+          arrowColor="bg-[#BFCBC3]"
+        />
+      </section>
       {isModalOpen && selectedItem && (
         <Modal size={"w-[60%] lg:w-[40%]"}>
           <ReviewModal
@@ -67,4 +79,3 @@ export default function Main() {
     </section>
   );
 }
-

@@ -66,7 +66,7 @@ export async function addBook(bookId, book) {
 }
 export async function addReview(review, bookId, userId) {
   const reviewId = uuidv4();
-  await set(ref(database, `hotBooks/${bookId}/${reviewId}`), {reviewId, bookId});
+    await set(ref(database, `hotBooks/${bookId}/${reviewId}`), {reviewId, bookId});
   return set(ref(database, `review/${reviewId}`), {...review, reviewId, bookId, userId});
 }
 export async function getReviews() {

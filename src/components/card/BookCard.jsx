@@ -11,9 +11,9 @@ export default function BookCard({
   const { dragging } = useModalContext();
   const navigate = useNavigate();
   return (
-    <div className="bg-gradient-to-b from-[#d1daaea8] to-[#e4d2d2] rounded-xl m-[10px] px-4 py-2 relative cursor-pointer">
+    <div className="bg-gradient-to-b from-[#F6F6F6] to-[#F0E5DE] rounded-xl m-[10px] px-4 py-2 relative cursor-pointer">
       {rank && (
-        <p className="absolute rounded-full border-2 bg-[#fffefbe8] text-medigrey border-[#d1daaea8] px-4 py-2 font-bold -left-2 -top-2 ">
+        <p className="absolute rounded-full border-2 bg-[#fffefbe8] text-medigrey border-[#7C7877] px-4 py-2 font-semibold -left-2 -top-2 ">
           {rank}
         </p>
       )}
@@ -29,10 +29,10 @@ export default function BookCard({
           alt="Not found"
         />
         <div className="h-[55px] mb-2">
-          <p className="font-semibold text-center mt-2 text-darygrey text-title leading-5 line-clamp-2">
+          <p className="font-semibold text-center mt-2 text-zinc-darkgrey text-title leading-5 line-clamp-2">
             {title}
           </p>
-          <p className="text-xs text-medigrey text-center">{`[ ${authors} ]`}</p>
+          <p className="text-xs text-medigrey mt-1 text-center">{authors}</p>
         </div>
         <div className="h-[80px]">
           <p className="text-content text-darkgrey line-clamp-4">{contents}</p>
