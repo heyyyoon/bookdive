@@ -61,9 +61,7 @@ export default function Navbar() {
         </form>
 
         <div className="flex items-center gap-3 w-3/12 justify-end">
-          {user && (
-            <Link to="/mypage"><Button text="myPage" /></Link>
-          )}
+          {user && <Link to="/mypage"><Button text="myPage" /></Link>}
           {user ? (
             <Button text="Logout" onClick={handleLogout} />
           ) : (
