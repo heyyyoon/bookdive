@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{jsx,js}"],
   theme: {
     extend: {
+      fontFamily: {
+        Cafe24Shiningstar: ["Cafe24Shiningstar"],
+      },
       boxShadow: {
         '3xl': '0px 0px 10px 5px rgba(0,0,0,0.5);',
         'custom' : '0px 0px 5px 3px rgba(0,0,0,0.5);',
@@ -15,8 +18,8 @@ module.exports = {
       },
       screens: {
         'custom-2': '550px',
-        'custom-3': '768px',
-        'custom-4': '1024px',
+        'custom-3': '850px',
+        'custom-4': '1050px',
       },
       padding: {
         'basic': '2rem',
@@ -52,10 +55,11 @@ module.exports = {
         },
         rltBottom: {
           '0%': { transform: 'translate(-50%, -25%) scale(1)', opacity: '0' },
-          '100%': { transform: 'translate(-50%, 0) scale(1)', opacity: '1' },
+          '100%': { transform: 'translate(-50%, 0%) scale(1)', opacity: '1' },
         },
       },
     },
   },
   plugins: [],
 }
+

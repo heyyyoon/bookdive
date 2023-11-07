@@ -9,7 +9,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  @apply flex flex-col items-center list-none font-sans;
+  @apply flex flex-col items-center list-none;
 }
 #root {
   @apply w-full h-screen;

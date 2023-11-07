@@ -3,7 +3,7 @@ import { PiWarningCircleFill } from "react-icons/pi";
 
 export default function WarningBottom({ text }) {
   return (
-    <div className="absolute -bottom-12 left-1/2 animate-rltBottom z-10">
+    <div className="fixed top-20 left-1/2 translate-x-[-50%] z-10 animate-rltBottom">
       <div
         className={`flex flex-row justify-start items-center border-warning border-2 bg-white p-4 py-2 `}
       >

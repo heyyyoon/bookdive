@@ -51,7 +51,7 @@ export default function CardSlider({ children, arrowColor }) {
         },
       },
       {
-        breakpoint: 768,
+        breakpoint: 850,
         settings: {
           slidesToShow: 2,
           slidesToScroll: 1,
