@@ -37,7 +37,6 @@ export default function BookDetail() {
 
   return (
     <section className="w-[80%] pt-result max-w-basic mx-auto">
-      {isLoading && <Loading />}
       <section className="flex flex-col items-center lg:flex-row lg:justify-center pb-5 border-b-2 ">
         <img
           className="w-[200px] lg:w-[250px] shrink-0 border-2 border-zinc-300 shadow-custom text-center"
@@ -66,7 +65,7 @@ export default function BookDetail() {
             {user && (
               <div
                 onClick={() => navigate("/post", { state: { bookInfo } })}
-                className="w-[130px] text-lg mx-auto lg:mx-0 font-semibold text-darkgrey rounded-xl mt-3 py-3 bg-[#D0C5B5] hover:brightness-90"
+                className="w-[130px] text-lg mx-auto lg:mx-0 rounded-xl mt-3 py-3 bg-[#D0C5B5] hover:brightness-90"
               >
                 <ButtonAddPost />
               </div>
@@ -78,6 +77,7 @@ export default function BookDetail() {
         <p className="w-full text-lg font-semibold text-zinc-800 px-4">
           이 책의 포스트
         </p>
+      {isLoading && <div className="mt-10"><Loading /></div>}
         <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5 w-full">
           {bookReviews &&
             bookReviews.map((review) => (

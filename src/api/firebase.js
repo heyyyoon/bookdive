@@ -83,6 +83,9 @@ export async function getBooks(bookId) {
 }
 export async function getReviewByBookId(bookId) {
   return getReviews().then(result => {
+    if(!result) {
+      return null;
+    }
     const filteredReviews = result.filter(f => f.bookId === bookId);
     return filteredReviews.length === 0 ? null : filteredReviews;
   });
