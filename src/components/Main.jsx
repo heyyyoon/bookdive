@@ -60,7 +60,7 @@ export default function Main() {
           title="Hot 한 리뷰들"
           subtitle="요즘 인기있는 리뷰들을 살펴보세요!"
           renderItem={renderReviewCards}
-          arrowColor="bg-[#BFCBC3]"
+          arrowColor="bg-[#cacfd6]"
         />
       </section>
       {isModalOpen && selectedItem && (

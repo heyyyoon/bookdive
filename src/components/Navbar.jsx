@@ -49,7 +49,7 @@ export default function Navbar() {
           onSubmit={handleSubmit}
         >
           <input
-            className="w-full rounded-l-md px-3 py-2 bg-yellow"
+            className="w-full rounded-l-md px-3 py-2"
             type="text"
             placeholder="Search..."
             onChange={(e) => setText(e.target.value)}
@@ -62,10 +62,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-3 w-3/12 justify-end">
           {user && (
-            <>
-              <UserInfo nickname={user.nickname} />
-              <Link to="/mypage"><Button text="myPage" /></Link>
-            </>
+            <Link to="/mypage"><Button text="myPage" /></Link>
           )}
           {user ? (
             <Button text="Logout" onClick={handleLogout} />
