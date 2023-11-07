@@ -43,7 +43,7 @@ export default function Main() {
       ));
   return (
     <section>
-      <section className="mb-14 py-5">
+      <section className="pb-20 mt-5">
         <SlideView
           data={books}
           loading={loadingBooks}
@@ -53,7 +53,7 @@ export default function Main() {
           arrowColor="bg-[#d6bbaf]"
         />
       </section>
-      <section className="mb-14 py-5">
+      <section className="pb-20">
         <SlideView
           data={reviews}
           loading={loadingReviews}
