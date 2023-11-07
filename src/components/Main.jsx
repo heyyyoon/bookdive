@@ -42,11 +42,7 @@ export default function Main() {
         <ReviewCard key={review.reviewId} review={review} onOpen={openModal} />
       ));
   return (
-    <section className="py-basic">
-      <div className="w-[70%] flex flex-col items-center mb-14 border-y-2 py-10 mx-auto">
-        <h1 className="text-3xl">Book Dive</h1>
-        <p className="text-xl mt-2">생각을 정리하고 소통하는 공간</p>
-      </div>
+    <section>
       <section className="mb-14 py-5">
         <SlideView
           data={books}
