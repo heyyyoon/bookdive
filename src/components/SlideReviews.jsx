@@ -10,6 +10,7 @@ export default function SlideReviews({
   reviews,
   title,
   renderReviewCards,
+  arrowColor,
 }) {
   const navigate = useNavigate();
 
@@ -33,7 +34,7 @@ export default function SlideReviews({
         reviews.length <= 4 ? (
           <CardGrid>{renderReviewCards(reviews)}</CardGrid>
         ) : (
-          <CardSlider>{renderReviewCards(reviews)}</CardSlider>
+          <CardSlider arrowColor={arrowColor}>{renderReviewCards(reviews)}</CardSlider>
         )
       ) : (
         <p className="text-center my-10">리뷰가 없습니다.</p>

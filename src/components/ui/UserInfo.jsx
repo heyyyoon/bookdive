@@ -4,8 +4,8 @@ import { SiGooglehome } from "react-icons/si";
 export default function UserInfo({ nickname }) {
   return (
     <div className="flex flex-col items-start">
-      <div className="flex flex-row items-end">
-        <SiGooglehome className="text-4xl text-[#574240]" />
+      <div className="flex flex-row items-start">
+        <SiGooglehome className="text-3xl text-[#574240]" />
         <p className="text-2xl font-semibold ml-2 text-medigrey">MYPAGE</p>
       </div>
       <div className="flex flex-row mt-5">

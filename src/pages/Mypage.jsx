@@ -47,12 +47,14 @@ export default function Mypage() {
         reviews={userReviews}
         title="내가 작성한 리뷰"
         renderReviewCards={renderReviewCards}
+        arrowColor="bg-[#999999]"
       />
       <SlideReviews
         loading={likeLoading}
         reviews={likeReviews}
         title="내가 좋아하는 리뷰"
         renderReviewCards={renderReviewCards}
+        arrowColor="bg-[#999999]"
       />
       {isModalOpen && selectedItem && (
         <Modal size={"w-[60%] lg:w-[40%]"}>
