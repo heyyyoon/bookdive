@@ -9,9 +9,8 @@ React, React Hooks, React Query, React Router, TailwindCss
 
 ## 구현 페이지
 
-반응형 웹 디자인 적용
-firebase database 사용
-React Query를 이용한 CRUD
+- 반응형 웹 디자인 적용
+- React Query를 이용한 CRUD
 
 ### 상단 바
 
