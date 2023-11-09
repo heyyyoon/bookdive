@@ -6,7 +6,7 @@ export default function Sign({
   loginInfo,
   handleChange,
   handleSubmit,
-  handleSignUp,
+  modeChange,
 }) {
   return (
     <section className="text-center mb-3">
@@ -45,7 +45,7 @@ export default function Sign({
           />
         )}
         {isSignIn && <InputButton text="로그인" />}
-        <InputButton text="회원가입하기" onClick={handleSignUp} />
+        <InputButton text="회원가입하기" onClick={modeChange} />
       </form>
     </section>
   );

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function SignIn({
   signResult,
-  handleSignUp,
+  modeChange,
   loginMode,
 }) {
   const [loginInfo, setLoginInfo] = useState({});
@@ -45,7 +45,7 @@ export default function SignIn({
         loginInfo={loginInfo}
         handleChange={handleChange}
         handleSubmit={handleLogin}
-        handleSignUp={handleSignUp}
+        modeChange={modeChange}
       />
       {warning && <WarningMsg text={warning} />}
     </div>

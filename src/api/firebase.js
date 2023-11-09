@@ -43,7 +43,7 @@ export async function signIn({email, password}) {
   if(result) {
     return await signInWithEmailAndPassword(auth, email, password);
   } else {
-    throw new Error ('아이디 또는 비밀번호를확인하세요');
+    throw new Error ('아이디 또는 비밀번호를 확인하세요');
   }
 }
 export async function signUp({email, password, nickname}) {

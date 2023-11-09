@@ -23,9 +23,8 @@ export default function SlideView({
           {subtitle}
         </p>
       </div>
-      {loading ? (
-        <Loading />
-      ) : data && data.length <= 4 ? (
+      {loading && <Loading />}
+      { data && data.length <= 4 ? (
         <CardGrid>{renderItem(data)}</CardGrid>
       ) : (
         <CardSlider arrowColor={arrowColor}>{renderItem(data)}</CardSlider>

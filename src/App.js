@@ -11,10 +11,8 @@ function App() {
     <AuthContextProvider>
       <ModalContextProvider>
       <QueryClientProvider client={queryClient}>
-        <div className='h-full relative'>
         <Navbar/>
         <Outlet />
-        </div>
       </QueryClientProvider>
       </ModalContextProvider>
     </AuthContextProvider>

@@ -14,11 +14,10 @@ export default function SignUp({ signResult }) {
     const { name, value } = e.target;
     setLoginInfo((prev) => ({ ...prev, [name]: value }));
   };
-  const handleSubmit = async (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
     try {
+      setLoading(true);
       await signUp(loginInfo);
       signResult("회원가입이 되었습니다.");
     } catch (e) {
@@ -40,7 +39,7 @@ export default function SignUp({ signResult }) {
         isSignIn={false}
         loginInfo={loginInfo}
         handleChange={handleChange}
-        handleSubmit={handleSubmit}
+        handleSubmit={handleSignUp}
       />
       {warning && <WarningMsg text={warning} />}
     </div>

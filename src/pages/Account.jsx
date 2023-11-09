@@ -30,7 +30,7 @@ export default function Account({ onClose }) {
             {loginMode ? (
               <SignIn
                 signResult={handleResult}
-                handleSignUp={() => setLoginMode(false)}
+                modeChange={() => setLoginMode(false)}
                 loginMode={loginMode}
               />
             ) : (
