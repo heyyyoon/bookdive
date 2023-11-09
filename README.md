@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# Book Dive
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+책에 대한 리뷰를 작성하고, 마음에 드는 리뷰에 좋아요를 누를 수 있습니다.
+내가 작성한 리뷰와 좋아요 누른 리뷰는 myPage 페이지에서 모아 볼 수 있습니다.
 
-## Available Scripts
+## 사용한 기술
 
-In the project directory, you can run:
+React, React Hooks, React Query, React Router, TailwindCss
 
-### `yarn start`
+## 구현 페이지
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- 반응형 웹 디자인 적용
+- React Query를 이용한 CRUD
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### 상단 바
 
-### `yarn test`
+* 로그인 / 회원가입 모달
+  닉네임, 이메일 중복 체크
+  로그아웃 기능
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* 도서 검색 입력 폼
+  
+### 메인페이지
+* 인기있는 책 Top 10 슬라이드 방식으로 표시
+* 인기있는 리뷰 Top 10 슬라이드 방식으로 표시
 
-### `yarn build`
+### 도서 검색 목록 조회 페이지
+* 카카오 책 검색 API 호출하여 책 정보를 렌더
+* grid 방식 적용
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 도서 상세 페이지
+* 도서 이미지, 제목, 저자, 상세설명 등 표시
+* 이 책의 포스트
+  책에 포스팅 된 리뷰를 모두 grid 방식으로 보여줌
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 리뷰 작성 페이지
+  * 유효성 검사
+    별점, 제목, 감상평이 모두 입력되었는지 검사
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 마이페이지
+  * 내가 작성한 리뷰 최대 10개 조회
+  * 내가 좋아요 한 리뷰 최대 10개 조회
 
-### `yarn eject`
+### 리뷰페이지
+  * 내가 작성한 리뷰를 모두 조회
+  * 내가 좋아요 한 리뷰 모두 조회
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### 리뷰 모달 창
+  * 리뷰를 클릭하면 리뷰의 상세정보가 모달 창으로 표시된다.
+  * 좋아요 기능
+    리뷰에 좋아요 혹은 좋아요 취소를 할 수 있다.
