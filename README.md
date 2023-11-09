@@ -50,10 +50,3 @@ React Query를 이용한 CRUD
   * 리뷰를 클릭하면 리뷰의 상세정보가 모달 창으로 표시된다.
   * 좋아요 기능
     리뷰에 좋아요 혹은 좋아요 취소를 할 수 있다.
-
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-
