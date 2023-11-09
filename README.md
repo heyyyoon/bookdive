@@ -1,12 +1,16 @@
-# Getting Started with Create React App
+# Book Dive
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+책에 대한 리뷰를 작성하고, 마음에 드는 리뷰에 좋아요를 누를 수 있습니다.
+내가 작성한 리뷰와 좋아요 누른 리뷰는 myPage 페이지에서 모아 볼 수 있습니다.
 
-## Available Scripts
+## 사용한 기술
 
-In the project directory, you can run:
+React, React Hooks, React Query, React Router, TailwindCss
 
-### `yarn start`
+## 구현 페이지
+
+반응형 웹 디자인 적용
+
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
