@@ -36,7 +36,7 @@ async function getUser(user) {
 export async function getUserInfo() {
   return get(ref(database, 'user')) 
     .then((snapshot) => {
-      return snapshot.exists() ? Object.values(snapshot.val()) : null;
+      return Object.values(snapshot.val()) || null;
     }).catch(e => console.log(e));
 }
 export async function signIn({email, password}) {
@@ -83,8 +83,8 @@ export async function delLike(userId, reviewId) {  // user가 좋아요 한 리�
   return remove(ref(database, `likes/${userId}/${reviewId}`));
 }
 
-export async function getData(id, path) {
-  return get(ref(database, path+id))
+export async function getData(path) {
+  return get(ref(database, path))
     .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
     .catch(e => {
       console.log(e);
@@ -98,10 +98,10 @@ export async function getObjectData(path) {
 }
 
 export async function getBooks(bookId) {
-  return getData(bookId, 'book/');
+  return getData(`book/${bookId}`);
 }
 export async function getReviewByReviewId(reviewId) { // reviewId에 해당하는 review 가져오기 
-  return getData(reviewId, 'review/');
+  return getData(`review/${reviewId}`);
 }
 export async function getReviews() {
   return getObjectData('review');
@@ -118,59 +118,40 @@ export async function getUserLikeReviews(userId) {
 }
 
 export async function getReviewByBookId(bookId) {
-  const data = await getReviews();
-  if(!data) return null;
-  const filteredReviews = data.filter(f => f.bookId === bookId);
-  return filteredReviews.length === 0 ? null : filteredReviews;
+  const reviews = await getReviews();
+  return reviews ? reviews.filter(review => review.bookId === bookId) : null;
 }
 export async function getLikes(reviewId) { // review에 like를 누른 개수 가져오기 with reviewId
   const data = await getObjectData('likes');
   return data ? data.reduce((count, like) => count + Object.values(like).includes(reviewId), 0) : data;
 }
 export async function getIsLiked(userId, reviewId) {  // user의 review like 여부 가져오기
-  return get(ref(database, `likes/${userId}/${reviewId}`))
-  .then((snapshot) => snapshot.exists() && (snapshot.val() || false))
-  .catch(e => console.log(e));
+  return getData(`likes/${userId}/${reviewId}`) || false;
 }
 
 
 // user가 좋아요 누른 리뷰 데이터 모두 가져오기
 export async function getUserLikeReviewsInfo(userId) {
   const reviews = await getUserLikeReviews(userId);
-
-  if (!reviews) {
-    return null;
-  }
+  if (!reviews) return null;
+  
   const reviewPromises = reviews.map((reviewId) => getReviewByReviewId(reviewId));
-  return await Promise.all(reviewPromises);
+  return Promise.all(reviewPromises);
 }
-//////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-
-// export async function getBookRankingTemp() { 
-//   return await getRangeBook()
-//   .then(result => result ? Promise.all(result.map((m) => getBooks(m))) : null);
-// }
 
 export async function getBookRanking() { 
-  const data = await getHotBooks().then(result => result && result.map(m => Object.values(m)));
-  const result = await getRangeItems(data, 'bookId');
-  if(!result) return null;
-
+  const result = await getRangeItems(getHotBooks(), 'bookId');
   return Promise.all(result.map((m) => getBooks(m)));
 }
 export async function getBookReview() { 
-  const data = await getHotReviews().then(result => result && result.map(m => Object.values(m)));
-  const result = await getRangeItems(data, 'reviewId');
-  if(!result) return null;
-
+ const result = await getRangeItems(getHotReviews(), 'reviewId');
   return Promise.all(result.map((m) => getReviewByReviewId(m)));
 }
 
-export async function getRangeItems(data, idKey) { 
-  const allItems = data;
+export async function getRangeItems(dataPromise, idKey) { 
+  const allItems = await dataPromise.then(result => result && result.map(m => Object.values(m)));
   if(!allItems) return null;
-
+  
   const idCountMap = new Map();
   
   allItems.forEach((reviewArray) => {
