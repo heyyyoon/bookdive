@@ -85,7 +85,7 @@ export async function delLike(userId, reviewId) {  // user가 좋아요 한 리�
 
 export async function getData(path) {
   return get(ref(database, path))
-    .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
+    .then((snapshot) => (snapshot.val() || null))
     .catch(e => {
       console.log(e);
       return null;
@@ -128,7 +128,6 @@ export async function getLikes(reviewId) { // review에 like를 누른 개수 �
 export async function getIsLiked(userId, reviewId) {  // user의 review like 여부 가져오기
   return getData(`likes/${userId}/${reviewId}`) || false;
 }
-
 
 // user가 좋아요 누른 리뷰 데이터 모두 가져오기
 export async function getUserLikeReviewsInfo(userId) {
