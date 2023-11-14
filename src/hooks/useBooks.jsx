@@ -3,10 +3,10 @@ import { addBook as addNewBook, getBookRanking, getBooks, getReviewByBookId } fr
 
 export default function useBooks() {
 
-  const getHotBooks = useQuery(["hotBooks"], () => getBookRanking());
+  const getHotBooks = useQuery(["hotBooks"], () => getBookRanking(), {staleTime: 5000});
 
-  const  useGetBookReviews  = (bookId) => useQuery(["bookreview", bookId], () => getReviewByBookId(bookId));
-  const  useGetBooks  = (bookId) => useQuery(["book", bookId], () => getBooks(bookId));
+  const  useGetBookReviews  = (bookId) => useQuery(["bookreview", bookId], () => getReviewByBookId(bookId), {staleTime: 5000});
+  const  useGetBooks  = (bookId) => useQuery(["book", bookId], () => getBooks(bookId), {staleTime: 5000});
 
   const addBook = useMutation(({bookId, bookInfo}) => addNewBook(bookId, bookInfo));
 

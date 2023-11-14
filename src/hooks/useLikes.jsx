@@ -5,10 +5,11 @@ export default function useLikes() {
   const queryClient = useQueryClient();
 
   const useGetIsLiked = (userId, reviewId) => {
-    return useQuery(["liked"], () => getIsLiked(userId, reviewId));
+    return useQuery(["liked", reviewId], () => getIsLiked(userId, reviewId));
   };
   const useGetLikes = (reviewId) => {
-    return useQuery(["userByLikes"], () => getLikes(reviewId));  };
+    return useQuery(["userByLikes", reviewId], () => getLikes(reviewId)); 
+  };
 
   const addLikeMutation = useMutation(({userId, reviewId}) => addLike(userId, reviewId), {
     onSuccess: ()=> {
