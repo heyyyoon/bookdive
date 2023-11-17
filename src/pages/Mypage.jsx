@@ -38,8 +38,8 @@ export default function Mypage() {
     );
   };
   return (
-    <section className="pt-result">
-      <div className="w-[80%] mx-auto mb-12 mt-5">
+    <section className="w-[80%] max-w-basic mx-auto pt-result">
+      <div className="mb-12 mt-5">
         <UserInfo nickname={user && user.nickname}/>
       </div>
       <SlideReviews
