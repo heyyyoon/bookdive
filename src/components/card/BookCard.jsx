@@ -32,8 +32,7 @@ export default function BookCard({
           <p className="font-semibold text-center mt-2 text-zinc-darkgrey text-title leading-5 line-clamp-2">
             {title}
           </p>
-          <p className="text-xs text-medigrey mt-1 te
-          xt-center">{authors}</p>
+          <p className="text-xs text-medigrey mt-1 text-center">{authors}</p>
         </div>
         <div className="h-[80px]">
           <p className="text-content text-darkgrey line-clamp-4">{contents}</p>

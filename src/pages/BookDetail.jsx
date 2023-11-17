@@ -25,11 +25,10 @@ export default function BookDetail() {
   const reviewLength = bookReviews && bookReviews.length;
   const bookRating =
     bookReviews &&
-    (reviewLength
+    (reviewLength > 0
       ? bookReviews.reduce((sum, review) => sum + review.rating, 0) /
           reviewLength || 0
       : 0);
-
   const { isModalOpen, openModal, closeModal, selectedItem } =
     useModalContext();
 
@@ -52,8 +51,8 @@ export default function BookDetail() {
                 value={Math.floor(bookReviews && bookRating)}
                 readOnly={true}
               />
-              <p className="text-[1rem] bg-white text-darkgrey ml-2 rounded-xl">
-                {bookReviews ? bookRating.toFixed(2) : 0}
+              <p className="text-[1rem] bg-white text-darkgrey ml-2 rounded-xl basis-3/12">
+                {bookRating ? bookRating.toFixed(2) : 0}
               </p>
             </div>
           </div>
