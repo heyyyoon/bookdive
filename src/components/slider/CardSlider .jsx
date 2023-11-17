@@ -42,7 +42,7 @@ export default function CardSlider({ children, arrowColor }) {
     afterChange: afterChange,
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1050,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 1,

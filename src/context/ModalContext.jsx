@@ -18,8 +18,8 @@ export function ModalContextProvider({ children }) {
   }
 
 
-  const beforeChange = useCallback(() => setDragging(true), []);
-  const afterChange = useCallback(() => setDragging(false), []);
+  const beforeChange = () => setDragging(true);
+  const afterChange = () => setDragging(false);
 
   return (
     <ModalContext.Provider
