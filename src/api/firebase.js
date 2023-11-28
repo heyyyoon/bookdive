@@ -71,15 +71,13 @@ export async function addReview(review, bookId, userId) {
 }
 // Like
 export async function addLike(userId, reviewId) {  // user가 좋아요한 리뷰 추가
-  await addLikeById(userId, reviewId);
-  return set(ref(database, `likes/${userId}/${reviewId}`), reviewId);
+  set(ref(database, `hotReviews/${reviewId}/${userId}`), {reviewId, userId});
+  set(ref(database, `likes/${userId}/${reviewId}`), reviewId);
 }
-export async function addLikeById(userId, reviewId) {  // user가 좋아요한 리뷰 추가
-  return set(ref(database, `hotReviews/${reviewId}/${userId}`), {reviewId, userId});
-}
+
 export async function delLike(userId, reviewId) {  // user가 좋아요 한 리뷰 삭제 
-  await remove(ref(database, `hotReviews/${reviewId}/${userId}`));
-  return remove(ref(database, `likes/${userId}/${reviewId}`));
+  remove(ref(database, `hotReviews/${reviewId}/${userId}`));
+  remove(ref(database, `likes/${userId}/${reviewId}`));
 }
 
 export async function getData(path) {
