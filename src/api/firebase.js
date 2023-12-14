@@ -61,24 +61,28 @@ export async function signUp({email, password, nickname}) {
 export async function logout() {
   return signOut(auth);
 }
-
 export async function addBook(bookId, book) {
   return set(ref(database, `book/${bookId}`), book);
 }
 export async function addReview(review, bookId, userId) {
   const reviewId = uuidv4();
-    await set(ref(database, `hotBooks/${bookId}/${reviewId}`), {reviewId, bookId});
-  return set(ref(database, `review/${reviewId}`), {...review, reviewId, bookId, userId});
+  const setHokBooks = set(ref(database, `hotBooks/${bookId}/${reviewId}`), {reviewId, bookId});
+  const setReviews = set(ref(database, `review/${reviewId}`), {...review, reviewId, bookId, userId});
+  return Promise.all([setHokBooks, setReviews]);
 }
 // Like
-export async function addLike(userId, reviewId) {  // user가 좋아요한 리뷰 추가
-  set(ref(database, `hotReviews/${reviewId}/${userId}`), {reviewId, userId});
-  set(ref(database, `likes/${userId}/${reviewId}`), reviewId);
+export function addLike(userId, reviewId) {  // user가 좋아요한 리뷰 추가
+  const setHotReviews = set(ref(database, `hotReviews/${reviewId}/${userId}`), {reviewId, userId});
+  const setLikes = set(ref(database, `likes/${userId}/${reviewId}`), reviewId);
+
+  Promise.all([setHotReviews, setLikes]);
 }
 
 export async function delLike(userId, reviewId) {  // user가 좋아요 한 리뷰 삭제 
-  remove(ref(database, `hotReviews/${reviewId}/${userId}`));
-  remove(ref(database, `likes/${userId}/${reviewId}`));
+  const rmHotReviews = remove(ref(database, `hotReviews/${reviewId}/${userId}`));
+  const rmLikes = remove(ref(database, `likes/${userId}/${reviewId}`));
+
+  Promise.all([rmHotReviews, rmLikes]);
 }
 
 export async function getData(path) {
