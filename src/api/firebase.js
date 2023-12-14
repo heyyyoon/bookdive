@@ -57,6 +57,7 @@ export async function signUp({email, password, nickname}) {
       })
   }
 }
+
 export async function logout() {
   return signOut(auth);
 }
