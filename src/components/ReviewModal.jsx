@@ -2,24 +2,10 @@ import React from "react";
 import { useAuthContext } from "../context/AuthContext";
 import { Rating } from "@smastrom/react-rating";
 import CloseCircle from "./ui/CloseCircle";
-import useLikes from "../hooks/useLikes";
 import Like from "./ui/Like";
 
 export default function ReviewModal({ review, book, onClose }) {
   const { userId } = useAuthContext();
-
-  const { useGetIsLiked, useGetLikes, delLikeMutation, addLikeMutation } =
-    useLikes();
-  const { data: isLiked } = useGetIsLiked(userId, review.reviewId);
-  const { data: userLikes } = useGetLikes(review.reviewId);
-
-  const handleToggle = async () => {
-    if (isLiked) {
-      delLikeMutation.mutate({ userId, reviewId: review.reviewId });
-    } else {
-      addLikeMutation.mutate({ userId, reviewId: review.reviewId });
-    }
-  };
 
   return (
     <div className="flex flex-col justify-between">
@@ -53,19 +39,8 @@ export default function ReviewModal({ review, book, onClose }) {
           {review.reviewContent}
         </p>
       </div>
-
       {userId && (
-        <div
-          className="flex justify-center items-center rounded-full cursor-pointer"
-          onClick={handleToggle}
-        >
-          <div className="group flex flex-row items-center p-3 px-5 bg-[#F5F5F5] rounded-full relative">
-            <Like isLiked={isLiked} />
-            <p className=" text-lightgrey text-[0.9rem] font-[600] ml-1">
-              {userLikes && userLikes}
-            </p>
-          </div>
-        </div>
+       <Like userId={userId} reviewId={review.reviewId}/>
       )}
     </div>
   );
