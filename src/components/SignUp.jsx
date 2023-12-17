@@ -3,14 +3,13 @@ import { signUp } from "../api/firebase";
 import SignForm from "./SignForm";
 import WarningMsg from "./ui/WarningMsg";
 import PlusLoader from "./ui/PlusLoader";
+import Back from "./ui/Back";
 
-export default function SignUp({ signResult }) {
+export default function SignUp({ signResult, modeChange }) {
   const [loading, setLoading] = useState(false);
   const [warning, setWarning] = useState(false);
 
   const handleSignUp = async (signInfo) => {
-    
-  
     if(signInfo.password.length <= 5) {
       setWarning('비밀번호를 6자 이상 입력하세요');
     } else if (signInfo.nickname.length <=3 ) {
@@ -21,7 +20,7 @@ export default function SignUp({ signResult }) {
       try {
         setLoading(true);
         await signUp(signInfo);
-        signResult("회원가입이 되었습니다.");
+        signResult();
       } catch (e) {
         setWarning(e.message);
         setTimeout(() => setWarning(null), 1000);
@@ -34,9 +33,9 @@ export default function SignUp({ signResult }) {
     setTimeout(() => setWarning(null), 1000);
   };
   return (
-    <div className="relative">
+    <div className="relative text-center">
       {loading && (
-        <div className="absolute left-1/2 translate-x-[-50%]">
+        <div className="absolute -top-5 left-1/2 translate-x-[-50%]">
           <PlusLoader color="#d38460" />
         </div>
       )}
@@ -44,6 +43,7 @@ export default function SignUp({ signResult }) {
         isSignIn={false}
         onSign={handleSignUp}
       />
+      <Back onClick={modeChange}/>
       {warning && <WarningMsg text={warning} />}
     </div>
   );

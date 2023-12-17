@@ -17,7 +17,7 @@ export default function Sign({
   }
 
   return (
-    <section className="text-center mb-3">
+    <section className="mb-3">
       <h1 className="text-lg border-b-[1px] pb-2 text-darkgrey">
         {isSignIn ? "로그인" : "회원가입"}
       </h1>

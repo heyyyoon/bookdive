@@ -3,7 +3,6 @@ import { signIn } from "../api/firebase";
 import SignForm from "./SignForm";
 import WarningMsg from "./ui/WarningMsg";
 import PlusLoader from "./ui/PlusLoader";
-import { useNavigate } from "react-router-dom";
 
 export default function SignIn({
   signResult,
@@ -12,23 +11,22 @@ export default function SignIn({
 }) {
   const [loading, setLoading] = useState(false);
   const [warning, setWarning] = useState(false);
-  const navigate = useNavigate();
 
   const handleLogin = async (signInfo) => {
     try {
       setLoading(true);
       await signIn(signInfo);
-      signResult('로그인 되었습니다.');
-      navigate('/');
+      signResult();
     } catch (e) {
       setWarning(e.message);
       setTimeout(() => setWarning(null), 1500);
+      setLoading(false);
     } finally {
       setLoading(false);
     }
   };
   return (
-    <div className="relative">
+    <div className="relative text-center">
       {loading && (
         <div className="absolute -top-5 left-1/2 translate-x-[-50%]">
           <PlusLoader color="#d38460" />
