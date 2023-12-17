@@ -68,6 +68,7 @@ export async function addReview(review, bookId, userId) {
   const reviewId = uuidv4();
   const setHokBooks = set(ref(database, `hotBooks/${bookId}/${reviewId}`), {reviewId, bookId});
   const setReviews = set(ref(database, `review/${reviewId}`), {...review, reviewId, bookId, userId});
+  
   return Promise.all([setHokBooks, setReviews]);
 }
 // Like

@@ -6,7 +6,7 @@ import Back from "../components/ui/Back";
 import CloseCircle from "../components/ui/CloseCircle";
 import SuccessMsg from "../components/ui/SuccessMsg";
 
-export default function Account({ onClose }) {
+export default function Account2({ onClose }) {
   const [loginMode, setLoginMode] = useState(true); // true면 signIn mode, false이면 signUp mode.
   const [signSuccess, setSignSuccess] = useState(false);
 
@@ -22,7 +22,8 @@ export default function Account({ onClose }) {
       {signSuccess ? (
         <SuccessMsg text={signSuccess} />
       ) : (
-        <Modal styles={"w-[50%] max-w-sm animate-fade"}>
+        <Modal size={"w-[50%] max-w-sm animate-fade"}>
+          <div className="h-72">
             <div className="flex justify-end">
               <CloseCircle onClose={onClose} />
             </div>
@@ -35,6 +36,7 @@ export default function Account({ onClose }) {
             ) : (
               <SignUp signResult={handleResult} loginMode={loginMode} />
             )}
+          </div>
           {!loginMode && <Back onClick={() => setLoginMode(true)} />}
         </Modal>
       )}

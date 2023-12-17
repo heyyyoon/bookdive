@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import InputButton from "./ui/InputButton";
 
 export default function Sign({
   isSignIn,
-  loginInfo,
-  handleChange,
-  handleSubmit,
+  onSign,
   modeChange,
 }) {
+  const [signInfo, setSignInfo] = useState({});
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSign(signInfo);
+  }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSignInfo((prev) => ({...prev, [name]: value}));
+  }
+
   return (
     <section className="text-center mb-3">
       <h1 className="text-lg border-b-[1px] pb-2 text-darkgrey">
@@ -21,7 +29,7 @@ export default function Sign({
           onChange={handleChange}
           required
           autoComplete="off"
-          value={loginInfo.email ?? ""}
+          value={signInfo.email ?? ""}
           placeholder="이메일"
         />
         <input
@@ -31,7 +39,7 @@ export default function Sign({
           required
           autoComplete="off"
           onChange={handleChange}
-          value={loginInfo.password ?? ""}
+          value={signInfo.password ?? ""}
           placeholder="비밀번호"
         />
         {!isSignIn && (
@@ -40,7 +48,7 @@ export default function Sign({
             name="nickname"
             required
             onChange={handleChange}
-            value={loginInfo.nickname ?? ""}
+            value={signInfo.nickname ?? ""}
             placeholder="닉네임"
           />
         )}

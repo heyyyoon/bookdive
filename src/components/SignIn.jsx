@@ -10,20 +10,14 @@ export default function SignIn({
   modeChange,
   loginMode,
 }) {
-  const [loginInfo, setLoginInfo] = useState({});
   const [loading, setLoading] = useState(false);
   const [warning, setWarning] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setLoginInfo((prev) => ({ ...prev, [name]: value }));
-  };
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  const handleLogin = async (signInfo) => {
     try {
       setLoading(true);
-      await signIn(loginInfo);
+      await signIn(signInfo);
       signResult('로그인 되었습니다.');
       navigate('/');
     } catch (e) {
@@ -42,9 +36,7 @@ export default function SignIn({
       )}
       <SignForm
         isSignIn={loginMode}
-        loginInfo={loginInfo}
-        handleChange={handleChange}
-        handleSubmit={handleLogin}
+        onSign={handleLogin}
         modeChange={modeChange}
       />
       {warning && <WarningMsg text={warning} />}
