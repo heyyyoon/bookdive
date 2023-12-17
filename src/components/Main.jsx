@@ -2,7 +2,6 @@ import React from "react";
 import { useModalContext } from "../context/ModalContext";
 import SlideView from "../components/SlideView";
 import ReviewModal from "../components/ReviewModal";
-import Modal from "../components/Modal";
 import BookCard from "../components/card/BookCard";
 import ReviewCard from "../components/card/ReviewCard";
 import useBooks from "../hooks/useBooks";
@@ -64,13 +63,11 @@ export default function Main() {
         />
       </section>
       {isModalOpen && selectedItem && (
-        <Modal size={"w-[60%] lg:w-[40%]"}>
           <ReviewModal
             review={selectedItem.review}
             book={selectedItem.book}
             onClose={closeModal}
           />
-        </Modal>
       )}
     </section>
   );

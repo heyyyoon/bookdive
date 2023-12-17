@@ -3,7 +3,6 @@ import { useAuthContext } from "../context/AuthContext";
 import SlideReviews from "../components/SlideReviews";
 import ReviewCard from "../components/card/ReviewCard";
 import ReviewModal from "../components/ReviewModal";
-import Modal from "../components/Modal";
 import { useModalContext } from "../context/ModalContext";
 import useReviews from "../hooks/useReviews";
 import UserInfo from "../components/ui/UserInfo";
@@ -40,7 +39,7 @@ export default function Mypage() {
   return (
     <section className="w-[80%] max-w-basic mx-auto pt-result">
       <div className="mb-12 mt-5">
-        <UserInfo nickname={user && user.nickname}/>
+        <UserInfo nickname={user && user.nickname} />
       </div>
       <SlideReviews
         loading={allLoading}
@@ -57,13 +56,11 @@ export default function Mypage() {
         arrowColor="bg-[#999999]"
       />
       {isModalOpen && selectedItem && (
-        <Modal size={"w-[60%] lg:w-[40%]"}>
-          <ReviewModal
-            review={selectedItem.review}
-            book={selectedItem.book}
-            onClose={closeModal}
-          />
-        </Modal>
+        <ReviewModal
+          review={selectedItem.review}
+          book={selectedItem.book}
+          onClose={closeModal}
+        />
       )}
     </section>
   );

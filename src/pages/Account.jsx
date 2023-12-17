@@ -25,7 +25,7 @@ export default function Account({ onClose }) {
       {signSuccess ? (
         <SuccessMsg text={signSuccess} />
       ) : (
-        <Modal styles={"w-[50%] max-w-sm animate-fade"}>
+        <Modal>
             <div className="flex justify-end">
               <CloseCircle onClose={onClose} />
             </div>

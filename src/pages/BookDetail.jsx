@@ -1,14 +1,10 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useModalContext } from "../context/ModalContext";
-import { Rating } from "@smastrom/react-rating";
-import ReviewItem from "../components/card/ReviewItem";
-import ReviewModal from "../components/ReviewModal";
-import Modal from "../components/Modal";
 import useBooks from "../hooks/useBooks";
 import ButtonAddPost from "../components/ui/ButtonAddPost";
-import Loading from "../components/Loading";
 import { useAuthContext } from "../context/AuthContext";
+import StarRating from "../components/ui/StarRating";
+import BookPosts from "../components/BookPosts";
 
 export default function BookDetail() {
   const {
@@ -29,8 +25,6 @@ export default function BookDetail() {
       ? bookReviews.reduce((sum, review) => sum + review.rating, 0) /
           reviewLength || 0
       : 0);
-  const { isModalOpen, openModal, closeModal, selectedItem } =
-    useModalContext();
 
   const navigate = useNavigate();
 
@@ -46,15 +40,10 @@ export default function BookDetail() {
           <div>
             <p className="text-xl font-semibold mb-1 text-darkgrey">{title}</p>
             <p className="text-base text-medigrey">{authors}</p>
-            <div className="max-w-[150px] flex flex-row mx-auto lg:mx-0 text-zinc-800 my-4">
-              <Rating
-                value={Math.floor(bookReviews && bookRating)}
-                readOnly={true}
-              />
-              <p className="text-[1rem] bg-white text-darkgrey ml-2 rounded-xl basis-3/12">
-                {bookRating ? bookRating.toFixed(2) : 0}
-              </p>
+            <div className="my-4">
+            {bookReviews && bookRating && <StarRating rating={bookRating} styles="max-w-[10rem] mx-auto lg:mx-0"/>}
             </div>
+
           </div>
           <div className="max-w-2xl">
             <p className="text-xl font-semibold mb-2 text-orange-500">
@@ -72,32 +61,7 @@ export default function BookDetail() {
           </div>
         </div>
       </section>
-      <section className="flex flex-col items-center mt-10">
-        <p className="w-full text-lg font-semibold text-zinc-800 px-4">
-          이 책의 포스트
-        </p>
-      {isLoading && <div className="mt-10"><Loading /></div>}
-        <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5 w-full">
-          {bookReviews &&
-            bookReviews.map((review) => (
-              <ReviewItem
-                key={review.reviewId}
-                review={review}
-                styleT="shadow-lg h-[200px] px-6 py-5 rounded-xl border-[1px] cursor-pointer"
-                onOpen={(review) => openModal(review, bookInfo)}
-              />
-            ))}
-        </ul>
-      </section>
-      {isModalOpen && selectedItem && (
-        <Modal>
-          <ReviewModal
-            review={selectedItem}
-            book={bookInfo}
-            onClose={closeModal}
-          />
-        </Modal>
-      )}
+      <BookPosts isLoading={isLoading} bookReviews={bookReviews} bookInfo={bookInfo}/>
     </section>
   );
 }
