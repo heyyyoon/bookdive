@@ -20,12 +20,13 @@ export default function BookPosts({ isLoading, bookReviews, bookInfo }) {
       {bookReviews && (
         <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5 w-full">
           {bookReviews.map((review) => (
-            <ReviewItem
-              key={review.reviewId}
-              review={review}
-              styleT="shadow-lg h-[200px] px-6 py-5 rounded-xl border-[1px] cursor-pointer"
-              onOpen={(review) => openModal(review, bookInfo)}
-            />
+            <li 
+              key={review.reviewId} 
+              className="shadow-lg h-[200px] px-6 py-5 rounded-xl border-[1px] cursor-pointer"
+              onClick={() => openModal(review, bookInfo)}
+            >
+              <ReviewItem review={review}/>
+            </li>
           ))}
         </ul>
       )}
