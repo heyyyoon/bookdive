@@ -25,7 +25,6 @@ const StyledSlider = styled(Slider)`
 `;
 
 export default function CardSlider({ children, arrowColor }) {
-
   const { beforeChange, afterChange } = useModalContext();
   const settings = {
     dots: true,

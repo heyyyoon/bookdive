@@ -17,9 +17,12 @@ export function ModalContextProvider({ children }) {
     setIsModalOpen(false);
   }
 
-
-  const beforeChange = () => setDragging(true);
-  const afterChange = () => setDragging(false);
+  const beforeChange = () => {
+    setDragging(true);
+  }
+  const afterChange = () => {
+    setDragging(false);
+  } 
 
   return (
     <ModalContext.Provider

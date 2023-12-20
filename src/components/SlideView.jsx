@@ -1,22 +1,20 @@
 import React from "react";
-import Loading from "./Loading";
 import CardSlider from "./slider/CardSlider ";
 import CardGrid from "./slider/CardGrid";
 
 export default function SlideView({
   arrowColor,
-  loading,
-  data,
-  renderItem,
+  isGrid,
+  children,
+  dataLeng
 }) {
   return (
-    <div>
-      {loading && <Loading />}
-      { data && data.length <= 4 ? (
-        <CardGrid>{renderItem(data)}</CardGrid>
+    <>
+      { dataLeng <= 4 ? (
+        <CardGrid>{children}</CardGrid>
       ) : (
-        <CardSlider arrowColor={arrowColor}>{renderItem(data)}</CardSlider>
+        <CardSlider arrowColor={arrowColor} setDrag>{children}</CardSlider>
       )}
-    </div>
+    </>
   );
 }

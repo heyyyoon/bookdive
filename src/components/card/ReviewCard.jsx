@@ -7,8 +7,8 @@ export default function ReviewCard({ review, onOpen }) {
   const { data: book } = useGetBooks(review.bookId);
 
   return (
-    <div
-      className="rounded-xl m-[10px] overflow-hidden shadow-card mt-[-10px]  border-2 border-[#fbfbfb]"
+    <article
+      className="rounded-xl m-[10px] overflow-hidden shadow-card mt-[-10px] border-2 border-[#fbfbfb]"
       onClick={() => onOpen({ review, book })}
     >
       <div className="flex flex-row items-center px-4 py-3 border-b-[1px] bg-[#EEEEEE] border-[#bbb9b9]">
@@ -25,6 +25,6 @@ export default function ReviewCard({ review, onOpen }) {
         </div>
       </div>
       <ReviewItem review={review} styleT="h-[200px] p-4 bg-[#fbfbfb]"/>
-    </div>
+    </article>
   );
 }

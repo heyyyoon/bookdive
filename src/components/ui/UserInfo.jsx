@@ -3,7 +3,7 @@ import { SiGooglehome } from "react-icons/si";
 
 export default function UserInfo({ nickname }) {
   return (
-    <div className="flex flex-col items-start">
+    <div className="flex flex-col items-start mb-12 mt-5">
       <div className="flex flex-row items-start">
         <SiGooglehome className="text-3xl text-[#574240]" />
         <p className="text-2xl font-semibold ml-2 text-medigrey">MYPAGE</p>
