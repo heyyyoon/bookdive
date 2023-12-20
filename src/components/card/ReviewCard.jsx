@@ -1,15 +1,17 @@
 import React from "react";
 import ReviewItem from "./ReviewItem";
 import useBooks from "../../hooks/useBooks";
+import { useModalContext } from "../../context/ModalContext";
 
-export default function ReviewCard({ review, onOpen }) {
+export default function ReviewCard({ review }) {
   const { useGetBooks } = useBooks();
   const { data: book } = useGetBooks(review.bookId);
+  const { openModal } = useModalContext();
 
   return (
     <article
       className="rounded-xl m-[10px] overflow-hidden shadow-card mt-[-10px] border-2 border-[#fbfbfb]"
-      onClick={() => onOpen({ review, book })}
+      onClick={() => openModal( review, book )}
     >
       <div className="flex flex-row items-center px-4 py-3 border-b-[1px] bg-[#EEEEEE] border-[#bbb9b9]">
         <img

@@ -9,20 +9,15 @@ import MyLikeReviews from "../components/MyLikeReviews";
 export default function Mypage() {
   const { userId, user } = useAuthContext();
 
-  const { isModalOpen, closeModal, selectedItem } =
-    useModalContext();
+  const { isModalOpen } = useModalContext();
 
   return (
     <section className="w-[80%] max-w-basic mx-auto pt-result">
       <UserInfo nickname={user && user.nickname}/>
       <MyPostReviews userId={userId}/>
       <MyLikeReviews />
-      {isModalOpen && selectedItem && (
-        <ReviewModal
-          review={selectedItem.review}
-          book={selectedItem.book}
-          onClose={closeModal}
-        />
+      {isModalOpen && (
+        <ReviewModal/>
       )}
     </section>
   );

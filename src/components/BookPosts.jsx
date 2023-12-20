@@ -4,7 +4,7 @@ import ReviewModal from "./ReviewModal";
 import ReviewItem from "./card/ReviewItem";
 
 export default function BookPosts({ isLoading, bookReviews, bookInfo }) {
-  const { isModalOpen, openModal, closeModal, selectedItem } =
+  const { isModalOpen, openModal } =
     useModalContext();
 
   return (
@@ -12,11 +12,7 @@ export default function BookPosts({ isLoading, bookReviews, bookInfo }) {
       <p className="w-full text-lg font-semibold text-zinc-800 px-4">
         이 책의 포스트
       </p>
-      {isLoading && (
-        <div className="mt-10">
-          <Loading />
-        </div>
-      )}
+      {isLoading && <div className="mt-10"><Loading /></div>}
       {bookReviews && (
         <ul className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-5 w-full">
           {bookReviews.map((review) => (
@@ -30,13 +26,7 @@ export default function BookPosts({ isLoading, bookReviews, bookInfo }) {
           ))}
         </ul>
       )}
-      {isModalOpen && selectedItem && (
-        <ReviewModal
-          review={selectedItem}
-          book={bookInfo}
-          onClose={closeModal}
-        />
-      )}
+      {isModalOpen && <ReviewModal/>}
     </section>
   );
 }

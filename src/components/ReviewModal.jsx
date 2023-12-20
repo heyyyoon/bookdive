@@ -3,18 +3,20 @@ import { useAuthContext } from "../context/AuthContext";
 import CloseCircle from "./ui/CloseCircle";
 import Like from "./ui/Like";
 import StarRating from "./ui/StarRating";
+import { useModalContext } from "../context/ModalContext";
 
-export default function ReviewModal({ review, book, onClose }) {
+export default function ReviewModal() {
   const { userId } = useAuthContext();
+  const {closeModal, selectedItem:{review, book} } = useModalContext();
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
+    <article className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
       <div
         className={`w-[60%] lg:w-[40%] rounded-2xl max-w-md bg-white px-8 py-4 shadow-modal`}
       >
         <div className="flex flex-col justify-between">
           <div className="flex justify-end">
-            <CloseCircle onClose={onClose} />
+            <CloseCircle onClose={closeModal} />
           </div>
           <div className="flex border-b-[1px] pb-5">
             <img
@@ -43,6 +45,6 @@ export default function ReviewModal({ review, book, onClose }) {
           {userId && <Like userId={userId} reviewId={review.reviewId} />}
         </div>
       </div>
-    </div>
+    </article>
   );
 }

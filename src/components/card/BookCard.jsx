@@ -9,9 +9,8 @@ export default function BookCard({
 }) {
   
   const { dragging } = useModalContext();
-
-  console.log(dragging);
   const navigate = useNavigate();
+  
   return (
     <article className="bg-gradient-to-b from-[#F6F6F6] to-[#eee0d8] rounded-xl m-[10px] px-4 py-2 relative cursor-pointer">
       {rank && (

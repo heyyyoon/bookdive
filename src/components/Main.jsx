@@ -5,22 +5,13 @@ import HotBooks from "./HotBooks";
 import HotReviews from "./HotReviews";
 
 export default function Main() {
-
-  const { isModalOpen, openModal, closeModal, selectedItem } =
-    useModalContext();
-
+  const { isModalOpen } = useModalContext();
 
   return (
     <main className="w-[80%] lg:w-[90%] mx-auto max-w-basic">
       <HotBooks />
-      <HotReviews openModal={openModal}/>
-      {isModalOpen && selectedItem && (
-          <ReviewModal
-            review={selectedItem.review}
-            book={selectedItem.book}
-            onClose={closeModal}
-          />
-      )}
+      <HotReviews/>
+      {isModalOpen && <ReviewModal />}
     </main>
   );
 }

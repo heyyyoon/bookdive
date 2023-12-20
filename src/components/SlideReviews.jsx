@@ -2,13 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Loading from "./Loading";
 import AllViewButton from "./ui/AllViewButton";
-import { useModalContext } from "../context/ModalContext";
 import ReviewCard from "./card/ReviewCard";
 import SlideView from "./SlideView";
 
 export default function SlideReviews({ loading, reviews, title }) {
   const navigate = useNavigate();
-  const {  openModal } = useModalContext();
 
   return (
     <section className="pb-20">
@@ -27,7 +25,6 @@ export default function SlideReviews({ loading, reviews, title }) {
             <ReviewCard
               key={review.reviewId}
               review={review}
-              onOpen={openModal}
             />
           ))}
         </SlideView>

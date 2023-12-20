@@ -4,16 +4,16 @@ const ModalContext = createContext();
 
 export function ModalContextProvider({ children }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedItem, setSelectedItem] = useState({});
 
   const [dragging, setDragging] = useState(false);
   
   const openModal = (review, book) => {
-    setSelectedItem(review, book);
+    setSelectedItem({review, book});
     !dragging && setIsModalOpen(true);
   };
   const closeModal = () => {
-    setSelectedItem(null);
+    setSelectedItem({});
     setIsModalOpen(false);
   }
 

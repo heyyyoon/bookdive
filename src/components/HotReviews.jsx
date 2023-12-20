@@ -5,7 +5,7 @@ import ReviewCard from "./card/ReviewCard";
 import HotCardSubTitle from "./ui/HotCardSubTitle";
 import HotCardTitle from "./ui/HotCardTitle";
 
-export default function HotReviews({ openModal }) {
+export default function HotReviews() {
   const {
     getHotReviews: { isLoading: loadingReviews, data: reviews },
   } = useReviews();
@@ -20,7 +20,7 @@ export default function HotReviews({ openModal }) {
       {reviews && 
         <SlideView arrowColor="bg-[#BBAEA7]" dataLength={reviews.length}>
         {reviews.slice(0, 10).map((review) => (
-            <ReviewCard key={review.reviewId} review={review} onOpen={openModal} />
+            <ReviewCard key={review.reviewId} review={review}/>
         ))}
       </SlideView>
       }
