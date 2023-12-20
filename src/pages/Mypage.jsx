@@ -8,7 +8,6 @@ import MyLikeReviews from "../components/MyLikeReviews";
 
 export default function Mypage() {
   const { userId, user } = useAuthContext();
-
   const { isModalOpen } = useModalContext();
 
   return (
@@ -16,9 +15,7 @@ export default function Mypage() {
       <UserInfo nickname={user && user.nickname}/>
       <MyPostReviews userId={userId}/>
       <MyLikeReviews />
-      {isModalOpen && (
-        <ReviewModal/>
-      )}
+      {isModalOpen && <ReviewModal/>}
     </section>
   );
 }

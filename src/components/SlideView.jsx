@@ -4,7 +4,6 @@ import CardGrid from "./slider/CardGrid";
 
 export default function SlideView({
   arrowColor,
-  isGrid,
   children,
   dataLeng
 }) {

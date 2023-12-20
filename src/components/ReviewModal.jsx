@@ -10,7 +10,7 @@ export default function ReviewModal() {
   const {closeModal, selectedItem:{review, book} } = useModalContext();
 
   return (
-    <article className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-20">
+    <article className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-30">
       <div
         className={`w-[60%] lg:w-[40%] rounded-2xl max-w-md bg-white px-8 py-4 shadow-modal`}
       >
@@ -29,8 +29,8 @@ export default function ReviewModal() {
                 {book.title}
               </p>
               <p className="text-content text-zinc-medigrey">{book.authors}</p>
-              <div className="mt-2">
-                <StarRating rating={review.rating} styles="max-w-[7rem]" />
+              <div className="mt-2 max-w-[7rem]">
+                <StarRating rating={review.rating}/>
               </div>
             </div>
           </div>

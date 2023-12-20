@@ -18,7 +18,7 @@ export default function BookPosts({ isLoading, bookReviews, bookInfo }) {
           {bookReviews.map((review) => (
             <li 
               key={review.reviewId} 
-              className="shadow-lg h-[200px] px-6 py-5 rounded-xl border-[1px] cursor-pointer"
+              className="shadow-lg h-[200px] px-6 py-5 rounded-xl border-[1px] cursor-pointer hover:shadow-xl"
               onClick={() => openModal(review, bookInfo)}
             >
               <ReviewItem review={review}/>

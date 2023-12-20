@@ -14,17 +14,16 @@ export default function BookDetail() {
     },
   } = useLocation();
   const { user } = useAuthContext();
-
   const { useGetBookReviews } = useBooks();
   const { isLoading, data: bookReviews } = useGetBookReviews(bookId);
 
   const reviewLength = bookReviews && bookReviews.length;
-  const bookRating =
-    bookReviews &&
+  const calcRating = bookReviews &&
     (reviewLength > 0
-      ? bookReviews.reduce((sum, review) => sum + review.rating, 0) /
-          reviewLength || 0
+      ? (bookReviews.reduce((sum, review) => sum + review.rating, 0) /
+          reviewLength) || 0
       : 0);
+  const bookRating = !calcRating && calcRating === Math.floor(calcRating) ? Math.floor(calcRating) : calcRating;
 
   const navigate = useNavigate();
 
@@ -40,8 +39,8 @@ export default function BookDetail() {
           <div>
             <p className="text-xl font-semibold mb-1 text-darkgrey">{title}</p>
             <p className="text-base text-medigrey">{authors}</p>
-            <div className="my-4">
-            {bookReviews && bookRating && <StarRating rating={bookRating} styles="max-w-[10rem] mx-auto lg:mx-0"/>}
+            <div className="my-4 max-w-[9.5rem] mx-auto lg:mx-0">
+            {bookReviews && <StarRating rating={bookRating}/>}
             </div>
 
           </div>
