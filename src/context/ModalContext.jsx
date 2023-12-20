@@ -10,7 +10,6 @@ export function ModalContextProvider({ children }) {
   
   const openModal = (review, book) => {
     setSelectedItem({review, book});
-    console.log(dragging)
     !dragging && setIsModalOpen(true);
     
   };
