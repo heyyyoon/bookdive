@@ -71,21 +71,39 @@ export async function addReview(review, bookId, userId) {
   
   return Promise.all([setHokBooks, setReviews]);
 }
-// Like
-export function addLike(userId, reviewId) {  // user가 좋아요한 리뷰 추가
+export function addLike(userId, reviewId) {  
   const setHotReviews = set(ref(database, `hotReviews/${reviewId}/${userId}`), {reviewId, userId});
   const setLikes = set(ref(database, `likes/${userId}/${reviewId}`), reviewId);
 
   Promise.all([setHotReviews, setLikes]);
 }
 
-export async function delLike(userId, reviewId) {  // user가 좋아요 한 리뷰 삭제 
+export async function delLike(userId, reviewId) {   
   const rmHotReviews = remove(ref(database, `hotReviews/${reviewId}/${userId}`));
   const rmLikes = remove(ref(database, `likes/${userId}/${reviewId}`));
 
   Promise.all([rmHotReviews, rmLikes]);
 }
+export async function delReview({bookId, reviewId}) {   
+  const getUserLikes = await getObjectData(`hotReviews/${reviewId}`);
 
+  Promise.all([
+    delData(`review/${reviewId}`),
+    delData(`hotReviews/${reviewId}`), 
+    delData(`hotBooks/${bookId}/${reviewId}`), 
+    getUserLikes && delUsersLike(getUserLikes),
+  ]);
+}
+export async function delUsersLike(getUserLikes) {
+  const rmUserLikes = getUserLikes && Promise.all(getUserLikes.map((user) => 
+      delData(`likes/${user.userId}/${user.reviewId}`)
+  ));
+
+  return rmUserLikes;
+}
+export async function delData(path) {
+  remove(ref(database, path));
+}
 export async function getData(path) {
   return get(ref(database, path))
     .then((snapshot) => (snapshot.val() || null))
@@ -99,11 +117,10 @@ export async function getObjectData(path) {
   .then((snapshot) => Object.values(snapshot.val()) || null)
   .catch(e => console.log(e));
 }
-
 export async function getBooks(bookId) {
   return getData(`book/${bookId}`);
 }
-export async function getReviewByReviewId(reviewId) { // reviewId에 해당하는 review 가져오기 
+export async function getReviewByReviewId(reviewId) { 
   return getData(`review/${reviewId}`);
 }
 export async function getReviews() {
@@ -115,7 +132,6 @@ export async function getHotBooks() {
 export async function getHotReviews() { 
   return getObjectData('hotReviews');
 }
-// user가 좋아요 누른 리뷰 데이터 모두 가져오기
 export async function getUserLikeReviews(userId) {
   return getObjectData(`likes/${userId}`);
 }
@@ -124,15 +140,14 @@ export async function getReviewByBookId(bookId) {
   const reviews = await getReviews();
   return reviews ? reviews.filter(review => review.bookId === bookId) : null;
 }
-export async function getLikes(reviewId) { // review에 like를 누른 개수 가져오기 with reviewId
+export async function getLikes(reviewId) { 
   const data = await getObjectData('likes');
   return data ? data.reduce((count, like) => count + Object.values(like).includes(reviewId), 0) : data;
 }
-export async function getIsLiked(userId, reviewId) {  // user의 review like 여부 가져오기
+export async function getIsLiked(userId, reviewId) { 
   return getData(`likes/${userId}/${reviewId}`) || false;
 }
 
-// user가 좋아요 누른 리뷰 데이터 모두 가져오기
 export async function getUserLikeReviewsInfo(userId) {
   const reviews = await getUserLikeReviews(userId);
   if (!reviews) return null;

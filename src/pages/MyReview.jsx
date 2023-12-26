@@ -8,7 +8,7 @@ import { VIEW_CLASS } from "../components/Main";
 import { CARD_GRID_CLASS } from "../components/slider/CardGrid";
 
 export default function MyReview() {
-  const { state: {reviews,title} } = useLocation();
+  const { state: {reviews, title} } = useLocation();
   const { isModalOpen } = useModalContext();
   return (
     <section className={VIEW_CLASS}>
