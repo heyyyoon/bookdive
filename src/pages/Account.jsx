@@ -60,7 +60,7 @@ export default function Account({ onClose }) {
               onSign={handleResult}
               modeChange={() => setLoginMode((prev) => !prev)}
             />
-            {warning && <WarningMsg text={warning} />}
+            {warning && <WarningMsg text={warning} state="Top" />}
           </div>
         </Modal>
       )}

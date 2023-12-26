@@ -50,8 +50,8 @@ module.exports = {
           '100%': { opacity: '1'},
         },
         rltTop: {
-          '0%': { transform: 'translateY(-25%) scale(1)', opacity: '0' },
-          '100%': { transform: 'translate(0, 0) scale(1)', opacity: '1' },
+          '0%': { transform: 'translate(-50%, -25%) scale(1)', opacity: '0' },
+          '100%': { transform: 'translate(-50%, 0) scale(1)', opacity: '1' },
         },
         rltBottom: {
           '0%': { transform: 'translate(-50%, -25%) scale(1)', opacity: '0' },

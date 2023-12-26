@@ -6,7 +6,7 @@ import { FiSearch } from "react-icons/fi";
 import Account from "../pages/Account";
 import Button from "./ui/Button";
 import SuccessMsg from "./ui/SuccessMsg";
-import WarningBottom from "./ui/WarningBottom";
+import WarningMsg from "./ui/WarningMsg";
 
 export default function Navbar() {
   const { keyword } = useParams();
@@ -71,7 +71,7 @@ export default function Navbar() {
       {isModalOpen && (
         <Account onClose={() => setIsModalOpen(false)} isOpen={isModalOpen} />
       )}
-      {warning && <WarningBottom text={warning} /> }
+      {warning && <WarningMsg text={warning} state="Bottom" /> }
       {success && <SuccessMsg text={success} />}
     </header>
   );
