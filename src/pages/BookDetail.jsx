@@ -5,6 +5,7 @@ import ButtonAddPost from "../components/ui/ButtonAddPost";
 import { useAuthContext } from "../context/AuthContext";
 import StarRating from "../components/ui/StarRating";
 import BookPosts from "../components/BookPosts";
+import { VIEW_CLASS } from "../components/Main";
 
 export default function BookDetail() {
   const {
@@ -28,7 +29,7 @@ export default function BookDetail() {
   const navigate = useNavigate();
 
   return (
-    <section className="w-[80%] pt-result max-w-basic mx-auto">
+    <section className={VIEW_CLASS}>
       <section className="flex flex-col items-center lg:flex-row lg:justify-center pb-5 border-b-2 ">
         <img
           className="w-[200px] lg:w-[250px] shrink-0 border-2 border-zinc-300 shadow-custom text-center"
@@ -40,7 +41,7 @@ export default function BookDetail() {
             <p className="text-xl font-semibold mb-1 text-darkgrey">{title}</p>
             <p className="text-base text-medigrey">{authors}</p>
             <div className="my-4 max-w-[9.5rem] mx-auto lg:mx-0">
-            {bookReviews && <StarRating rating={bookRating}/>}
+            {<StarRating rating={bookReviews ? bookRating : 0}/>}
             </div>
 
           </div>

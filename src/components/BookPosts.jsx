@@ -4,8 +4,7 @@ import ReviewModal from "./ReviewModal";
 import ReviewItem from "./card/ReviewItem";
 
 export default function BookPosts({ isLoading, bookReviews, bookInfo }) {
-  const { isModalOpen, openModal } =
-    useModalContext();
+  const { isModalOpen, openModal } = useModalContext();
 
   return (
     <section className="flex flex-col items-center mt-10">

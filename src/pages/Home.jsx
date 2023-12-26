@@ -5,10 +5,10 @@ import Wording from "../components/Wording";
 
 export default function Home() {
   return (
-    <div>
+    <>
       <Banner />
       <Wording />
       <Main />
-    </div>
+    </>
   );
 }

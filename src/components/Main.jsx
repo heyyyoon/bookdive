@@ -4,11 +4,12 @@ import ReviewModal from "../components/ReviewModal";
 import HotBooks from "./HotBooks";
 import HotReviews from "./HotReviews";
 
+export const VIEW_CLASS = "w-[80%] lg:w-[90%] mx-auto max-w-basic pt-result";
 export default function Main() {
   const { isModalOpen } = useModalContext();
 
   return (
-    <main className="w-[80%] lg:w-[90%] mx-auto max-w-basic">
+    <main className={VIEW_CLASS}>
       <HotBooks />
       <HotReviews/>
       {isModalOpen && <ReviewModal />}

@@ -5,13 +5,14 @@ import { useModalContext } from "../context/ModalContext";
 import UserInfo from "../components/ui/UserInfo";
 import MyPostReviews from "../components/MyPostReviews";
 import MyLikeReviews from "../components/MyLikeReviews";
+import { VIEW_CLASS } from "../components/Main";
 
 export default function Mypage() {
   const { userId, user } = useAuthContext();
   const { isModalOpen } = useModalContext();
 
   return (
-    <section className="w-[80%] max-w-basic mx-auto pt-result">
+    <section className={VIEW_CLASS}>
       <UserInfo nickname={user && user.nickname}/>
       <MyPostReviews userId={userId}/>
       <MyLikeReviews />

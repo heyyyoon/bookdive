@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import BookCard from "../components/card/BookCard";
 import Loading from "../components/Loading";
 import PageTitle from "../components/ui/PageTitle";
+import { VIEW_CLASS } from "../components/Main";
 
 export default function Search() {
   const { keyword } = useParams();
@@ -16,7 +17,7 @@ export default function Search() {
   );
 
   return (
-    <section className="w-[80%] lg:w-[90%] py-result max-w-basic mx-auto">
+    <section className={VIEW_CLASS}>
       <div className="flex flex-col items-center">
         <PageTitle title="Search Result" />
         {isLoading ? (
