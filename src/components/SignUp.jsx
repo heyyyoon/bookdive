@@ -20,13 +20,12 @@ export default function SignUp({ signResult, modeChange }) {
       try {
         setLoading(true);
         await signUp(signInfo);
-        signResult();
       } catch (e) {
         setWarning(e.message);
         setTimeout(() => setWarning(null), 1000);
-        setLoading(false);
       } finally {
         setLoading(false);
+        signResult();
       }
     }  
 
@@ -39,6 +38,9 @@ export default function SignUp({ signResult, modeChange }) {
           <PlusLoader color="#d38460" />
         </div>
       )}
+      <h1 className="text-lg text-darkgrey">
+        회원가입
+      </h1>
       <SignForm
         isSignIn={false}
         onSign={handleSignUp}

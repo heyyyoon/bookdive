@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 import InputButton from "./ui/InputButton";
+import Back from "./ui/Back";
 
-export default function Sign({
+const INPUT_TEXT_CLASS = "rounded-xl border-[#EEEEEE] p-2";
+
+export default function SignForm({
   isSignIn,
   onSign,
   modeChange,
 }) {
   const [signInfo, setSignInfo] = useState({});
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSign(signInfo);
-  }
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSignInfo((prev) => ({...prev, [name]: value}));
   }
-
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSign(signInfo);
+  }
   return (
-    <section className="mb-3">
-      <h1 className="text-lg border-b-[1px] pb-2 text-darkgrey">
-        {isSignIn ? "로그인" : "회원가입"}
-      </h1>
-      <form className="flex flex-col mt-2" onSubmit={handleSubmit}>
+    <section className="mb-1">
+      <form className="flex flex-col my-3" onSubmit={handleSubmit}>
         <input
-          className="rounded-xl border-[#EEEEEE] p-2"
+          className={INPUT_TEXT_CLASS}
           type="email"
           name="email"
           onChange={handleChange}
@@ -33,7 +33,7 @@ export default function Sign({
           placeholder="이메일"
         />
         <input
-          className="rounded-xl border-[#EEEEEE] p-2"
+          className={INPUT_TEXT_CLASS}
           type="password"
           name="password"
           required
@@ -44,7 +44,7 @@ export default function Sign({
         />
         {!isSignIn && (
           <input
-            className="rounded-xl border-[#EEEEEE] p-2"
+          className={INPUT_TEXT_CLASS}
             name="nickname"
             required
             onChange={handleChange}
@@ -52,9 +52,10 @@ export default function Sign({
             placeholder="닉네임"
           />
         )}
-        {isSignIn && <InputButton text="로그인" />}
-        <InputButton text="회원가입하기" onClick={modeChange} />
+        <InputButton text={isSignIn ? "로그인" : "회원가입"} />
+        {isSignIn && <InputButton text="회원가입하기" onClick={modeChange} />}
       </form>
+      {!isSignIn && <Back onClick={modeChange} />}
     </section>
   );
 }

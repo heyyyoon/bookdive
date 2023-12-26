@@ -16,13 +16,12 @@ export default function SignIn({
     try {
       setLoading(true);
       await signIn(signInfo);
-      signResult();
     } catch (e) {
       setWarning(e.message);
       setTimeout(() => setWarning(null), 1500);
-      setLoading(false);
     } finally {
       setLoading(false);
+      signResult();
     }
   };
   return (
@@ -32,6 +31,7 @@ export default function SignIn({
           <PlusLoader color="#d38460" />
         </div>
       )}
+       <h1 className="text-lg text-darkgrey">로그인</h1>
       <SignForm
         isSignIn={loginMode}
         onSign={handleLogin}
