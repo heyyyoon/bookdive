@@ -13,11 +13,11 @@ export function signValid(signInfo) {
   return null;
 }
 
-export function sign(loginMode, signInfo) {
-  if(loginMode) return signIn(signInfo);
+export async function sign(loginMode, signInfo) {
+  if(loginMode) return await signIn(signInfo);
   else {
     const signResult = signValid(signInfo);
     if(signResult) throw new Error(signResult);
-    return signUp(signInfo);
+    return await signUp(signInfo);
   }
 }

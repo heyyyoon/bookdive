@@ -56,7 +56,7 @@ export default function Account({ onClose }) {
               {loginMode ? "로그인" : "회원가입"}
             </h1>
             <SignForm
-              isSignIn={loginMode}
+              loginMode={loginMode}
               onSign={handleResult}
               modeChange={() => setLoginMode((prev) => !prev)}
             />

@@ -4,7 +4,7 @@ import { FaBackspace } from "react-icons/fa";
 export default function Back({ onClick }) {
   return (
     <div
-      className="flex items-center text-darkgrey hover:text-[#d88181] cursor-pointer"
+      className="flex items-center text-darkgrey hover:text-[#5c432e] hover:scale-y-105 cursor-pointer mt-2"
       onClick={onClick}
     >
       <FaBackspace className="text-xl" />
