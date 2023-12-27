@@ -1,4 +1,3 @@
-import React from "react";
 import { useModalContext } from "../context/ModalContext";
 import ReviewModal from "../components/ReviewModal";
 import HotBooks from "./HotBooks";

@@ -1,8 +1,11 @@
 import React from "react";
 import SlideReviews from "./SlideReviews";
 import useReviews from "../hooks/useReviews";
+import Loading from "./Loading";
+import ReviewGrid from "./ReviewGrid";
+import MyPageSubTitle from "./ui/MyPageSubTitle";
 
-export default function MyPostReviews({ userId }) {
+export default function MyPostReviews({ userId, viewMode }) {
   const {
     getAllReviews: { isLoading: allLoading, data: allReviews },
   } = useReviews();
@@ -12,14 +15,18 @@ export default function MyPostReviews({ userId }) {
     : null;
 
   return (
-    <div>
-      {userReviews && (
-        <SlideReviews
-          loading={allLoading}
-          reviews={userReviews}
-          title="내가 작성한 리뷰"
-        />
+    <>
+      <MyPageSubTitle title="내가 작성한 리뷰" />
+      {allLoading && <Loading />}
+      {userReviews ? (
+        viewMode === "grid" ? (
+          <ReviewGrid reviews={userReviews} />
+        ) : (
+          <SlideReviews reviews={userReviews} numberOfCards={10} />
+        )
+      ) : (
+        <p className="text-center my-10">작성한 리뷰가 없습니다.</p>
       )}
-    </div>
+    </>
   );
 }

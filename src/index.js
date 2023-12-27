@@ -9,7 +9,6 @@ import Search from './pages/Search';
 import BookDetail from './pages/BookDetail';
 import PostReview from './pages/PostReview';
 import Mypage from './pages/Mypage';
-import MyReview from './pages/MyReview';
 import NotFound from './pages/NotFound';
 import ProtectedRoute from './pages/ProtectedRoute';
 import ProtectedPage from './pages/ProtectedPage';
@@ -44,13 +43,6 @@ const router = createBrowserRouter(
             <ProtectedRoute>
               <Mypage />
             </ProtectedRoute>
-        },
-        { 
-          path: '/reviews',
-          element: 
-          <ProtectedPage>
-            <MyReview />
-          </ProtectedPage>
         },
       ]
     }

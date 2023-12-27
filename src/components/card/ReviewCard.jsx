@@ -26,7 +26,7 @@ export default function ReviewCard({ review }) {
           <p className="text-xs text-medigrey">{book && book.authors}</p>
         </div>
       </div>
-      <div className="h-[200px] p-4 bg-[#fbfbfb]">
+      <div className="h-48 p-4 bg-[#fbfbfb]">
       <ReviewItem review={review}/>
       </div>
       

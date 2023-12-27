@@ -1,5 +1,5 @@
 import React from "react";
-import { IoIosCloseCircleOutline } from "react-icons/io";
+import {IoIosCloseCircleOutline} from "react-icons/io";
 
 export default function CloseCircle({ onClose }) {
   return (

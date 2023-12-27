@@ -8,16 +8,16 @@ import ConfirmModal from "./ConfirmModal";
 import { delReview } from "../api/firebase";
 import PostStateChangeBtn from "./ui/PostStateChangeBtn";
 
-
 export default function ReviewModal() {
   const { userId } = useAuthContext();
-  const { closeModal, selectedItem:{review, book} } = useModalContext();
-  const { reviewId, reviewTitle, reviewContent, reviewComment, rating } = review;
-  const { bookId, title,authors, thumbnail } = book;
-
+  const { closeModal, selectedItem:{
+      review : { reviewId, reviewTitle, reviewContent, reviewComment, rating, userId:reviewUserId },
+      book : { bookId, title,authors, thumbnail },
+  }} = useModalContext();
   const [ isConfirmOpen, setIsConfirmOpen ] = useState(false);
-  const closeConfirm = () => setIsConfirmOpen(false);
 
+  const closeConfirm = () => setIsConfirmOpen(false);
+  
   const handleDelete = async () => {
     try {
       await delReview({reviewId, bookId});
@@ -34,7 +34,7 @@ export default function ReviewModal() {
   return (
     <article className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-30">
       <div className="w-[60%] lg:w-[40%] rounded-2xl max-w-md bg-white px-8 py-4 shadow-modal relative">
-        { userId === review.userId &&
+        { userId === reviewUserId &&
           <div className="absolute -top-16 left-[50%] translate-x-[-50%] w-[50%]">
             <PostStateChangeBtn onOpen={() => setIsConfirmOpen(true)} onModify={handleModify}/>
           </div>
