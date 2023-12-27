@@ -10,10 +10,10 @@ export default function ReviewCard({ review }) {
 
   return (
     <article
-      className="rounded-xl m-[10px] overflow-hidden shadow-card mt-[-10px] border-2 border-[#fbfbfb] cursor-pointer"
+      className="rounded-xl m-[10px] overflow-hidden shadow-btn mt-[-10px] border-2 border-[#cfc6c6] cursor-pointer"
       onClick={() => openModal( review, book )}
     >
-      <div className="flex flex-row items-center px-4 py-3 border-b-[1px] bg-[#EEEEEE] border-[#bbb9b9]">
+      <div className="flex flex-row items-center px-4 py-3 border-b-[1px] bg-[#eeeeee83] border-[#bbb9b9]">
         <img
           className="w-[30%] shadow-customBook border-2"
           src={book && book.thumbnail}

@@ -8,10 +8,10 @@ export default function ConfirmForm({ onYes, onNo}) {
           정말 삭제하시겠습니까?
         </p>
         <div className="flex gap-5 text-darkgrey">
-          <button className={BUTTON_CLASS} onClick={onYes}>
+        <button className={BUTTON_CLASS} onClick={onYes}>
             Yes
           </button>
-          <button button className={BUTTON_CLASS} onClick={onNo}>
+          <button className={BUTTON_CLASS} onClick={onNo}>
             No
           </button>
         </div>

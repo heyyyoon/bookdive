@@ -33,12 +33,12 @@ export default function ReviewModal() {
             <p className="text-lg font-semibold text-darkgrey mb-3">{reviewTitle}</p>
             <p className="text-sm leading-[1.4rem] text-medigrey">{reviewContent}</p>
           </div>  
-          {reviewComment && 
-            <p className="italic leading-[1.4rem] text-black bg-slate-200 rounded-lg p-3 my-3 text-center">
+          {userId && <Like userId={userId} reviewId={reviewId} />}
+          {reviewComment && reviewComment.trim() !== "" &&
+            <p className="italic leading-[1.4rem] text-black bg-[#eef0e7] rounded-2xl p-4 mt-5 mb-3 text-center">
               {reviewComment}
             </p>
           }
-          {userId && <Like userId={userId} reviewId={reviewId} />}
         </div>
       </div>
     </article>

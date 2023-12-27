@@ -2,7 +2,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { get, getDatabase, ref, remove, set } from "firebase/database";
-import { v4 as uuidv4 } from 'uuid';
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -57,15 +56,13 @@ export async function signUp({email, password, nickname}) {
       })
   }
 }
-
 export async function logout() {
   return signOut(auth);
 }
 export async function addBook(bookId, book) {
   return set(ref(database, `book/${bookId}`), book);
 }
-export async function addReview(review, bookId, userId) {
-  const reviewId = uuidv4();
+export async function addReview(review, bookId, userId, reviewId) {
   const setHokBooks = set(ref(database, `hotBooks/${bookId}/${reviewId}`), {reviewId, bookId});
   const setReviews = set(ref(database, `review/${reviewId}`), {...review, reviewId, bookId, userId});
   
@@ -92,7 +89,6 @@ export async function delReview({bookId, reviewId}) {
     delData(`review/${reviewId}`),
     delData(`hotReviews/${reviewId}`), 
     delData(`hotBooks/${bookId}/${reviewId}`), 
-    ,
   ]);
 }
 export async function delUsersLike(getUserLikes) {

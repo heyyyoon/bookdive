@@ -36,8 +36,8 @@ export default function useReviews() {
 
 
   const addPost = useMutation(
-    ({ review, rating, bookId, userId }) =>
-      addReview({ ...review, rating }, bookId, userId)
+    ({ review, rating, bookId, userId, reviewId }) =>
+      addReview({ ...review, rating }, bookId, userId, reviewId)
   );
 
   return { getHotReviews, addPost, getAllReviews, getLikeReviews, delReviewMutation };

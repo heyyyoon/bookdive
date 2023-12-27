@@ -7,12 +7,19 @@ import useReviews from "../hooks/useReviews";
 import Loading from "../components/Loading";
 import WarningMsg from "./ui/WarningMsg";
 import { postVaild } from "../service/inputValidator";
+import { v4 as uuidv4 } from "uuid";
 
 const LABEL_CLASS = "w-1/12 font-semibold text-center text-medigrey pt-2";
 const COLUMN_CLASS = "flex flex-row w-full justify-center mb-2";
-const TEXTAREA_CLASS = "w-7/12 border-2 rounded-2xl mb-2 p-3 resize-none shadow-lg";
+const TEXTAREA_CLASS =
+  "w-7/12 border-2 rounded-2xl mb-2 p-3 resize-none shadow-lg";
 
-export default function PostForm({bookInfo, bookInfo: { bookId }, handleSuccess, reviewInfo}) {
+export default function PostForm({
+  bookInfo,
+  bookInfo: { bookId },
+  handleSuccess,
+  reviewInfo,
+}) {
   const { addBook } = useBooks();
   const { addPost } = useReviews();
   const { userId } = useAuthContext();
@@ -34,26 +41,29 @@ export default function PostForm({bookInfo, bookInfo: { bookId }, handleSuccess,
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const vaildInsp = postVaild({review, rating});
-    if(vaildInsp) {
+    const vaildInsp = postVaild({ review, rating });
+    if (vaildInsp) {
       setWarning(vaildInsp);
       setTimeout(() => setWarning(null), 1000);
     } else {
+      const reviewId = reviewInfo ? reviewInfo.reviewId : uuidv4();
       setLoading(true);
       getBooks(bookId).then(() => {
-        addBook.mutate({ bookId, bookInfo },
+        addBook.mutate(
+          { bookId, bookInfo },
           {onSuccess: () => {
-            addPost.mutate({ review, rating, bookId, userId },
-              {onSuccess: () => {
-                  setLoading(false);
-                  handleSuccess();
-                },
-              });
+              addPost.mutate(
+                { review, rating, bookId, userId, reviewId },
+                {
+                  onSuccess: () => {
+                    setLoading(false);
+                    handleSuccess();
+                  },
+                });
             },
           });
       });
-    }
-  };
+    }};
   return (
     <section className="flex flex-col items-center w-full max-w-6xl">
       {loading && <Loading />}
@@ -67,7 +77,9 @@ export default function PostForm({bookInfo, bookInfo: { bookId }, handleSuccess,
         onSubmit={handleSubmit}
       >
         <div className={COLUMN_CLASS}>
-          <label className={LABEL_CLASS} htmlFor="content">제목</label>
+          <label className={LABEL_CLASS} htmlFor="content">
+            제목
+          </label>
           <textarea
             maxLength={30}
             multiple
@@ -80,7 +92,9 @@ export default function PostForm({bookInfo, bookInfo: { bookId }, handleSuccess,
           />
         </div>
         <div className={COLUMN_CLASS}>
-          <label className={LABEL_CLASS} htmlFor="content">감상평</label>
+          <label className={LABEL_CLASS} htmlFor="content">
+            감상평
+          </label>
           <textarea
             maxLength={300}
             multiple
@@ -93,7 +107,9 @@ export default function PostForm({bookInfo, bookInfo: { bookId }, handleSuccess,
           />
         </div>
         <div className={COLUMN_CLASS}>
-          <label className={LABEL_CLASS} htmlFor="content">한줄평</label>
+          <label className={LABEL_CLASS} htmlFor="content">
+            한줄평
+          </label>
           <textarea
             maxLength={30}
             multiple
@@ -109,7 +125,7 @@ export default function PostForm({bookInfo, bookInfo: { bookId }, handleSuccess,
           Submit
         </button>
       </form>
-      {warning && <WarningMsg text={warning} state="Bottom"/>}
+      {warning && <WarningMsg text={warning} state="Bottom" />}
     </section>
   );
 }
