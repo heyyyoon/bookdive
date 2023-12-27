@@ -1,7 +1,3 @@
-import Loading from "./Loading";
-import ModalChild from "./ModalChild";
-import { CiCircleCheck } from "react-icons/ci";
-
 const BUTTON_CLASS = "font-semibold bg-zinc-300 py-1 px-3  hover:brightness-95";
 
 export default function ConfirmForm({ onYes, onNo}) {
