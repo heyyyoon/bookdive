@@ -10,7 +10,7 @@ export default function ReviewCard({ review }) {
 
   return (
     <article
-      className="rounded-xl m-[10px] overflow-hidden shadow-card mt-[-10px] border-2 border-[#fbfbfb]"
+      className="rounded-xl m-[10px] overflow-hidden shadow-card mt-[-10px] border-2 border-[#fbfbfb] cursor-pointer"
       onClick={() => openModal( review, book )}
     >
       <div className="flex flex-row items-center px-4 py-3 border-b-[1px] bg-[#EEEEEE] border-[#bbb9b9]">

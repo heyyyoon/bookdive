@@ -86,12 +86,13 @@ export async function delLike(userId, reviewId) {
 }
 export async function delReview({bookId, reviewId}) {   
   const getUserLikes = await getObjectData(`hotReviews/${reviewId}`);
-
+  getUserLikes && await delUsersLike(getUserLikes); 
+  
   Promise.all([
     delData(`review/${reviewId}`),
     delData(`hotReviews/${reviewId}`), 
     delData(`hotBooks/${bookId}/${reviewId}`), 
-    getUserLikes && delUsersLike(getUserLikes),
+    ,
   ]);
 }
 export async function delUsersLike(getUserLikes) {
@@ -106,7 +107,7 @@ export async function delData(path) {
 }
 export async function getData(path) {
   return get(ref(database, path))
-    .then((snapshot) => (snapshot.val() || null))
+    .then((snapshot) => snapshot.exists() ? snapshot.val() : null)
     .catch(e => {
       console.log(e);
       return null;
@@ -114,7 +115,7 @@ export async function getData(path) {
 }
 export async function getObjectData(path) { 
   return get(ref(database, path)) 
-  .then((snapshot) => Object.values(snapshot.val()) || null)
+  .then((snapshot) => snapshot.exists() ? Object.values(snapshot.val()) : null)
   .catch(e => console.log(e));
 }
 export async function getBooks(bookId) {

@@ -4,6 +4,8 @@ import useReviews from "../hooks/useReviews";
 import Loading from "./Loading";
 import ReviewGrid from "./ReviewGrid";
 import MyPageSubTitle from "./ui/MyPageSubTitle";
+import ReviewCardModify from "./card/ReviewCardModify";
+import ReviewModify from "./ReviewModify";
 
 export default function MyPostReviews({ userId, viewMode }) {
   const {
@@ -20,7 +22,7 @@ export default function MyPostReviews({ userId, viewMode }) {
       {allLoading && <Loading />}
       {userReviews ? (
         viewMode === "grid" ? (
-          <ReviewGrid reviews={userReviews} />
+          <ReviewModify reviews={userReviews} />
         ) : (
           <SlideReviews reviews={userReviews} numberOfCards={10} />
         )

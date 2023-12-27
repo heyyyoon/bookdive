@@ -12,6 +12,7 @@ module.exports = {
         'customBook' : '0px 0px 5px 3px rgba(0,0,0,0.3);',
         'card' : '0px 0px 7px 3px rgba(0,0,0,0.2);',
         'modal' : '0 35px 60px -15px rgba(0,0,0,0.5);',
+        'btn' : '0px 0px 15px 3px rgba(0,0,0,0.2);',
       }, 
       maxWidth: {
         'basic': '72rem'

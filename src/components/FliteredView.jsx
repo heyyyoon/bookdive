@@ -7,12 +7,8 @@ export default function FliteredView({ mode, userId }) {
       case "All":
         return (
           <>
-            <div className="pb-20">
-              <MyPostReviews userId={userId} />
-            </div>
-            <div className="pb-20">
-              <MyLikeReviews />
-            </div>
+            <div className="pb-20"><MyPostReviews userId={userId} /></div>
+            <div className="pb-20"><MyLikeReviews /></div>
           </>
         );
       case "Like":
