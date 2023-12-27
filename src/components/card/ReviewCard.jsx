@@ -29,7 +29,6 @@ export default function ReviewCard({ review }) {
       <div className="h-48 p-4 bg-[#fbfbfb]">
       <ReviewItem review={review}/>
       </div>
-      
     </article>
   );
 }

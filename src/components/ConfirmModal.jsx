@@ -1,4 +1,3 @@
-import React from "react";
 import Modal from "./Modal";
 
 const BUTTON_CLASS = "text-lg font-semibold bg-yellow-200 py-2 px-5 rounded-lg hover:brightness-95";

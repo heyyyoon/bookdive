@@ -12,12 +12,12 @@ const LABEL_CLASS = "w-1/12 font-semibold text-center text-medigrey pt-2";
 const COLUMN_CLASS = "flex flex-row w-full justify-center mb-2";
 const TEXTAREA_CLASS = "w-7/12 border-2 rounded-2xl mb-2 p-3 resize-none shadow-lg";
 
-export default function PostForm({bookInfo, bookInfo: { bookId }, handleSuccess}) {
+export default function PostForm({bookInfo, bookInfo: { bookId }, handleSuccess, reviewInfo}) {
   const { addBook } = useBooks();
   const { addPost } = useReviews();
   const { userId } = useAuthContext();
-  const [rating, setRating] = useState(0);
-  const [review, setReview] = useState({});
+  const [rating, setRating] = useState(reviewInfo ? reviewInfo.rating : 0);
+  const [review, setReview] = useState(reviewInfo ? reviewInfo : {});
 
   const [warning, setWarning] = useState(false);
   const [loading, setLoading] = useState(false);

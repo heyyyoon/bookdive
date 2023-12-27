@@ -12,6 +12,7 @@ export default function WriteReview() {
     state: {
       bookInfo,
       bookInfo: { title, authors, thumbnail },
+      reviewInfo
     },
   } = useLocation();
 
@@ -31,7 +32,7 @@ export default function WriteReview() {
           <p className="text-xl text-darkgrey font-semibold mb-3">{title}</p>
           <img className="w-[100px] shadow-custom" src={thumbnail} alt="bookImage" />
           <p className="text-[0.85rem] my-2 text-darkgrey">{authors}</p>
-          <PostForm bookInfo={bookInfo} handleSuccess={handleSuccess}/>
+          <PostForm bookInfo={bookInfo} handleSuccess={handleSuccess} reviewInfo={reviewInfo}/>
         </>
       )}
     </section>

@@ -3,13 +3,19 @@ import PostModifyButton from "../PostModifyButton";
 import ConfirmForm from "../ConfirmForm";
 import ReviewCard from "../card/ReviewCard";
 import useReviews from "../../hooks/useReviews";
+import { useNavigate } from "react-router-dom";
+import useBooks from "../../hooks/useBooks";
 
 export default function ReviewCardModify({
   review,
   review: { reviewId, bookId },
 }) {
+  const { useGetBooks } = useBooks();
+  const { data: bookInfo } = useGetBooks(bookId);
+
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const { delReviewMutation } = useReviews();
+  const navigate = useNavigate();
 
   const onDelete = () => {
     try {
@@ -19,7 +25,10 @@ export default function ReviewCardModify({
     } finally {
     }
   };
-  const handleModify = () => {};
+  const handleModify = () => {
+    navigate('/post',  { state: { bookInfo, reviewInfo:review } });
+
+  };
 
   return (
     <div className="relative">
@@ -31,7 +40,7 @@ export default function ReviewCardModify({
         />
       )}
       <div className="mb-3">
-        <PostModifyButton openConfirm={() => setIsConfirmOpen(true)} />
+        <PostModifyButton openConfirm={() => setIsConfirmOpen(true)} handleModify={handleModify} />
       </div>
     </div>
   );
