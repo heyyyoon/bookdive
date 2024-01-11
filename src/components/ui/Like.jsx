@@ -3,10 +3,15 @@ import { GoHeart, GoHeartFill } from "react-icons/go";
 import useLikes from "../../hooks/useLikes";
 
 export default function Like({ userId, reviewId }) {
-  const { useGetIsLiked, useGetLikes, delLikeMutation, addLikeMutation } =
-    useLikes();
-  const { data: isLiked } = useGetIsLiked(userId, reviewId);
-  const { data: userLikes } = useGetLikes(reviewId);
+  const {
+    useGetLikeInfo,
+    delLikeMutation,
+    addLikeMutation,
+  } = useLikes();
+
+  const { data } = useGetLikeInfo(userId, reviewId);
+  const userLikes = data?.userLikes;
+  const isLiked = data?.isLiked;
 
   const handleToggle = async () => {
     if (isLiked) {
@@ -23,14 +28,14 @@ export default function Like({ userId, reviewId }) {
     >
       <div className="group flex flex-row items-center p-3 px-5 bg-[#F5F5F5] rounded-full relative">
         <div className="text-2xl transition-all group-hover:scale-110">
-          {isLiked ? (
+          {data && data.isLiked ? (
             <GoHeartFill className="text-[#ff9f45]" />
           ) : (
             <GoHeart className="text-[#887C8D]" />
           )}
         </div>
         <p className=" text-lightgrey text-[0.9rem] font-[600] ml-1">
-          {userLikes && userLikes}
+          {data && userLikes}
         </p>
       </div>
     </div>

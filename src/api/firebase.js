@@ -141,10 +141,17 @@ export async function getLikes(reviewId) {
   const data = await getObjectData('likes');
   return data ? data.reduce((count, like) => count + Object.values(like).includes(reviewId), 0) : data;
 }
-export async function getIsLiked(userId, reviewId) { 
+export async function getIsLiked(userId, reviewId) {
   return getData(`likes/${userId}/${reviewId}`) || false;
 }
-
+export async function getLikeInfo(userId, reviewId) {
+  const [userLikes, isLiked] = await Promise.all([
+    getLikes(reviewId),
+    getIsLiked(userId, reviewId)
+  ]);
+  
+  return {userLikes, isLiked};
+}
 export async function getUserLikeReviewsInfo(userId) {
   const reviews = await getUserLikeReviews(userId);
   if (!reviews) return null;

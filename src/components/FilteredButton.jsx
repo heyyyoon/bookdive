@@ -1,6 +1,5 @@
-const viewMode = ["My post", "Like", "Follow"];
 
-export default function FilteredButton({ onChangeMode, mode }) {
+export default function FilteredButton({ onChangeMode, mode, viewMode }) {
   return (
     <ul className="flex flex-1 justify-end mr-5 gap-3">
       {viewMode.map((m, index) => (

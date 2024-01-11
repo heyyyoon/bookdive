@@ -10,7 +10,7 @@ export default function UserInfo({ nickname }) {
         <p className="text-2xl font-bold ml-2 text-medigrey">MYPAGE</p>
       </div>
       <div className="flex flex-row mt-5">
-      <p className={TEXT_CLASS}>안녕하세요,</p>
+        <p className={TEXT_CLASS}>안녕하세요,</p>
         <p className={`${TEXT_CLASS} ml-1`}>{nickname}</p>
         <p className={TEXT_CLASS}>님</p>
       </div>

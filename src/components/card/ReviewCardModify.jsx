@@ -22,26 +22,26 @@ export default function ReviewCardModify({
       delReviewMutation.mutate({ bookId, reviewId });
     } catch (e) {
       console.log(e);
-    } finally {
     }
   };
   const handleModify = () => {
-    navigate('/post',  { state: { bookInfo, reviewInfo:review } });
-
+    navigate("/post", { state: { bookInfo, reviewInfo: review } });
   };
 
   return (
     <div className="relative">
-      <ReviewCard review={review} />
+      <ReviewCard review={review} likemode />
       {isConfirmOpen && (
         <ConfirmForm
           onYes={() => onDelete()}
           onNo={() => setIsConfirmOpen(false)}
         />
       )}
-      <div className="mb-3">
-        <PostModifyButton openConfirm={() => setIsConfirmOpen(true)} handleModify={handleModify} />
-      </div>
+      <div className="mb-3" />
+      <PostModifyButton
+        openConfirm={() => setIsConfirmOpen(true)}
+        handleModify={handleModify}
+      />
     </div>
   );
 }

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { RiAlarmWarningLine } from "react-icons/ri";
 import { PiHouseLineFill } from "react-icons/pi";
 
-
 export default function NotFound() {
   return (
     <div className='flex flex-col items-center pt-20'>
