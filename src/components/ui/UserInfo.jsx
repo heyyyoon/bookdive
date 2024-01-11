@@ -2,9 +2,9 @@ import React from "react";
 import { SiGooglehome } from "react-icons/si";
 
 const TEXT_CLASS = "text-xl font-semibold ml-1 text-medigrey";
-export default function UserInfo({ nickname, onClick }) {
+export default function UserInfo({ nickname }) {
   return (
-    <div className="flex flex-col items-start" onClick={onClick}>
+    <div className="flex flex-col items-start">
       <div className="flex flex-row items-start">
         <SiGooglehome className="text-3xl text-[#8ecc88]" />
         <p className="text-2xl font-bold ml-2 text-medigrey">MYPAGE</p>

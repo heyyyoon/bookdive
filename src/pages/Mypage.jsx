@@ -14,10 +14,9 @@ export default function Mypage() {
 
   return (
     <section className={VIEW_CLASS}>
-      <div className="flex justify-between mb-10 p-8 rounded-xl items-center bg-gradient-to-r from-[#eee6e634] to-[#c5c7ac4f] hover:cursor-pointer">
+      <div className="flex justify-between mb-10 p-8 rounded-xl items-center bg-gradient-to-r from-[#eee6e634] to-[#c5c7ac4f]">
         <UserInfo
           nickname={user && user.nickname}
-          onClick={() => setMode("All")}
         />
         <FilteredButton onChangeMode={(select) => setMode(select)} mode={mode} />
       </div>
